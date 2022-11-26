@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\GroupProgramme;
+use App\Models\Programme;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
@@ -22,7 +23,7 @@ class EmisionFactory extends Factory
         return [
             'name' => fake('fr_FR')->sentence(3, false),
             'user_id' => User::all()->random()->id,
-            'programme_id' => GroupProgramme::all()->random()->id,
+            'programme_id' => Programme::all()->random()->id,
             'description' => fake('fr_FR')->realText(200),
             'media_type' => fake('fr_FR')->randomElement(['text', 'audio', 'video']),
             'is_put_forward' => fake('fr_FR')->boolean(4),

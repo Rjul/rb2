@@ -64,7 +64,7 @@ class DatabaseSeeder extends Seeder
             Tag::factory(20 )->create();
 
             Programme::factory(40)->create();
-            Emision::factory(120)
+            Emision::factory(1000)
                 ->hasAttached(Tag::factory(5 )
                 ->create())->create();
             Comment::factory(300)
