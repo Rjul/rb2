@@ -23,7 +23,7 @@ Route::get('/programme/{programme:slug}',
 
 Route::get('/thematique/{tag}',
     [\App\Http\Controllers\ListController::class, 'index' ]
-)->name('list-programme');
+)->name('list-tag');
 
 Route::get('/test', function () {
     return view('welcome');
