@@ -1,6 +1,6 @@
-<div class="dropdown">
+<li class="nav-item dropdown">
     @vite(['resources/js/app.js'])
-    <a class="" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
         {{ $category->name }}
     </a>
 
@@ -9,4 +9,4 @@
         <li><a class="dropdown-item card" href="{{ route('list-programme', $programme) }}">{{ $programme->name }}</a></li>
         @endforeach
     </ul>
-</div>
+</li>

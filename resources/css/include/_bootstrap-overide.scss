@@ -8,11 +8,19 @@ $secondary: #1E6541;
 $green: $secondary;
 $success: $secondary;
 
+$gray: #707070;
+
 $dark-green: #0D2520;
 
 $custom-theme-colors: (
     "tertiary": $dark-green
 );
+
+$link-decoration: none;
+
+$nav-link-color: $gray;
+$nav-link-hover-color: $secondary;
+$nav-link-font-size: 2rem;
 
 $font-family-base: 'corbel';
 
@@ -31,5 +39,5 @@ $container-max-widths: (
     md: 720px,
     lg: 960px,
     xl: 1140px,
-    xxl: 1640px
+    xxl: 1655px
 );

@@ -132,4 +132,31 @@ header {
 //=======================================================
 // End Annonce                                          |
 //=======================================================
+ header {
+     box-shadow: 0 3px 6px #00000029;
+     @include media-breakpoint-up(lg) {
+         height: 70px;
+     }
 
+ }
+
+ nav.navbar.navbar-expand-lg {
+     @include media-breakpoint-up(lg) {
+         height: 70px;
+     }
+ }
+
+ .dropdown-toggle::after {
+     content: none;
+ }
+
+.nav-link {
+    &:hover, &:active, &:focus {
+        color: $secondary;
+    }
+}
+
+.header_search {
+    flex-shrink: 0;
+    margin-left: 40px;
+}
