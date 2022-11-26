@@ -6,7 +6,7 @@
 
     <ul class="dropdown-menu">
         @foreach($category->programmesOrderByHeight as $programme)
-        <li><a class="dropdown-item card" href="#">{{ $programme->name }}</a></li>
+        <li><a class="dropdown-item card" href="{{ route('list-programme', $programme) }}">{{ $programme->name }}</a></li>
         @endforeach
     </ul>
 </div>
