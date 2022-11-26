@@ -45,6 +45,8 @@ class Emision extends Model
         return $this->belongsTo(Programme::class);
     }
 
+
+
     /**
      * The attributes that are mass assignable.
      *
