@@ -4,11 +4,9 @@
 
     <div class="app-container" >
         <div class="section" >
-            <x-last-home type="audio"></x-last-home>
-
-            <x-last-home type="text"></x-last-home>
-
-            <x-last-home type="video"></x-last-home>
+            @foreach($lastHomeAudio as $emision)
+                <x-small-card :$emision ></x-small-card>
+            @endforeach
         </div>
         <div class="section" >
 
