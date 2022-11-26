@@ -25,10 +25,6 @@ Route::get('/thematique/{tag}',
     [\App\Http\Controllers\ListController::class, 'index' ]
 )->name('list-tag');
 
-Route::get('/test', function () {
-    return view('welcome');
-});
-
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
