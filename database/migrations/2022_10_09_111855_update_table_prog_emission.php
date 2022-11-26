@@ -9,7 +9,6 @@ return new class extends Migration
     public function up()
     {
         Schema::table('programmes', function (Blueprint $table) {
-            $table->dropColumn('active_at');
             $table->boolean('is_archived');
         });
         Schema::table('emisions', function (Blueprint $table) {
@@ -22,7 +21,6 @@ return new class extends Migration
     public function down()
     {
         Schema::table('programmes', function (Blueprint $table) {
-            $table->dateTime('active_at');
             $table->dropColumn('is_archived');
         });
         Schema::table('emisions', function (Blueprint $table) {

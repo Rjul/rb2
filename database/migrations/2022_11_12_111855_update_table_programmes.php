@@ -9,7 +9,7 @@ return new class extends Migration
     public function up()
     {
         Schema::table('programmes', function (Blueprint $table) {
-            $table->dateTime('active_at');
+            $table->integer('height');
         });
 
     }
@@ -17,7 +17,8 @@ return new class extends Migration
     public function down()
     {
         Schema::table('programmes', function (Blueprint $table) {
-            $table->dropColumn('active_at');
+            $table->dropColumn('height');
+
         });
     }
 };

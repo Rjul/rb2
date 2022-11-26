@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Orchid\Attachment\Attachable;
@@ -9,12 +10,29 @@ use Orchid\Filters\Filterable;
 use Orchid\Screen\AsSource;
 use Orchid\Attachment\Models\Attachment;
 use Illuminate\Database\Eloquent\Builder;
+use Spatie\Tags\HasTags;
 
 
 class Emision extends Model
 {
-    use AsSource, Attachable, Filterable;
+    use HasFactory;
+    use AsSource, Attachable, Filterable, HasTags;
 
+    /**
+     * Avalable type audio / video
+     * @Todo voir pour le contenue text
+     * @param string $type
+     * @return Builder[]|\Illuminate\Database\Eloquent\Collection
+     */
+    public static function getLastByType(string $type = 'audio', int $limite = 4) {
+        return self::query()
+            ->where('media_type', '=', $type)
+            ->leftJoin('programmes', 'emisions.programme_id', '=', 'programmes.id')
+            ->orderBy('emisions.active_at', 'DESC')
+            ->orderBy('programmes.height')
+            ->limit($limite)
+            ->get();
+    }
 
     /**
      * Get the group Programme for the blog post.

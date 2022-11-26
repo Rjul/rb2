@@ -2,7 +2,9 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Laravelista\Comments\Commentable;
 use Orchid\Attachment\Attachable;
 use Orchid\Filters\Filterable;
 use Orchid\Screen\AsSource;
@@ -10,6 +12,7 @@ use Spatie\EloquentSortable\SortableTrait;
 
 class Programme extends Model
 {
+    use HasFactory, Commentable;
     use AsSource, Attachable, Filterable;
     /**
      * Get the group Programme for the blog post.
@@ -25,6 +28,7 @@ class Programme extends Model
      * @var array
      */
     protected $fillable = [
+        'height',
         'group_programme_id',
         'user_id',
         'name',
@@ -56,6 +60,7 @@ class Programme extends Model
      * @var array
      */
     protected array $allowedFilters = [
+        'height',
         'group_programme_id',
         'user_id',
         'name',
@@ -79,5 +84,6 @@ class Programme extends Model
         'is_archived',
         'updated_at',
         'created_at',
+        'height',
     ];
 }

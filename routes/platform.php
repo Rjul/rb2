@@ -140,6 +140,15 @@ Route::screen('emission/{emission?}', \App\Orchid\Screens\Emission\EmissionEditS
 Route::screen('emissions', \App\Orchid\Screens\Emission\EmissionListScreen::class)
     ->name('platform.emissions.list');
 
+//=======================================================
+// Annonce                                              |
+//=======================================================
+Route::screen('annonce/{websiteNew?}', \App\Orchid\Screens\WebsiteNewEditScreen::class)
+    ->name('platform.annonce.edit');
+
+Route::screen('annonces', \App\Orchid\Screens\WebsiteNewListScreen::class)
+    ->name('platform.annonces.list');
+
 
 
 

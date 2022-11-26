@@ -2,11 +2,12 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class GroupProgramme extends Model
 {
-
+    use HasFactory;
     /**
      * The attributes that are mass assignable.
      *
@@ -17,6 +18,7 @@ class GroupProgramme extends Model
         'description',
         'image',
         'active',
+        'height'
     ];
 
     /**
@@ -42,7 +44,10 @@ class GroupProgramme extends Model
      */
     protected $allowedFilters = [
         'id',
+        'name',
         'active',
+        'created_at',
+        'height'
     ];
 
     /**
@@ -55,5 +60,43 @@ class GroupProgramme extends Model
         'name',
         'active',
         'created_at',
+        'height'
     ];
+
+    /**
+     * Return active GroupProgrammes
+     * @return \Illuminate\Database\Eloquent\Builder[]|\Illuminate\Database\Eloquent\Collection
+     */
+    public static function getActive() {
+        return self::query()
+            ->where('active', '=', 1)
+            ->get();
+    }
+
+    /**
+     * Return active groupProgrammes Ordered
+     * @return \Illuminate\Database\Eloquent\Builder[]|\Illuminate\Database\Eloquent\Collection
+     */
+    public static function getActiveOrderByHeight() {
+        return self::query()
+            ->where('active', '=', 1)
+            ->orderBy('height', 'ASC')
+            ->get();
+    }
+
+    /**
+     * Get the group Programme.
+     */
+    public function programmes()
+    {
+        return $this->hasMany(Programme::class);
+    }
+
+    /**
+     * Get the group Programme Ordered by height
+     */
+    public function programmesOrderByHeight()
+    {
+        return $this->hasMany(Programme::class)->orderBy('height', 'ASC');
+    }
 }

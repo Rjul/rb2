@@ -1,5 +1,59 @@
 # rules
 
+## Installation
+```bash
+composer install && npm install && ./vendor/bin/sail up 
+```
+```bash
+npm run dev
+```
+```bash
+sail artisan migrate:fresh && sail artisan db:seed
+```
+
 ### programme
 
-posibilité d'archiver un programme
+- Posibilité d'archiver un programme
+
+
+
+### OLD traqueur
+```html
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    console.log('ready')
+    let alreadySend = false;
+    let intervalCallback = setTimeout(classBind, 500);
+    function classBind(){
+        Array.from(document.getElementsByClassName('active-demain-btn')).forEach(elms => {
+            elms.addEventListener('click', (e) => {
+                if (!alreadySend){
+                    let formData = new FormData();
+                    formData.append('event_name', 'active-demain-btn');
+                    formData.append('event_id', 2);
+                    formData.append('name_target', 'demain');
+                    formData.append('id_target', 1);
+                    response = fetch("/api/statistique", {
+                        body: formData,
+                        headers: {
+                            "Content-Type": "active-demain-btn",
+                            'event-name': 'click_play',
+                            'event-id': 2,
+                            'name-target': 'demain',
+                            'id-target': 1,
+                        },
+                        method: "post",
+                    }).then(function(response){
+                        alreadySend = true;
+                    });
+                }
+            })
+            clearInterval(intervalCallback);
+        })
+        }
+
+    })
+
+</script>
+```

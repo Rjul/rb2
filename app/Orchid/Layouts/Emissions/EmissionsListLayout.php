@@ -27,7 +27,7 @@ class EmissionsListLayout extends Table
             TD::make('title', 'Titre')
                 ->sort()
                 ->render(function (Emission $emission) {
-                    return Link::make($emission->name)
+                    return Link::make($emission->title)
                         ->route('platform.emission.edit', $emission);
                 }),
             TD::make('programme.name', 'Programme')
@@ -36,6 +36,11 @@ class EmissionsListLayout extends Table
                     return Link::make($emission->programme->name)
                         ->route('platform.programme.edit', $emission->programme->id);
             }),
+            TD::make('media_type', 'Type de média')
+                ->sort()
+                ->render(function (Emission $emission) {
+                    return strtoupper($emission->media_type);
+                }),
             TD::make('active', 'Active')
                 ->sort()
                 ->render(function (Emission $emission) {

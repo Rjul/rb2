@@ -1,0 +1,24 @@
+// Custom.scss
+
+$body-bg: #F5F9F9;
+$body-color: #111;
+
+@import './config/header.scss';
+@import './layout/header.scss';
+
+$card-bg: #E8E8E8;
+$card-border-radius: 24px;
+
+audio {
+    color: #0b4e58;
+    width: 250px;
+}
+.body {
+    background-color: $body-bg;
+    min-height: 100vh;
+    width: 100vw;
+}
+
+.card {
+    background-color: $card-bg;
+}

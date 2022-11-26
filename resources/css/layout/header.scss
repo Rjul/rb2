@@ -1,0 +1,136 @@
+$header-bg: #FFFFFF;
+.header-annonces {
+    background: #7791CC24 0% 0% no-repeat padding-box
+}
+.header {
+    .header_logo-rb {
+        height: 30px;
+        margin: 20px 30px;
+    }
+    height: 70px;
+    background: $header-bg 0% 0% no-repeat padding-box;
+    box-shadow: 0px 3px 6px #00000029;
+    display: flex;
+    align-items: center;
+    & > nav {
+        margin: auto;
+        width: 100%;
+        & > ul {
+            display: flex;
+            align-items: center;
+            margin: auto;
+            justify-content: space-around;
+            & li {
+                list-style: none;
+            }
+        }
+    }
+
+    & .dropdown {
+        a {
+            text-decoration: none;
+            font: normal normal normal 20px/24px Corbel;
+            letter-spacing: 0px;
+            color: #707070;
+        }
+        ul.show {
+                  position: absolute;
+                  top: 70px;
+
+              }
+    }
+
+    .header_search {
+        .input-box{
+            position: relative;
+            border-radius: 0;
+        }
+        .input-box i {
+            position: absolute;
+            right: 13px;
+            top:15px;
+            color:#000000;
+        }
+
+        .form-control-search{
+            height: 50px;
+            border: none;
+            background: none;
+            &:focus {
+                background: none;
+                border-bottom: 12px solid #eee;
+            }
+        }
+        .form-control:focus{
+            background-color: #eeeeee69;
+            box-shadow: none;
+            border-color: #eee;
+        }
+    }
+}
+
+//=======================================================
+// Text Annonces                                        |
+//=======================================================
+header {
+    .text-container {
+        padding: 3px 10px;
+        min-width: 0;
+        font-size: .8rem;
+        color: #708090;
+        white-space: nowrap;
+        overflow: visible;
+        position: relative;
+        span {
+            display: inline-block;
+        }
+        .animate {
+            position: relative;
+            animation: leftright 10s infinite linear;
+        }
+    }
+    @keyframes leftright {
+        0% {
+            transform: translateX(100%);
+            left: 100%;
+
+        }
+        100% {
+            transform: translateX(-110%);
+            left: 0%;
+        }
+    }
+    .fader {
+        position: absolute;
+        top: 0;
+        height: 100%;
+        width: 25px;
+        &.fader-left {
+            left: 0;
+            background: linear-gradient(
+                    to left,
+                    rgba(255, 255, 255, 0),
+                    rgba(255, 255, 255, 1)
+            );
+        }
+        &.fader-right {
+            right: 0;
+            background: linear-gradient(
+                    to right,
+                    rgba(255, 255, 255, 0),
+                    rgba(255, 255, 255, 1)
+            );
+        }
+    }
+
+    @media (max-width: 450px) {
+        .center {
+            width: 100%;
+            padding: 20px;
+        }
+    }
+}
+//=======================================================
+// End Annonce                                          |
+//=======================================================
+

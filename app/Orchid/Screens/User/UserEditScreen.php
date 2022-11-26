@@ -52,7 +52,7 @@ class UserEditScreen extends Screen
      */
     public function name(): ?string
     {
-        return $this->user->exists ? 'Edit User' : 'Create User';
+        return $this->user->exists ? 'Modifier User' : 'Créer User';
     }
 
     /**
@@ -85,13 +85,13 @@ class UserEditScreen extends Screen
         return [
             Button::make(__('Impersonate user'))
                 ->icon('login')
-                ->confirm(__('You can revert to your original state by logging out.'))
+                ->confirm(__('Vous pouvez revenir à votre état d\'origine en vous déconnectant.'))
                 ->method('loginAs')
                 ->canSee($this->user->exists && \request()->user()->id !== $this->user->id),
 
             Button::make(__('Remove'))
                 ->icon('trash')
-                ->confirm(__('Once the account is deleted, all of its resources and data will be permanently deleted. Before deleting your account, please download any data or information that you wish to retain.'))
+                ->confirm(__('Une fois le compte supprimé, toutes ses ressources et données seront définitivement supprimées.'))
                 ->method('remove')
                 ->canSee($this->user->exists),
 
@@ -110,7 +110,7 @@ class UserEditScreen extends Screen
 
             Layout::block(UserEditLayout::class)
                 ->title(__('Profile Information'))
-                ->description(__('Update your account\'s profile information and email address.'))
+                ->description(__('Renseigner le nom et l\'email de l\'utilisateur'))
                 ->commands(
                     Button::make(__('Save'))
                         ->type(Color::DEFAULT())
@@ -121,7 +121,7 @@ class UserEditScreen extends Screen
 
             Layout::block(UserPasswordLayout::class)
                 ->title(__('Password'))
-                ->description(__('Ensure your account is using a long, random password to stay secure.'))
+                ->description(__('Assurez-vous que votre compte utilise un mot de passe long et aléatoire pour rester en sécurité.'))
                 ->commands(
                     Button::make(__('Save'))
                         ->type(Color::DEFAULT())
@@ -132,7 +132,7 @@ class UserEditScreen extends Screen
 
             Layout::block(UserRoleLayout::class)
                 ->title(__('Roles'))
-                ->description(__('A Role defines a set of tasks a user assigned the role is allowed to perform.'))
+                ->description(__('Un rôle définit un ensemble de tâches qu\'un utilisateur affecté au rôle est autorisé à effectuer.'))
                 ->commands(
                     Button::make(__('Save'))
                         ->type(Color::DEFAULT())
@@ -143,7 +143,7 @@ class UserEditScreen extends Screen
 
             Layout::block(RolePermissionLayout::class)
                 ->title(__('Permissions'))
-                ->description(__('Allow the user to perform some actions that are not provided for by his roles'))
+                ->description(__('Permettre à l\'utilisateur d\'effectuer certaines actions qui ne sont pas prévues par ses rôles'))
                 ->commands(
                     Button::make(__('Save'))
                         ->type(Color::DEFAULT())
@@ -219,7 +219,7 @@ class UserEditScreen extends Screen
     {
         UserSwitch::loginAs($user);
 
-        Toast::info(__('You are now impersonating this user'));
+        Toast::info(__('Vous usurpez maintenant l\'identité de cet utilisateur'));
 
         return redirect()->route(config('platform.index'));
     }

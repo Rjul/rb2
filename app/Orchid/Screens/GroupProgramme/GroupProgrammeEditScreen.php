@@ -108,6 +108,12 @@ class GroupProgrammeEditScreen extends Screen
                     ->placeholder('Titre du groupe de Programme')
                     ->required(),
 
+                Input::make('programme.height')
+                    ->placeholder('Priorité de triage')
+                    ->required()
+                    ->type('number')
+                    ->step(1),
+
                 Quill::make('programme.description')
                     ->title('Description')
                     ->placeholder('Description du groupe de programme')
