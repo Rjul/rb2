@@ -14,8 +14,8 @@ sail artisan migrate:fresh && sail artisan db:seed
 ### programme
 
 - Posibilité d'archiver un programme
-
-
+### log-viewer
+http://localhost/admin/main/log-viewer
 
 ### OLD traqueur
 ```html

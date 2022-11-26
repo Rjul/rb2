@@ -1,7 +1,8 @@
 <?php
 
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\HomepageController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -12,9 +13,8 @@ use App\Http\Controllers\HomepageController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
 Route::get('/',
-    [HomepageController::class, 'index' ]
+    [\App\Http\Controllers\HomepageController::class, 'index' ]
 )->name('homepage');
 
 Route::get('/programme/{programme:slug}',
@@ -23,4 +23,16 @@ Route::get('/programme/{programme:slug}',
 
 Route::get('/thematique/{tag}',
     [\App\Http\Controllers\ListController::class, 'index' ]
-)->name('list-programme');
+)->name('list-tag');
+
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
+
+require __DIR__.'/auth.php';
