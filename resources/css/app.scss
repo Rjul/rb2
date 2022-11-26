@@ -1,22 +1,20 @@
-// Custom.scss
+//bootstrap overide + boostrap
+@import '../css/include/_bootstrap-overide.scss';
+@import '../css/include/_bootstrap.scss';
+//ours stylesm:
+@import 'include/_variables.scss';
+@import 'include/_fonts.scss';
+@import 'common/_generics.scss';
+@import 'common/_loader.scss';
 
-$body-bg: #F5F9F9;
-$body-color: #111;
-
-@import './config/header.scss';
-@import './layout/header.scss';
-
-$card-bg: #E8E8E8;
-$card-border-radius: 24px;
+//layout
+@import './config/_header.scss';
+@import 'layout/_header.scss';
+@import './layout/_footer.scss';
 
 audio {
     color: #0b4e58;
     width: 250px;
-}
-.body {
-    background-color: $body-bg;
-    min-height: 100vh;
-    width: 100vw;
 }
 
 .card {

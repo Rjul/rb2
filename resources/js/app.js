@@ -1,6 +1,10 @@
+//lib js
+import 'bootstrap';
+import 'lazysizes';
 
-import 'bootstrap'
-import 'bootstrap/dist/css/bootstrap.min.css'
+
+
+//global scss
 import "../css/app.scss";
 
 // Anime text annonce sous header

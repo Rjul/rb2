@@ -1,0 +1,35 @@
+$body-bg: #F5F9F9;
+$body-color: #111;
+
+$primary: #001C41;
+$blue: $primary;
+
+$secondary: #1E6541;
+$green: $secondary;
+$success: $secondary;
+
+$dark-green: #0D2520;
+
+$custom-theme-colors: (
+    "tertiary": $dark-green
+);
+
+$font-family-base: 'corbel';
+
+$grid-breakpoints: (
+    xs: 0,
+    sm: 576px,
+    md: 768px,
+    lg: 992px,
+    xl: 1200px,
+    xxl: 1600px
+);
+
+//grid
+$container-max-widths: (
+    sm: 540px,
+    md: 720px,
+    lg: 960px,
+    xl: 1140px,
+    xxl: 1640px
+);
