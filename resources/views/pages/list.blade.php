@@ -2,16 +2,21 @@
 
 @push('body')
 
-    <div class="app-container" >
-        <div class="section" >
+    <div class="app-container d-flex" >
+        <aside class="w-25 bg-black">
+
+
+        </aside>
+        <div class="section col-10 row" >
             @foreach($emisions as $emision)
-                @dump($emision->programme_id)
                 <x-small-card :$emision ></x-small-card>
             @endforeach
-        </div>
-        <div class="section" >
 
+            <div class="section" >
+                {{ $emisions->render() }}
+            </div>
         </div>
+
     </div>
 
 
