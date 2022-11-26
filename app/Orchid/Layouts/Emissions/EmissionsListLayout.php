@@ -24,10 +24,10 @@ class EmissionsListLayout extends Table
     public function columns(): array
     {
         return [
-            TD::make('title', 'Titre')
+            TD::make('name', 'Titre')
                 ->sort()
                 ->render(function (Emission $emission) {
-                    return Link::make($emission->title)
+                    return Link::make($emission->name)
                         ->route('platform.emission.edit', $emission);
                 }),
             TD::make('programme.name', 'Programme')

@@ -17,3 +17,8 @@ Route::get(
     '/',
     [ HomepageController::class, 'index' ]
 )->name('homepage');
+
+Route::get(
+    '/programme-{programme:slug}',
+    [ \App\Http\Controllers\ListController::class, 'index' ]
+)->name('list-programme');

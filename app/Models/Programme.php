@@ -9,10 +9,14 @@ use Orchid\Attachment\Attachable;
 use Orchid\Filters\Filterable;
 use Orchid\Screen\AsSource;
 use Spatie\EloquentSortable\SortableTrait;
+use Spatie\Sluggable\HasSlug;
+use Spatie\Sluggable\SlugOptions;
+
+use Spatie\Translatable\HasTranslations;
 
 class Programme extends Model
 {
-    use HasFactory, Commentable;
+    use HasFactory, Commentable, HasSlug;
     use AsSource, Attachable, Filterable;
     /**
      * Get the group Programme for the blog post.
@@ -37,6 +41,17 @@ class Programme extends Model
         'active',
         'is_archived'
     ];
+
+
+    /**
+     * Get the options for generating the slug.
+     */
+    public function getSlugOptions() : SlugOptions
+    {
+        return SlugOptions::create()
+            ->generateSlugsFrom('name')
+            ->saveSlugsTo('slug');
+    }
 
     /**
      * The attributes excluded from the model's JSON form.

@@ -4,10 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Sluggable\HasSlug;
+use Spatie\Sluggable\SlugOptions;
+use Spatie\Translatable\HasTranslations;
 
 class GroupProgramme extends Model
 {
-    use HasFactory;
+    use HasFactory, HasSlug;
     /**
      * The attributes that are mass assignable.
      *
@@ -20,6 +23,16 @@ class GroupProgramme extends Model
         'active',
         'height'
     ];
+
+    /**
+     * Get the options for generating the slug.
+     */
+    public function getSlugOptions() : SlugOptions
+    {
+        return SlugOptions::create()
+            ->generateSlugsFrom('name')
+            ->saveSlugsTo('slug');
+    }
 
     /**
      * The attributes excluded from the model's JSON form.
@@ -99,4 +112,5 @@ class GroupProgramme extends Model
     {
         return $this->hasMany(Programme::class)->orderBy('height', 'ASC');
     }
+
 }

@@ -108,7 +108,7 @@ class EmissionEditScreen extends Screen
         return [
             Layout::columns([
                 Layout::rows([
-                    Input::make('emission.title')
+                    Input::make('emission.name')
                         ->title('Titre')
                         ->placeholder('Titre de l\'emission')
                         ->required(),

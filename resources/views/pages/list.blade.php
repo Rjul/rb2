@@ -4,7 +4,7 @@
 
     <div class="app-container" >
         <div class="section" >
-            @foreach($lastHomeAudio as $emision)
+            @foreach($emisions as $emision)
                 <x-small-card :$emision ></x-small-card>
             @endforeach
         </div>

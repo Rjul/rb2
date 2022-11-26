@@ -23,7 +23,7 @@ return new class extends Migration
             $table->foreign('user_id')
                 ->references('id')
                 ->on('users');
-            $table->string('title');
+            $table->string('name');
             $table->text('description');
             $table->string('media_type');
             $table->boolean('is_put_forward');

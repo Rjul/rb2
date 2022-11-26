@@ -12,6 +12,7 @@
         "laravel/tinker": "^2.7",
         "laravelista/comments": "dev-master",
         "orchid/platform": "^13.2",
+        "spatie/laravel-sluggable": "^3.4",
         "spatie/laravel-tags": "^4.3"
     },
     "require-dev": {

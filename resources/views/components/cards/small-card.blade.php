@@ -1,5 +1,5 @@
 <div class="col-3">
-    {{ $emision->title }}
+    {{ $emision->name }}
     {{ $emision->description }}
     {{ $emision->image }}
     @foreach($emision->tags as $tag)

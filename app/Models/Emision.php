@@ -10,12 +10,15 @@ use Orchid\Filters\Filterable;
 use Orchid\Screen\AsSource;
 use Orchid\Attachment\Models\Attachment;
 use Illuminate\Database\Eloquent\Builder;
+use Spatie\Sluggable\HasSlug;
+use Spatie\Sluggable\SlugOptions;
 use Spatie\Tags\HasTags;
+use Spatie\Translatable\HasTranslations;
 
 
 class Emision extends Model
 {
-    use HasFactory;
+    use HasFactory, HasSlug;
     use AsSource, Attachable, Filterable, HasTags;
 
     /**
@@ -50,7 +53,7 @@ class Emision extends Model
     protected $fillable = [
         'programme_id',
         'user_id',
-        'title',
+        'name',
         'description',
         'media_type',
         'is_put_forward',
@@ -58,6 +61,17 @@ class Emision extends Model
         'active',
         'active_at'
     ];
+
+
+    /**
+     * Get the options for generating the slug.
+     */
+    public function getSlugOptions() : SlugOptions
+    {
+        return SlugOptions::create()
+            ->generateSlugsFrom('name')
+            ->saveSlugsTo('slug');
+    }
 
     /**
      * The attributes excluded from the model's JSON form.
@@ -83,7 +97,7 @@ class Emision extends Model
     protected $allowedFilters = [
         'programme_id',
         'user_id',
-        'title',
+        'name',
         'description',
         'media_type',
         'is_put_forward',
@@ -100,7 +114,7 @@ class Emision extends Model
     protected $allowedSorts = [
         'programme_id',
         'user_id',
-        'title',
+        'name',
         'description',
         'media_type',
         'is_put_forward',
