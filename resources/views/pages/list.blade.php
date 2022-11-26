@@ -12,8 +12,10 @@
                 <x-small-card :$emision ></x-small-card>
             @endforeach
 
-            <div class="section" >
+            <div class="section text-center" >
+                <div>
                 {{ $emisions->render() }}
+                </div>
             </div>
         </div>
 

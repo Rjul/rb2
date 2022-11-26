@@ -13,12 +13,14 @@ use App\Http\Controllers\HomepageController;
 |
 */
 
-Route::get(
-    '/',
-    [ HomepageController::class, 'index' ]
+Route::get('/',
+    [HomepageController::class, 'index' ]
 )->name('homepage');
 
-Route::get(
-    '/programme-{programme:slug}',
-    [ \App\Http\Controllers\ListController::class, 'index' ]
+Route::get('/programme/{programme:slug}',
+    [\App\Http\Controllers\ListController::class, 'index' ]
+)->name('list-programme');
+
+Route::get('/thematique/{tag}',
+    [\App\Http\Controllers\ListController::class, 'index' ]
 )->name('list-programme');

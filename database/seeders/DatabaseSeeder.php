@@ -64,9 +64,26 @@ class DatabaseSeeder extends Seeder
             Tag::factory(20 )->create();
 
             Programme::factory(40)->create();
-            Emision::factory(1000)
-                ->hasAttached(Tag::factory(5 )
-                ->create())->create();
+            $variableALaCon = [
+                1,2,3,4,5,6,7,8,9,
+                1,2,3,4,5,6,7,8,9,
+                1,2,3,4,5,6,7,8,9,
+                1,2,3,4,5,6,7,8,9,
+                1,2,3,4,5,6,7,8,9,
+                1,2,3,4,5,6,7,8,9,
+                1,2,3,4,5,6,7,8,9,
+                1,2,3,4,5,6,7,8,9,
+                1,2,3,4,5,6,7,8,9,
+                1,2,3,4,5,6,7,8,9,
+                1,2,3,4,5,6,7,8,9,
+                ];
+            foreach($variableALaCon as $hehe) {
+                Emision::factory(10)
+                    ->hasAttached(
+                        Tag::all()->random(5) ,
+                    )
+                    ->create();
+            }
             Comment::factory(300)
                 ->state(new Sequence(
                     fn ($sequence) => [

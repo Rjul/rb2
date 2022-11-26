@@ -5,6 +5,7 @@
     @foreach($emision->tags as $tag)
         <div style="background-color: {{ $tag->color }}">
             {{ $tag->getTranslation("name", "fr") }}
+            {{ $tag->id }}
         </div>
     @endforeach
 </div>
