@@ -30,6 +30,10 @@ Route::get('/thematique/{tag}',
     [\App\Http\Controllers\ListController::class, 'index' ]
 )->name('list-tag');
 
+Route::get('/recherche',
+    [\App\Http\Controllers\SearchController::class, 'index' ]
+)->name('list-search');
+
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
