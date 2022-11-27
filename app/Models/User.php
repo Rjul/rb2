@@ -4,13 +4,14 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Notifications\Notifiable;
+use Laravel\Sanctum\HasApiTokens;
 use Laravelista\Comments\Commenter;
 use Orchid\Platform\Models\User as Authenticatable;
 
 class User extends Authenticatable
 {
     use HasFactory;
-    use Notifiable, Commenter;
+    use Notifiable, Commenter, HasApiTokens;
     /**
      * The attributes that are mass assignable.
      *
@@ -21,6 +22,7 @@ class User extends Authenticatable
         'email',
         'password',
         'permissions',
+        'google_id'
     ];
 
     /**

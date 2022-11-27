@@ -33,6 +33,16 @@ Route::middleware('guest')->group(function () {
 
     Route::post('reset-password', [NewPasswordController::class, 'store'])
                 ->name('password.store');
+
+    /**
+     * Google connection and callback
+     */
+    Route::get('auth/google', [\App\Http\Controllers\Auth\Socialite\GoogleConnectionController::class, 'redirectToGoogle'])
+        ->name('login.google');
+    Route::get('auth/google/callback', [\App\Http\Controllers\Auth\Socialite\GoogleConnectionController::class, 'handleGoogleCallback']);
+
+
+
 });
 
 Route::middleware('auth')->group(function () {

@@ -18,7 +18,6 @@ return new class extends Migration
     {
         Schema::table('programmes', function (Blueprint $table) {
             $table->dropColumn('height');
-
         });
     }
 };

@@ -31,6 +31,14 @@ return new class extends Migration
      */
     public function down()
     {
-        //
+        Schema::table('programmes', function (Blueprint $table) {
+            $table->dropColumn('slug');
+        });
+        Schema::table('emisions', function (Blueprint $table) {
+            $table->dropColumn('slug');
+        });
+        Schema::table('group_programmes', function (Blueprint $table) {
+            $table->dropColumn('slug');
+        });
     }
 };
