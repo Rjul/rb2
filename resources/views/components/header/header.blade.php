@@ -1,4 +1,4 @@
-<header>
+<header class="header">
 
 {{--    <div class="header">--}}
 {{--        <div><img class="header_logo-rb" srcset="/imgs/logo.png" alt="logo Radiobastides"/></div>--}}

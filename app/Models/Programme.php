@@ -25,6 +25,13 @@ class Programme extends Model
     {
         return $this->belongsTo(GroupProgramme::class);
     }
+    /**
+     * Get the group Programme for the blog post.
+     */
+    public function emisions()
+    {
+        return $this->hasMany(Emision::class);
+    }
 
     /**
      * The attributes that are mass assignable.
@@ -49,7 +56,7 @@ class Programme extends Model
     public function getSlugOptions() : SlugOptions
     {
         return SlugOptions::create()
-            ->generateSlugsFrom('name')
+            ->generateSlugsFrom(['name', 'id'])
             ->saveSlugsTo('slug');
     }
 

@@ -16,7 +16,7 @@ class TagFactory extends Factory
     public function definition()
     {
         return [
-            'name' => ['en' => fake('fr_FR')->realText(12) ],
+            'name' => ['en' => fake('fr_FR')->unique()->realText(12) ],
             'color' => fake()->hexColor(),
             'description' => fake('fr_FR')->realText(200)
         ];

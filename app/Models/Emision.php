@@ -28,9 +28,9 @@ class Emision extends Model
      * @return Builder[]|\Illuminate\Database\Eloquent\Collection
      */
     public static function getLastByType(string $type = 'audio', int $limite = 4) {
-        return self::query()
+        return self::join('programmes', 'emisions.programme_id', '=', 'programmes.id', 'inner')
+            ->select('emisions.*')
             ->where('media_type', '=', $type)
-            ->leftJoin('programmes', 'emisions.programme_id', '=', 'programmes.id')
             ->orderBy('emisions.active_at', 'DESC')
             ->orderBy('programmes.height')
             ->limit($limite)
@@ -71,7 +71,7 @@ class Emision extends Model
     public function getSlugOptions() : SlugOptions
     {
         return SlugOptions::create()
-            ->generateSlugsFrom('name')
+            ->generateSlugsFrom(['name', 'id'])
             ->saveSlugsTo('slug');
     }
 

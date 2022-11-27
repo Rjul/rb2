@@ -20,7 +20,7 @@ class ProgrammeFactory extends Factory
     public function definition()
     {
         return [
-            'name' => fake()->sentence(3, false),
+            'name' => fake()->unique()->sentence(3, false),
             'user_id' => User::all()->random()->id,
             'group_programme_id' => GroupProgramme::all()->random()->id,
             'description' => fake()->realText(200),

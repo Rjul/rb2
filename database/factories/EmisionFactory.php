@@ -21,7 +21,7 @@ class EmisionFactory extends Factory
     public function definition()
     {
         return [
-            'name' => fake('fr_FR')->sentence(3, false),
+            'name' => fake('fr_FR')->unique()->name,
             'user_id' => User::all()->random()->id,
             'programme_id' => Programme::all()->random()->id,
             'description' => fake('fr_FR')->realText(200),
