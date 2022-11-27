@@ -5,7 +5,7 @@ import 'lazysizes';
 
 
 //global scss
-import "../css/app.scss";
+import "../css/main.scss";
 
 // Anime text annonce sous header
 let containerAnnonces = document.querySelector("#header_annonce");

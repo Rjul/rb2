@@ -1,17 +1,25 @@
 @extends('base')
 
 @push('body')
+    <section class="section-default">
+        <div class="container" >
+{{--            <a href="#" class="btn btn-primary">test</a>--}}
+{{--            <a href="#" class="btn btn-secondary">test</a>--}}
+{{--            <a href="#" class="btn btn-tertiary">test</a>--}}
+{{--            <a href="#" class="btn btn-quadrary">test</a>--}}
+{{--            <a href="#" class="btn btn-primary btn--small">test</a>--}}
+{{--            <a href="#" class="btn btn-secondary btn--small">test</a>--}}
+{{--            <a href="#" class="btn btn-tertiary btn--small">test</a>--}}
+{{--            <a href="#" class="btn btn-quadrary btn--small">test</a>--}}
 
-    <div class="container" >
-        <h1>coucou</h1>
-        <div class="section" >
-            <x-last-home type="audio"></x-last-home>
+                <x-last-home type="audio"></x-last-home>
 
-            <x-last-home type="text"></x-last-home>
+                <x-last-home type="text"></x-last-home>
 
-            <x-last-home type="video"></x-last-home>
+                <x-last-home type="video"></x-last-home>
+            <div class="section" ></div>
         </div>
-        <div class="section" ></div>
-    </div>
+    </section>
+
 
 @endpush

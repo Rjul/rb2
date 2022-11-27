@@ -6,10 +6,7 @@
 // Configuration
 @import "~bootstrap/scss/functions";
 
-@import "bootstrap-overide";
-
 @import "~bootstrap/scss/variables";
-$theme-colors: map-merge($theme-colors, $custom-theme-colors);
 @import "~bootstrap/scss/maps";
 @import "~bootstrap/scss/mixins";
 @import "~bootstrap/scss/utilities";
@@ -31,7 +28,7 @@ $theme-colors: map-merge($theme-colors, $custom-theme-colors);
 @import "~bootstrap/scss/navbar";
 @import "~bootstrap/scss/card";
 @import "~bootstrap/scss/accordion";
-@import "~bootstrap/scss/breadcrumb";
+//@import "~bootstrap/scss/breadcrumb";
 @import "~bootstrap/scss/pagination";
 @import "~bootstrap/scss/badge";
 @import "~bootstrap/scss/alert";
@@ -53,3 +50,6 @@ $theme-colors: map-merge($theme-colors, $custom-theme-colors);
 // Utilities
 @import "~bootstrap/scss/utilities/api";
 // scss-docs-end import-stack
+
+
+//surchargé le style admin ici

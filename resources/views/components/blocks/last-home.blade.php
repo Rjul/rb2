@@ -1,10 +1,10 @@
-<div class="">
+<div class="relative">
     @if($type == "audio")
-    ECOUTER
+        <span class="home-card_big-title">Ecouter</span>
     @elseif($type == "text")
-    LIRE
+        <span class="home-card_big-title">Lire</span>
     @elseif($type == "video")
-    VOIR
+        <span class="home-card_big-title">Voir</span>
     @endif
     <div class="row">
     @foreach($lastHomeAudio as $emision)

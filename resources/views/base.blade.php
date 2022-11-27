@@ -6,7 +6,7 @@
 
         <title>@yield('content', 'RadioBastides')</title>
         {{-- Scripts --}}
-        @vite(['resources/js/app.js', 'resources/css/app.scss'])
+        @vite(['resources/js/main.js'])
         @stack('scripts')
         {{-- facebook script ?--}}
         <script>

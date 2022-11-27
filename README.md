@@ -10,7 +10,10 @@ npm run dev
 ```bash
 sail artisan migrate:fresh && sail artisan db:seed
 ```
-
+### (re)generer un APP_KEY
+```bash
+sail artisan artisan key:generate && sail artisan config:cache
+```
 ### programme
 
 - Posibilité d'archiver un programme
