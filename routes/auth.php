@@ -35,11 +35,17 @@ Route::middleware('guest')->group(function () {
                 ->name('password.store');
 
     /**
-     * Google connection and callback
+     * Google's connection and callback
      */
     Route::get('auth/google', [\App\Http\Controllers\Auth\Socialite\GoogleConnectionController::class, 'redirectToGoogle'])
         ->name('login.google');
     Route::get('auth/google/callback', [\App\Http\Controllers\Auth\Socialite\GoogleConnectionController::class, 'handleGoogleCallback']);
+    /**
+     * Facebook's connection and callback
+     */
+    Route::get('auth/facebook', [\App\Http\Controllers\Auth\Socialite\FacebookConnectionController::class, 'redirectToFacebook'])
+        ->name('login.facebook');
+    Route::get('auth/facebook/callback', [\App\Http\Controllers\Auth\Socialite\FacebookConnectionController::class, 'handleFacebookCallback']);
 
 
 

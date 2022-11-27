@@ -11,7 +11,7 @@ use Illuminate\Http\Request;
 use Exception;
 
 
-class GoogleConnectionController extends Controller
+class FacebookConnectionController extends Controller
 {
 
     /**
@@ -19,9 +19,9 @@ class GoogleConnectionController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse|\Symfony\Component\HttpFoundation\RedirectResponse
      */
-    public function redirectToGoogle()
+    public function redirectToFacebook()
     {
-        return Socialite::driver('google')->redirect();
+        return Socialite::driver('facebook')->redirect();
     }
 
 
@@ -30,12 +30,12 @@ class GoogleConnectionController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function handleGoogleCallback()
+    public function handleFacebookCallback()
     {
         try {
-            $user = Socialite::driver('google')->user();
+            $user = Socialite::driver('facebook')->user();
             // find user by google id
-            $finduser = User::where('google_id', $user->id)->first();
+            $finduser = User::where('fb_id', $user->id)->first();
             if ($finduser) {
 
                 Auth::login($finduser);
@@ -53,7 +53,7 @@ class GoogleConnectionController extends Controller
                 $newUser = User::create([
                     'name' => $user->name,
                     'email' => $user->email,
-                    'google_id' => $user->id,
+                    'fb_id' => $user->id,
                     'password' => encrypt('123456dummy')
                 ]);
 
