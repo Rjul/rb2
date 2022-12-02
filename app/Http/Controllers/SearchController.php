@@ -18,8 +18,6 @@ class SearchController extends Controller
 
     protected function getSearchEmision(Builder $emisions, SearchRequest $request)
     {
-        dump($request->validated());
-
 
         if ($request->has('programmes_id')) {
             collect($request->get('programmes_id'))
@@ -31,7 +29,6 @@ class SearchController extends Controller
                         $emisions
                             ->orWhere('programme_id', $id);
                     }
-
                 });
         }
 
