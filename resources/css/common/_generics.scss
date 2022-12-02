@@ -1,0 +1,79 @@
+html {
+  font-size: 62.5%;
+  height: 100%;
+  scroll-behavior: smooth;
+}
+
+.body {
+  font-size: 1.4rem;
+  line-height: 1.6rem;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-size-adjust: none;
+  padding-top: 51px;
+  @include media-breakpoint-up(lg) {
+    padding-top: 70px;
+  }
+}
+:focus {
+  outline: none;
+}
+.cd-main-content {
+  flex: 1 0 auto;
+  position: relative;
+}
+
+h1 {
+  font-family: $font-family-title;
+  font-weight: 900;
+  color: $primary;
+}
+
+//buttons
+.btn {
+  color: #fff;
+  transition: $transition-sexy;
+  &:hover, &:active, &:focus {
+    color: #fff;
+    box-shadow: inset 0 1px 0 rgba($white, .15), 0 1px 1px rgba($black, .075);
+  }
+}
+
+.btn.btn--small {
+  border-radius: 5px;
+  font-size: 1.2rem;
+  padding: 6px 12px;
+}
+.btn-tag {
+  color: #fff;
+  border-radius: 4px;
+  font-size: 1.2rem;
+  padding: 5px 15px;
+  display: inline-block;
+  flex-shrink: 0;
+  font-weight: 900;
+}
+
+//section
+.section-default {
+  @include media-breakpoint-up(lg) {
+    padding: 70px 0;
+  }
+}
+
+//utility
+.flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.font-bold, b, strong {
+  font-weight: 900;
+}
+
+.font-berlin {
+  font-family: 'berlin';
+}

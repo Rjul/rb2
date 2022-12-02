@@ -1,0 +1,11 @@
+<li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        {{ $category->name }}
+    </a>
+
+    <ul class="dropdown-menu">
+        @foreach($category->programmesOrderByHeight as $programme)
+        <li><a class="dropdown-item card" href="{{ route('list-programme', $programme) }}">{{ $programme->name }}</a></li>
+        @endforeach
+    </ul>
+</li>

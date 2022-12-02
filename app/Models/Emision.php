@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Orchid\Attachment\Attachable;
@@ -9,12 +10,32 @@ use Orchid\Filters\Filterable;
 use Orchid\Screen\AsSource;
 use Orchid\Attachment\Models\Attachment;
 use Illuminate\Database\Eloquent\Builder;
+use Spatie\Sluggable\HasSlug;
+use Spatie\Sluggable\SlugOptions;
+use Spatie\Tags\HasTags;
+use Spatie\Translatable\HasTranslations;
 
 
 class Emision extends Model
 {
-    use AsSource, Attachable, Filterable;
+    use HasFactory, HasSlug;
+    use AsSource, Attachable, Filterable, HasTags;
 
+    /**
+     * Avalable type audio / video
+     * @Todo voir pour le contenue text
+     * @param string $type
+     * @return Builder[]|\Illuminate\Database\Eloquent\Collection
+     */
+    public static function getLastByType(string $type = 'audio', int $limite = 4) {
+        return self::join('programmes', 'emisions.programme_id', '=', 'programmes.id', 'inner')
+            ->select('emisions.*')
+            ->where('media_type', '=', $type)
+            ->orderBy('emisions.active_at', 'DESC')
+            ->orderBy('programmes.height')
+            ->limit($limite)
+            ->get();
+    }
 
     /**
      * Get the group Programme for the blog post.
@@ -24,6 +45,8 @@ class Emision extends Model
         return $this->belongsTo(Programme::class);
     }
 
+
+
     /**
      * The attributes that are mass assignable.
      *
@@ -32,7 +55,7 @@ class Emision extends Model
     protected $fillable = [
         'programme_id',
         'user_id',
-        'title',
+        'name',
         'description',
         'media_type',
         'is_put_forward',
@@ -40,6 +63,17 @@ class Emision extends Model
         'active',
         'active_at'
     ];
+
+
+    /**
+     * Get the options for generating the slug.
+     */
+    public function getSlugOptions() : SlugOptions
+    {
+        return SlugOptions::create()
+            ->generateSlugsFrom(['name', 'id'])
+            ->saveSlugsTo('slug');
+    }
 
     /**
      * The attributes excluded from the model's JSON form.
@@ -65,7 +99,7 @@ class Emision extends Model
     protected $allowedFilters = [
         'programme_id',
         'user_id',
-        'title',
+        'name',
         'description',
         'media_type',
         'is_put_forward',
@@ -82,7 +116,7 @@ class Emision extends Model
     protected $allowedSorts = [
         'programme_id',
         'user_id',
-        'title',
+        'name',
         'description',
         'media_type',
         'is_put_forward',

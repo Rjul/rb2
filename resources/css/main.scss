@@ -1,0 +1,23 @@
+//bootstrap overide + boostrap
+@import '../css/include/_bootstrap.scss';
+
+//our styles:
+@import 'include/_variables.scss';
+@import 'include/_fonts.scss';
+@import 'common/_generics.scss';
+@import 'common/_loader.scss';
+
+//layout
+@import './config/_header.scss';
+@import 'layout/_header.scss';
+@import './layout/_footer.scss';
+
+//card
+@import 'card/card.scss';
+audio {
+    color: #0b4e58;
+    width: 250px;
+}
+.card {
+    background-color: $card-bg;
+}

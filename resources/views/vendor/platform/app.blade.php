@@ -26,11 +26,10 @@
     @if(!config('platform.turbo.cache', false))
         <meta name="turbo-cache-control" content="no-cache">
     @endif
-
     <script src="{{ mix('/js/manifest.js','vendor/orchid') }}" type="text/javascript"></script>
     <script src="{{ mix('/js/vendor.js','vendor/orchid') }}" type="text/javascript"></script>
     <script src="{{ mix('/js/orchid.js','vendor/orchid') }}" type="text/javascript"></script>
-
+    @vite('resources/css/admin/admin.scss')
     @foreach(Dashboard::getResource('stylesheets') as $stylesheet)
         <link rel="stylesheet" href="{{  $stylesheet }}">
     @endforeach

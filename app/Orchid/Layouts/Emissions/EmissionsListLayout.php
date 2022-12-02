@@ -24,7 +24,7 @@ class EmissionsListLayout extends Table
     public function columns(): array
     {
         return [
-            TD::make('title', 'Titre')
+            TD::make('name', 'Titre')
                 ->sort()
                 ->render(function (Emission $emission) {
                     return Link::make($emission->name)
@@ -36,6 +36,11 @@ class EmissionsListLayout extends Table
                     return Link::make($emission->programme->name)
                         ->route('platform.programme.edit', $emission->programme->id);
             }),
+            TD::make('media_type', 'Type de média')
+                ->sort()
+                ->render(function (Emission $emission) {
+                    return strtoupper($emission->media_type);
+                }),
             TD::make('active', 'Active')
                 ->sort()
                 ->render(function (Emission $emission) {

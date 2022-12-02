@@ -71,6 +71,12 @@ class PlatformProvider extends OrchidServiceProvider
                 ->badge(function () {
                     return 2;
                 }),
+            Menu::make('Annonces')
+                ->icon('layers')
+                ->route('platform.annonces.list')
+                ->badge(function () {
+                    return 1;
+                }),
 
             Menu::make('Contacts')
                 ->icon('layers')

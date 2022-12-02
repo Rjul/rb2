@@ -1,0 +1,60 @@
+$body-bg: #F5F9F9;
+$body-color: #111;
+
+$primary: #001C41 !default;
+$blue: $primary;
+
+$secondary: #1E6541 !default;
+$green: $secondary;
+$success: $secondary;
+
+$gray: #707070;
+
+$tertiary: #0D2520;
+$quadrary: #6CB786;
+
+$custom-theme-colors: (
+    'quadrary': $quadrary,
+    "tertiary": $tertiary,
+    "primary": $primary,
+    "secondary": $secondary
+);
+
+$link-decoration: none;
+$grid-gutter-width: 1.6rem;
+$nav-link-color: $gray;
+$nav-link-hover-color: $secondary;
+$nav-link-font-size: 2rem;
+
+$font-family-base: 'corbel';
+//grid
+$grid-breakpoints: (
+    xs: 0,
+    sm: 576px,
+    md: 768px,
+    lg: 992px,
+    xl: 1200px,
+    xxl: 1600px
+);
+
+
+$container-max-widths: (
+    sm: 540px,
+    md: 720px,
+    lg: 960px,
+    xl: 1140px,
+    xxl: 1655px
+);
+//btn
+// scss-docs-start btn-variables
+$input-btn-padding-y:         1.2rem;
+$input-btn-padding-x:         3rem;
+$input-btn-font-size:         2.2rem;
+$input-btn-line-height:       1.18;
+
+$input-btn-focus-width:         .25rem !default;
+$btn-transition:              0 10px 20px rgba(0,0,0,.3);
+$btn-font-weight:             900;
+$btn-link-color: #fff;
+$btn-border-radius: 10px;
+$btn-border-width: 0;

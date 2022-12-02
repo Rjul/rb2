@@ -5,6 +5,7 @@ namespace App\Orchid\Screens\Emission;
 use App\Models\Emision as Emission;
 use App\Models\Programme;
 use App\Models\GroupProgramme;
+use App\Orchid\Overrides\UploadOverRide;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Orchid\Support\Facades\Alert;
@@ -105,9 +106,9 @@ class EmissionEditScreen extends Screen
     public function layout(): iterable
     {
         return [
-            Layout::rows([
-                Group::make([
-                    Input::make('emission.title')
+            Layout::columns([
+                Layout::rows([
+                    Input::make('emission.name')
                         ->title('Titre')
                         ->placeholder('Titre de l\'emission')
                         ->required(),
@@ -115,21 +116,13 @@ class EmissionEditScreen extends Screen
                         ->fromModel(Programme::class, 'name')
                         ->title('Choisir le programme')
                         ->required(),
+                    Relation::make('emission.tags')
+                        ->fromModel(Tag::class, 'name')
+                        ->multiple()
+                        ->title('Choisir les tags associées')
+                        ->required(),
                 ]),
-
-                Quill::make('emission.description')
-                    ->title('Description')
-                    ->placeholder('Description du programme')
-                    ->required(),
-
-                Cropper::make('emission.image')
-                    ->height(800)
-                    ->width(533)
-                    ->targetUrl()
-                    ->storage('emission_image')
-                    ->required(),
-
-                Group::make([
+                Layout::rows([
                     Switcher::make('emission.active')
                         ->sendTrueOrFalse()
                         ->title('Programme visible')
@@ -144,23 +137,46 @@ class EmissionEditScreen extends Screen
                         ->sendTrueOrFalse()
                         ->title('Mettre a la une')
                         ->value(true),
+
                 ]),
+            ]),
+            Layout::columns([
+                Layout::rows([
+                    UploadOverRide::make('media')
+                        ->storage('emission_audio')
+                        ->id('media-audio')
+                        ->maxFiles(1)
+                        ->groups('audio')
+                        ->media()
+                        ->acceptedFiles(env('FORMAT_AUDIO_ACCEPT'))
+                    ,
 
-                Upload::make('media')
-                    ->storage('emission_audio')
-                    ->maxFiles(1)
-                    ->groups('audio')
-                    ->media()
-                    ->acceptedFiles(env('FORMAT_AUDIO_ACCEPT')),
+                    Input::make('emission.media_type')
+                        ->hidden(true)
+                        ->value('audio'),
 
-                Input::make('emission.media_type')
-                    ->hidden(true)
-                    ->value('audio'),
-
-                Input::make('emission.user_id')
-                    ->hidden(true)
-                    ->value(Auth::user()->id),
-            ])
+                ]),
+                Layout::rows([
+                    Cropper::make('emission.image')
+                        ->height(533)
+                        ->width(800)
+//                        @Todo Qualité retour papa!
+//                        ->maxCanvas()
+//                        ->minCanvas()
+                        ->targetUrl()
+                        ->storage('emission_image')
+                        ->required(),
+                ]),
+            ]),
+            Layout::columns([
+                Layout::rows([
+                    Quill::make('emission.description')
+                        ->title('Description')
+                        ->height('450px')
+                        ->placeholder('Description du programme')
+                        ->required(),
+                ]),
+            ]),
 
         ];
     }
@@ -174,13 +190,23 @@ class EmissionEditScreen extends Screen
     public function createOrUpdate(Emission $emission, Request $request)
     {
 
-        $emission->fill($request->get('emission'))
-            ->save();
+        $emission->fill($request->get('emission'));
+        $emission->user_id = Auth::user()->id;
+        $emission->media_type = 'audio';
+        if (array_key_exists('tags', $request->get('emission')) && !empty($request->get('emission')['tags'])) {
+            $tags = Tag::query();
+            foreach ($request->get('emission')['tags'] as $tagId) {
+                $tags->orWhere('id', '=', $tagId);
+            }
+            $emission->tags()->sync($tags->get()->pluck('id')->toArray());
+        }
+
+        $emission->save();
         $emission->attachment()->syncWithoutDetaching(
             $request->input('media', [])
         );
 
-        Alert::info('Le programme a bien été crée');
+        Alert::info('L\'emission a bien été crée');
 
         return redirect()->route('platform.emissions.list');
     }
@@ -195,7 +221,7 @@ class EmissionEditScreen extends Screen
     {
         $emision->delete();
 
-        Alert::info('Le programme a bien été supprimer');
+        Alert::info('L\'emission a bien été supprimer');
 
         return redirect()->route('platform.emissions.list');
     }

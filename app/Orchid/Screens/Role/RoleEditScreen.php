@@ -98,13 +98,13 @@ class RoleEditScreen extends Screen
                 RoleEditLayout::class,
             ])
                 ->title('Role')
-                ->description('A role is a collection of privileges (of possibly different services like the Users service, Moderator, and so on) that grants users with that role the ability to perform certain tasks or operations.'),
+                ->description('Un rôle est un ensemble de privilèges (de services éventuellement différents comme le service Utilisateurs, Modérateur, etc.) qui accorde aux utilisateurs avec ce rôle la possibilité d\'effectuer certaines tâches ou opérations.'),
 
             Layout::block([
                 RolePermissionLayout::class,
             ])
                 ->title('Permission/Privilege')
-                ->description('A privilege is necessary to perform certain tasks and operations in an area.'),
+                ->description('Un privilège est nécessaire pour effectuer certaines tâches et opérations dans une zone.'),
         ];
     }
 

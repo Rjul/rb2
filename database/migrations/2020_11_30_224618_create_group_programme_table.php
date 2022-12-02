@@ -16,9 +16,10 @@ return new class extends Migration
         Schema::create('group_programmes', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('description');
+            $table->text('description');
             $table->string('image');
             $table->boolean('active');
+            $table->integer('height');
             $table->softDeletes();
             $table->timestamps();
         });
@@ -31,6 +32,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('group_programas');
+        Schema::dropIfExists('group_programmes');
     }
 };
