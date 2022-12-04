@@ -142,7 +142,15 @@ class EmissionEditScreen extends Screen
             ]),
             Layout::columns([
                 Layout::rows([
-                    UploadOverRide::make('media')
+//                    UploadOverRide::make('media')
+//                        ->storage('emission_audio')
+//                        ->id('media-audio')
+//                        ->maxFiles(1)
+//                        ->groups('audio')
+//                        ->media()
+//                        ->acceptedFiles(env('FORMAT_AUDIO_ACCEPT'))
+//                    ,
+                    Upload::make('media')
                         ->storage('emission_audio')
                         ->id('media-audio')
                         ->maxFiles(1)
@@ -202,7 +210,7 @@ class EmissionEditScreen extends Screen
         }
 
         $emission->save();
-        $emission->attachment()->syncWithoutDetaching(
+        $emission->attachment()->sync(
             $request->input('media', [])
         );
 

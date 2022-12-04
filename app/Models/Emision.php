@@ -5,8 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
+use Illuminate\Database\Eloquent\Relations\MorphToMany;
 use Orchid\Attachment\Attachable;
 use Orchid\Filters\Filterable;
+use Orchid\Platform\Dashboard;
 use Orchid\Screen\AsSource;
 use Orchid\Attachment\Models\Attachment;
 use Illuminate\Database\Eloquent\Builder;
@@ -19,7 +21,7 @@ use Spatie\Translatable\HasTranslations;
 class Emision extends Model
 {
     use HasFactory, HasSlug;
-    use AsSource, Attachable, Filterable, HasTags;
+    use AsSource, Filterable, HasTags;
 
     /**
      * Avalable type audio / video
@@ -45,7 +47,23 @@ class Emision extends Model
         return $this->belongsTo(Programme::class);
     }
 
+    public function attachment(string $group = null): MorphToMany
+    {
+        $query = $this->morphToMany(
+            Dashboard::model(\App\Models\Attachment::class),
+            'attachmentable',
+            'attachmentable',
+            'attachmentable_id',
+            'attachment_id'
+        );
 
+        if ($group !== null) {
+            $query->where('group', $group);
+        }
+
+        return $query
+            ->orderBy('sort');
+    }
 
     /**
      * The attributes that are mass assignable.
