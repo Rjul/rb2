@@ -2,7 +2,7 @@
 import 'bootstrap';
 import 'lazysizes';
 
-
+import './header/suggestion'
 
 //global scss
 import "../css/main.scss";

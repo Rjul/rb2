@@ -31,13 +31,13 @@ class SearchController extends Controller
         } else {
             abort(400);
         }
-
-        return response()->json([
+        debugbar()->disable();
+        return  view('components.header.suggestion', [
             'query'             => $request->get('query'),
-            'groups_programme'  => $groupsProgramme->limit(1)->get()->toArray(),
-            'programme'         => $programmes->limit(2)->get()->toArray(),
-            'emisions'          => $emisions->limit(3)->get()->toArray(),
-            'tags'              => $tags->limit(3)->get()->toArray(),
+            'groups_programme'  => $groupsProgramme->limit(1)->get(),
+            'programme'         => $programmes->limit(2)->get(),
+            'emisions'          => $emisions->limit(3)->get(),
+            'tags'              => $tags->limit(3)->get(),
         ]);
     }
 

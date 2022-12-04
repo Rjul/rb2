@@ -9,14 +9,16 @@ class SmallCard extends Component
 {
     protected Emision $emision;
 
+    protected bool $suggestion = false;
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct($emision)
+    public function __construct($emision, $suggestion = false)
     {
         $this->emision = $emision;
+        $this->suggestion = $suggestion;
     }
 
     /**
@@ -27,7 +29,8 @@ class SmallCard extends Component
     public function render()
     {
         return view('components.cards.small-card', [
-            "emision" => $this->emision
+            "emision" => $this->emision,
+            "suggestion" => $this->suggestion
         ]);
     }
 }
