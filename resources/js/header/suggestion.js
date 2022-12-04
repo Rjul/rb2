@@ -17,6 +17,8 @@ const initSuggestion = function () {
         fetchSuggestion(inputSuggestion.value).then((response) => {
           placeSuggestion.innerHTML = response;
         })
+      } else {
+        placeSuggestion.innerHTML = '';
       }
     })
   }

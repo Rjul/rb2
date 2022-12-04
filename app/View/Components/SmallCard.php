@@ -9,7 +9,7 @@ class SmallCard extends Component
 {
     protected Emision $emision;
 
-    protected bool $suggestion = false;
+    protected bool $suggestion;
     /**
      * Create a new component instance.
      *
