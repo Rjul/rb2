@@ -1,5 +1,4 @@
 @extends('base')
-
 @push('body')
     <section class="section-default">
         <div class="container" >
