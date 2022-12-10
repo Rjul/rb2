@@ -16,6 +16,7 @@ export default defineConfig({
             input: [
                 'resources/js/main.js',
                 'resources/js/admin/admin.js',
+                'resources/js/home/home.js',
             ],
             refresh: true,
         }),
