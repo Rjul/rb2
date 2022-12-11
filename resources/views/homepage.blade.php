@@ -15,6 +15,8 @@
     </section>
 
     <x-home-programme></x-home-programme>
+
+    <x-home-tags></x-home-tags>
 @endpush
 @push('scripts')
     @vite('resources/js/homepage.js')

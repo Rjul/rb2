@@ -1,4 +1,3 @@
 <div>
-@dump($emisions)
-
+{{--@dump($emisions)--}}
 </div>
