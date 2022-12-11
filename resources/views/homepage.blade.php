@@ -13,6 +13,8 @@
             <div class="section" ></div>
         </div>
     </section>
+
+    <x-home-programme></x-home-programme>
 @endpush
 @push('scripts')
     @vite('resources/js/homepage.js')

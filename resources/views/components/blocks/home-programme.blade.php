@@ -1,0 +1,4 @@
+<div>
+@dump($emisions)
+
+</div>

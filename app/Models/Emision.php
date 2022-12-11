@@ -39,6 +39,16 @@ class Emision extends Model
             ->get();
     }
 
+    public static function getLastALaUne(int $limite = 4) {
+        return self::join('programmes', 'emisions.programme_id', '=', 'programmes.id', 'inner')
+            ->select('emisions.*')
+            ->where('is_put_forward', true)
+            ->orderBy('emisions.active_at', 'DESC')
+            ->orderBy('programmes.height')
+            ->limit($limite)
+            ->get();
+    }
+
     /**
      * Get the group Programme for the blog post.
      */
