@@ -2,15 +2,41 @@
   .home-card_big-title {
     transition: font-size .2s;
     position: absolute;
-    transform-origin: right;
+    transform-origin: 100% 200%;
     transform: translateX(-100%)  rotate(-90deg);
-    font-family: corbel;
-    font-size: 3rem;
+    letter-spacing: 0px;
+    color: #707070;
+    font-family: Berlin Sans FB;
+    font-weight: bolder;
+    opacity: 1;
+  }
+  .title__ecouter {
+    font-size: 34px;
+  }
+  .title__lire {
+    font-size: 44px;
+  }
+  .title__voir {
+    font-size: 44px;
   }
   &:hover {
     .home-card_big-title {
       transition: font-size .2s;
-      font-size: 5rem;
+      text-align: left;
+      letter-spacing: 0px;
+      opacity: 1;
+    }
+    .title__ecouter {
+      font-size: 44px;
+      color: #001C41;
+    }
+    .title__voir {
+      font-size: 64px;
+      color: #0D2520;
+    }
+    .title__lire {
+      font-size: 64px;
+      color: #1E6541;
     }
   }
 }

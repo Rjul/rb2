@@ -1,4 +1,6 @@
 .item-card {
+  margin: 10px;
+  height: 100%;
   background: $card-bg;
   border-radius: 24px;
   box-shadow: 0px 3px 6px #00000029;
@@ -72,3 +74,6 @@
   }
 }
 
+.item-card__small {
+  padding: 19px 20px;
+}

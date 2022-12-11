@@ -13,7 +13,7 @@
                         </div>
                         <div class="col-lg-7 col-sm-12">
                             <div class="item-card_content-wrapper">
-                                <h3 class="item-card_content-title--big">{{ $emision->name }}</h3>
+                                <h3 class="item-card_content-title--big">{{ $emision->name }}</h3> {{ $emision->programme->name }}
                                 <p class="item-card_content-txt--big">{{ $emision->description }}</p>
                                 @if ($emision->media_type == 'audio' or $emision->media_type == 'video')
                                     <div class="item-card_content_length--big">55:55</div>
