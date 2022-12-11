@@ -27,7 +27,7 @@ class EmisionFactory extends Factory
             'description' => fake('fr_FR')->realText(200),
             'media_type' => fake('fr_FR')->randomElement(['text', 'audio', 'video']),
             'is_put_forward' => fake('fr_FR')->boolean(4),
-            'image' => fake()->imageUrl(800, 533),
+            'image' => "https://placeimg.com/800/533/any?nocache=".fake()->randomNumber(6),
             'active' => fake()->boolean(95),
             'active_at' => fake()->dateTimeAD(),
         ];
