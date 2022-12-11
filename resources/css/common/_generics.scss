@@ -77,3 +77,11 @@ h1 {
 .font-berlin {
   font-family: 'berlin';
 }
+
+
+@include media-breakpoint-down(md) {
+  .md-sm_rotate_90__innertext {
+      transform-origin: center;
+      transform: rotate(-90deg);
+  }
+}

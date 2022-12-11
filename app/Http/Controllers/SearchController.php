@@ -31,7 +31,12 @@ class SearchController extends Controller
         } else {
             abort(400);
         }
-        debugbar()->disable();
+
+        // @Todo debug off development only remove before pass prod
+        if (env('APP_ENV') === 'local') {
+            debugbar()->disable();
+        }
+
         return  view('components.header.suggestion', [
             'query'             => $request->get('query'),
             'groups_programme'  => $groupsProgramme->limit(1)->get(),

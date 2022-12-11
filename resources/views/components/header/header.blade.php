@@ -45,6 +45,9 @@
                 </ul>
                 <x-header-search></x-header-search>
             </div>
+            <div id="place-suggestion" class="place-suggestion position-absolute">
+
+            </div>
         </div>
     </nav>
 </header>

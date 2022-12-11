@@ -1,0 +1,17 @@
+.section-lasthome {
+  .home-card_big-title {
+    transition: font-size .2s;
+    position: absolute;
+    transform-origin: right;
+    transform: translateX(-100%)  rotate(-90deg);
+    font-family: corbel;
+    font-size: 3rem;
+  }
+  &:hover {
+    .home-card_big-title {
+      transition: font-size .2s;
+      font-size: 5rem;
+    }
+  }
+}
+

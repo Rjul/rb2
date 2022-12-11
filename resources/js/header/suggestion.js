@@ -24,4 +24,4 @@ const initSuggestion = function () {
   }
 }
 
-document.addEventListener('DOMContentLoaded', initSuggestion())
+document.addEventListener('DOMContentLoaded', initSuggestion)

@@ -1,4 +1,4 @@
-<div class="{{ $suggestion ? 'col-12' : 'col-3' }}">
+<div class="{{ $suggestion ? 'col-12' : 'col-sm-12 col-md-6 col-xl-3' }}">
     {{ $emision->name }}
     {{ $emision->description }}
     {{ $emision->image }}

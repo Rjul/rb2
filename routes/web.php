@@ -17,16 +17,16 @@ Route::get('/',
     [\App\Http\Controllers\HomepageController::class, 'index' ]
 )->name('homepage');
 
-Route::get('/programme/{programme:slug}',
+Route::get('/programme-{programme:slug}',
     [\App\Http\Controllers\ListController::class, 'index' ]
 )->name('list-programme');
 
-Route::get('/programme/{programme:slug}/{emision:slug}',
+Route::get('/programme-{programme:slug}/emission-{emision:slug}',
     [\App\Http\Controllers\DetannController::class, 'index' ])
 ->where('emision:id', '[0-9]*')
 ->name('view-emision');
 
-Route::get('/thematique/{tag}',
+Route::get('/thematique-{tag}',
     [\App\Http\Controllers\ListController::class, 'index' ]
 )->name('list-tag');
 

@@ -1,7 +1,7 @@
 @extends('base')
 
 @push('body')
-    <section class="section-default">
+    <section class="section-default pt-3">
         <div class="container" >
 {{--            <a href="#" class="btn btn-primary">test</a>--}}
 {{--            <a href="#" class="btn btn-secondary">test</a>--}}
@@ -22,4 +22,7 @@
     </section>
 
 
+@endpush
+@push('scripts')
+    @vite('resources/js/homepage.js')
 @endpush

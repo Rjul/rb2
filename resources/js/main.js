@@ -7,6 +7,7 @@ import './header/suggestion'
 //global scss
 import "../css/main.scss";
 
+
 // Anime text annonce sous header
 let containerAnnonces = document.querySelector("#header_annonce");
 let text = document.querySelector("#header_annonce span");

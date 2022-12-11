@@ -1,4 +1,17 @@
 .place-suggestion{
-  position: relative;
-  top: 40px;
+  position: absolute;
+  width: 100%;
+  right: 0;
+  top: 70px;
+  .suggestion--container {
+    display: flex;
+    flex-direction: row;
+    border-radius: 0 10px 10px 0;
+    .suggestion__tag-container {
+      max-width: 100%;
+      flex-wrap: wrap;
+      overflow-x: auto;
+      column-gap: 13px;
+    }
+  }
 }

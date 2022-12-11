@@ -16,6 +16,8 @@
 @import './layout/_suggestion.scss';
 //card
 @import 'card/card.scss';
+
+@import "homepage/last-home.scss";
 audio {
     color: #0b4e58;
     width: 250px;
@@ -23,3 +25,4 @@ audio {
 .card {
     background-color: $card-bg;
 }
+

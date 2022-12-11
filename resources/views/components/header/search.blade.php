@@ -7,8 +7,6 @@
             </svg>
         </i>
     </div>
-    <div id="place-suggestion" class="place-suggestion position-absolute">
 
-    </div>
 </div>
 
