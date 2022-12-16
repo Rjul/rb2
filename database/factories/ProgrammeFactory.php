@@ -23,7 +23,7 @@ class ProgrammeFactory extends Factory
             'name' => fake()->unique()->sentence(3, false),
             'user_id' => User::all()->random()->id,
             'group_programme_id' => GroupProgramme::all()->random()->id,
-            'description' => fake()->realText(200),
+            'description' => fake('fr_FR')->realText(200),
             'image' => fake()->imageUrl(800, 533),
             'active' => fake()->boolean(95),
             'is_archived' => fake()->boolean(5),

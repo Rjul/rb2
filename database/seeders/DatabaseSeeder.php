@@ -33,25 +33,25 @@ class DatabaseSeeder extends Seeder
          GroupProgramme::factory()->createMany([
              [
                  'name' => 'Chroniques',
-                 'description' => fake()->randomHtml(),
+                 'description' => fake('fr_FR')->realText(200),
                  'image' => 'https://picsum.photos/800/533',
                  'active' => 1,
                  'height' => 1,
              ],[
                  'name' => 'Magasines',
-                 'description' => fake()->randomHtml(),
+                 'description' => fake('fr_FR')->realText(200),
                  'image' => 'https://picsum.photos/800/533',
                  'active' => 1,
                  'height' => 2,
              ],[
                  'name' => 'Culture',
-                 'description' => fake()->randomHtml(),
+                 'description' => fake('fr_FR')->realText(200),
                  'image' => 'https://picsum.photos/800/533',
                  'active' => 1,
                  'height' => 3,
              ],[
                  'name' => 'Musical',
-                 'description' => fake()->randomHtml(),
+                 'description' => fake('fr_FR')->realText(200),
                  'image' => 'https://picsum.photos/800/533',
                  'active' => 1,
                  'height' => 4,

@@ -26,6 +26,7 @@ class ListController extends Controller
             $emisions->whereHas('tags', function (Builder $query) use ($tag) {
                 return $query->where('slug->en', $tag ?? 0);
             });
+            $tag = Tag::query()->where('slug->en', $tag ?? 0)->limit(1)->get()->first();
         }
         if (!is_null($type)) {
             $emisions
@@ -33,7 +34,10 @@ class ListController extends Controller
         }
 
         return view('pages.list', [
-            'emisions' =>         $emisions->paginate(25)
+            'programme'         => $programme,
+            'tag'               => $tag,
+            'type'              => $type,
+            'emisions'          => $emisions->paginate(25)
         ]);
     }
 }

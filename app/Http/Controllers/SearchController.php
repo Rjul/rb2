@@ -23,7 +23,8 @@ class SearchController extends Controller
     public function suggestion(SearchRequest $request)
     {
         if ($request->has('query')) {
-            $query = explode(' ', $request->get('query'));
+            $query = [ $request->get('query') ];
+//            $query = explode(' ', $request->get('query'));
             $groupsProgramme = $this->searchInNameAndDescription(GroupProgramme::query(), $query);
             $programmes = $this->searchInNameAndDescription(Programme::query(), $query);
             $emisions = $this->searchInNameAndDescription(Emision::query(), $query);
@@ -39,10 +40,10 @@ class SearchController extends Controller
 
         return  view('components.header.suggestion', [
             'query'             => $request->get('query'),
-            'groups_programme'  => $groupsProgramme->limit(1)->get(),
-            'programme'         => $programmes->limit(2)->get(),
+            'groups_programme'  => $groupsProgramme->limit(4)->get(),
+            'programmes'         => $programmes->limit(10)->get(),
             'emisions'          => $emisions->limit(3)->get(),
-            'tags'              => $tags->limit(3)->get(),
+            'tags'              => $tags->limit(10)->get(),
         ]);
     }
 

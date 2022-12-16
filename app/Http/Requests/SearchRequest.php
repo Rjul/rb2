@@ -29,7 +29,7 @@ class SearchRequest extends FormRequest
             'groups_programme_id'    => ['array'],
             'programmes_id'          => ['array'],
             'tags_id'               => ['array'],
-            'query'                 => ['string', 'min:3', 'max:55']
+            'query'                 => ['string', 'min:1', 'max:55']
         ];
     }
 }

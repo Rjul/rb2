@@ -45,8 +45,10 @@
                 </ul>
                 <x-header-search></x-header-search>
             </div>
-            <div id="place-suggestion" class="place-suggestion position-absolute">
+            <div id="mask-popup" class="mask-popup position-absolute">
+                <div id="place-suggestion" class="place-suggestion">
 
+                </div>
             </div>
         </div>
     </nav>

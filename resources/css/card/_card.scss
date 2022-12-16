@@ -34,10 +34,10 @@
 }
 .item-card--big_tag-wrapper {
   margin-top: 11px;
+  column-gap: 5px;
+  row-gap: 5px;
   display: flex;
-  max-width: 100%;
-  overflow-x: auto;
-  column-gap: 13px;
+  flex-wrap: wrap;
 }
 .item-card--big_cta {
   display: flex;
@@ -102,8 +102,8 @@
   margin: 3px 0 6px;
 }
 .item-card--small_tag-wrapper {
-  column-gap: 8px;
-  row-gap: 11px;
+  column-gap: 5px;
+  row-gap: 8px;
   display: flex;
   flex-wrap: wrap;
 }
