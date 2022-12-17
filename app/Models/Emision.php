@@ -20,7 +20,7 @@ use Spatie\Translatable\HasTranslations;
 
 class Emision extends Model
 {
-    use HasFactory, HasSlug;
+    use HasFactory, HasSlug, Attachable;
     use AsSource, Filterable, HasTags;
 
     /**
@@ -57,7 +57,7 @@ class Emision extends Model
         return $this->belongsTo(Programme::class);
     }
 
-    public function attachment(string $group = null): MorphToMany
+    public function attachment(string $group = null, ?int $duration = null): MorphToMany
     {
         $query = $this->morphToMany(
             Dashboard::model(\App\Models\Attachment::class),
@@ -69,6 +69,9 @@ class Emision extends Model
 
         if ($group !== null) {
             $query->where('group', $group);
+        }
+        if ($duration !== null) {
+            $query->where('duration', $duration);
         }
 
         return $query

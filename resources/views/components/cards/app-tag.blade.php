@@ -5,6 +5,7 @@
 </a>
 
 @else
-
-
+    <a href="{{ route('list-tag', $tag->slug) }}" class="btn-tag btn-tag--small" style="background-color: {{ $tag->color }}">
+        {{ $tag->getTranslation("name", "fr") }}
+    </a>
 @endif

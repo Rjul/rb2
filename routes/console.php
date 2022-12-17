@@ -41,6 +41,7 @@ Artisan::command('applied:duration', function () {
             $make_hexa = hexdec(bin2hex(substr($contents,strlen($contents)-3)));
             if (strlen($contents) > $make_hexa){
                 $pre_duration = hexdec(bin2hex(substr($contents,strlen($contents)-$make_hexa,3))) ;
+                dump($pre_duration);
                 $post_duration = $pre_duration/1000;
                 $timehours = $post_duration/3600;
                 $timeminutes =($post_duration % 3600)/60;

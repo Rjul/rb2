@@ -26,9 +26,7 @@
                 <div class="col-6 h-100">
                     <div class="item-card--small_tag-wrapper">
                         @foreach($emision->tags as $tag)
-                            <div class="btn-tag btn-tag--small" style="background-color: {{ $tag->color }}">
-                                {{ $tag->getTranslation("name", "fr") }}
-                            </div>
+                            <x-tag :$tag :isLarge="false" ></x-tag>
                         @endforeach
                     </div>
                 </div>

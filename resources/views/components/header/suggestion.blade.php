@@ -1,5 +1,5 @@
 <div id="suggestion--container" class="suggestion--container row">
-    <div class=" p-3  offset-sm-0 col-sm-12 offset-md-4 col-md-8 offset-xl-7 col-xl-5 row bg-white">
+    <div class="suggestion-container-visible p-3 offset-sm-0 col-sm-12 offset-md-4 col-md-8 offset-xl-7 col-xl-5 row">
     @if(!$tags->isEmpty() | !$programmes->isEmpty() | !$groups_programme->isEmpty())
         <div class="suggestion__tag-container col-4">
             @if($tags)

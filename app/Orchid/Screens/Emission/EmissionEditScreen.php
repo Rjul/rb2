@@ -47,7 +47,8 @@ class EmissionEditScreen extends Screen
     {
         return [
             'emission'  => $emission,
-            'media'     => $emission->attachment('audio')->get()
+            'media'     => $emission->attachment('audio')->get(),
+            'duration'  => $emission->attachment('audio')->get()->first()->duration
         ];
     }
 
@@ -142,15 +143,7 @@ class EmissionEditScreen extends Screen
             ]),
             Layout::columns([
                 Layout::rows([
-//                    UploadOverRide::make('media')
-//                        ->storage('emission_audio')
-//                        ->id('media-audio')
-//                        ->maxFiles(1)
-//                        ->groups('audio')
-//                        ->media()
-//                        ->acceptedFiles(env('FORMAT_AUDIO_ACCEPT'))
-//                    ,
-                    Upload::make('media')
+                    UploadOverRide::make('media')
                         ->storage('emission_audio')
                         ->id('media-audio')
                         ->maxFiles(1)
@@ -158,10 +151,25 @@ class EmissionEditScreen extends Screen
                         ->media()
                         ->acceptedFiles(env('FORMAT_AUDIO_ACCEPT'))
                     ,
+//                    Upload::make('media')
+//                        ->storage('emission_audio')
+//                        ->id('media-audio')
+//                        ->maxFiles(1)
+//                        ->groups('audio')
+//                        ->media()
+//                        ->acceptedFiles(env('FORMAT_AUDIO_ACCEPT'))
+//                    ,
+
+                    Input::make('duration')
+                        ->type('number')
+                        ->max(120)
+                        ->min(0)
+                        ->title('Temps pour consulter en minutes'),
+
 
                     Input::make('emission.media_type')
-                        ->hidden(true)
-                        ->value('audio'),
+                                    ->hidden(true)
+                                    ->value('audio'),
 
                 ]),
                 Layout::rows([
@@ -209,13 +217,13 @@ class EmissionEditScreen extends Screen
             $emission->tags()->sync($tags->get()->pluck('id')->toArray());
         }
 
-        $emission->save();
+
         $emission->attachment()->sync(
             $request->input('media', [])
         );
-
+        $emission->attachment->first()->duration = (int)$request->get('duration');
         Alert::info('L\'emission a bien été crée');
-
+        $emission->attachment->first()->save();
         return redirect()->route('platform.emissions.list');
     }
 
