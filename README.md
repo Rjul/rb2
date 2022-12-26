@@ -14,6 +14,15 @@ sail artisan migrate:fresh && sail artisan db:seed
 ```bash
 sail artisan artisan key:generate && sail artisan config:cache
 ```
+
+## Roles
+"platform.group.programme" => administration of programme's groups
+
+"platform.programmes" => administration of all programmes and emisions
+
+"platform.emissions.{ $emisions->id }" => administration of this emissions
+
+
 ### programme
 
 - Posibilité d'archiver un programme

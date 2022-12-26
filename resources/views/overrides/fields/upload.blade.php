@@ -93,7 +93,6 @@
                                     <a href="#" data-action="click->upload#openLink">
                                         <small>
                                             <x-orchid-icon path="link" class="me-2"/>
-
                                             {{ __('Link to file') }}
                                         </small>
                                     </a>

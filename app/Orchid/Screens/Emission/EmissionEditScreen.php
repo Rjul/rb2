@@ -205,7 +205,6 @@ class EmissionEditScreen extends Screen
      */
     public function createOrUpdate(Emission $emission, Request $request)
     {
-
         $emission->fill($request->get('emission'));
         $emission->user_id = Auth::user()->id;
         $emission->media_type = 'audio';

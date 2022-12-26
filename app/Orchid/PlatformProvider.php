@@ -46,7 +46,6 @@ class PlatformProvider extends OrchidServiceProvider
 
             Menu::make('Programmes')
                 ->icon('briefcase')
-                ->permission('platform.programmes')
                 ->route('platform.programme.list'),
 
             Menu::make('Emissions')

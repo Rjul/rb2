@@ -32,13 +32,31 @@ class ProgrammeListScreen extends Screen
     /**
      * Query data.
      *
-     * @return array
      */
-    public function query(): array
+    public function query()
     {
-        return [
-            'programmes' => Programme::filters()->defaultSort('id')->with('group_programme')->paginate()
-        ];
+        $programmes_id = [];
+        dump(Auth()->user()->permissions );
+        foreach (Auth()->user()->permissions as $permision => $key) {
+            if ($permision === "platform.programmes" && ($key === "1" || $key === true) ) {
+                return [
+                    'programmes' => Programme::filters()->defaultSort('id')->with('group_programme')->paginate()
+                ];
+            } else if (str_contains($permision, 'platform.emission.') && ($key === "1" || $key === true) ) {
+                preg_match('/platform\.emission\.([0-9]+)/', $permision, $matches);
+                dump($matches);
+                $programmes_id[] = $matches[1];
+            }
+        }
+        if (!empty($programmes_id)) {
+            $query = Programme::filters()->defaultSort('id')->with('group_programme');
+            foreach ($programmes_id as $id) {
+                $query->orWhere('id', $id);
+            };
+            return [
+                'programmes' => $query->paginate(),
+            ];
+        }
     }
 
     /**
