@@ -48,7 +48,7 @@ class EmissionEditScreen extends Screen
         return [
             'emission'  => $emission,
             'media'     => $emission->attachment('audio')->get(),
-            'duration'  => $emission->attachment('audio')->get()->first()->duration
+//            'duration'  => $emission->attachment('audio')->get()->first()->duration
         ];
     }
 
@@ -221,9 +221,9 @@ class EmissionEditScreen extends Screen
         $emission->attachment()->sync(
             $request->input('media', [])
         );
-        $emission->attachment->first()->duration = (int)$request->get('duration');
+//        $emission->attachment->first()->duration = (int)$request->get('duration');
         Alert::info('L\'emission a bien été crée');
-        $emission->attachment->first()->save();
+//        $emission->attachment->first()->save();
         return redirect()->route('platform.emissions.list');
     }
 

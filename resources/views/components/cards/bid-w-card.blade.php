@@ -14,7 +14,7 @@
                         <div class="col-md-7 col-sm-12">
                             <div class="item-card_content-wrapper">
                                 <h3 class="item-card_content-title--big">{{ $emision->name }}</h3>
-                                <p class="item-card_content-txt--big">{{ $emision->description }}</p>
+                                <p class="item-card_content-txt--big">{{ Str::words(strip_tags($emision->description, 50)) }}</p>
 {{--                                <p class="item-card_content-txt--big">Lorem ipsum dolor sit amet, consectetuer adipi elit, sed diam nonummy nibh euismod tincidunt ut laoreet Lorem ipsum dolor sit amet, consectetuer adipi elit, sed diam nonummy nibh euismod tincidunt ut laoreet Lorem ipsum dolor sit amet, consectetuer adipi elit, sed diam nonummy nibh euismod tincidunt ut laoreet Lorem ipsum dolor sit amet, consectetuer adipi elit, sed diam nonummy nibh euismod tincidunt ut laoreet Lorem ipsum dolor sit amet, consectetuer adipi elit, sed diam nonummy nibh euismod tincidunt ut laoreet Lorem ipsum dolor sit amet, consectetuer adipi elit, sed diam nonummy nibh euismod tincidunt ut laoreet</p>--}}
                                 @if ($emision->media_type == 'audio' or $emision->media_type == 'video')
                                     <div class="item-card_content_length--big">55:55</div>

@@ -16,7 +16,7 @@
                 <div class="col-sm-6 col-12 ">
                     <div class="item-card_content-wrapper">
                         <h3 class="item-card_content-title--small">{{ $emision->name }}</h3>
-                        <p class="item-card_content-txt--small">{{ $emision->description }}</p>
+                        <p class="item-card_content-txt--small">{{ Str::words(strip_tags($emision->description, 50)) }}</p>
                     </div>
 
                 </div>

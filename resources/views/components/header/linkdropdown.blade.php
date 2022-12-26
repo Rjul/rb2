@@ -13,8 +13,8 @@
             <div class="row my-4">
                 @foreach($category->programmesOrderByHeight as $programme)
                 <div class="col-md-6 col-lg-3 mb-3 mb-lg-0">
-                    <div class="list-group list-group-flush">
-                        <a class="border-bottom h4 list-group-item-action text"
+                    <div class="list-group list-group-flush h-100">
+                        <a class="border-bottom fs-2 mb-3 lh-base h-100 list-group-item-action text"
                            href="{{ route('list-programme', $programme) }}">{{ $programme->name }}</a>
                     </div>
                 </div>

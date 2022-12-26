@@ -10,7 +10,7 @@
     .suggestion-container-visible {
       border-radius: 0 0 0 30px;
       background-color: white;
-      max-height: 100vh;
+      overflow-y: scroll;
     }
     .suggestion__tag-container {
       max-width: 100%;

@@ -7,7 +7,7 @@
 
 
         </aside>
-        <div class="section col-10 row">
+        <div class="section col-10 row gy-3">
             <section class="m-3">
                 @if ($programme)
                     <h2>Decouvrer notre programme <strong>{{  $programme->name }}</strong></h2>
@@ -18,7 +18,8 @@
                 @endif
             </section>
             @foreach($emisions as $emision)
-                <x-small-card :$emision ></x-small-card>
+{{--                <x-small-card :$emision ></x-small-card>--}}
+                <x-big-w-card :$emision></x-big-w-card>
             @endforeach
 
             <div class="section text-center">

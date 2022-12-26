@@ -8,7 +8,7 @@
             <span class="home-card_big-title title__voir">Voir</span>
         @endif
     </div>
-    <div class="row ms-md-3 ms-xl-3 ms-sm-0">
+    <div class="row gy-3">
     @foreach($lastHomeAudio as $emision)
         @if ($loop->first)
             <x-big-w-card :$emision ></x-big-w-card>
