@@ -134,8 +134,12 @@ Route::screen('group/programmes', \App\Orchid\Screens\GroupProgramme\GroupProgra
 //=======================================================
 // Group Programme                                      |
 //=======================================================
-Route::screen('emission/{emission?}', \App\Orchid\Screens\Emission\EmissionEditScreen::class)
+Route::screen('emission/audio/{emission?}', \App\Orchid\Screens\Emission\EmissionEditScreen::class)
     ->name('platform.emission.edit');
+Route::screen('emission/video/{emission?}', \App\Orchid\Screens\Emission\EmissionVideoEditScreen::class)
+    ->name('platform.emission.video.edit');
+Route::screen('emission/text/{emission?}', \App\Orchid\Screens\Emission\EmissionVideoEditScreen::class)
+    ->name('platform.emission.text.edit');
 
 Route::screen('emissions', \App\Orchid\Screens\Emission\EmissionListScreen::class)
     ->name('platform.emissions.list');

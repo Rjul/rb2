@@ -17,7 +17,7 @@
     @else
         <link rel="stylesheet" type="text/css" href="{{  mix('/css/orchid.css','vendor/orchid') }}">
     @endif
-
+{{--    @vite(['resources/js/admin/admin.js'])--}}
     @stack('head')
 
     <meta name="turbo-root" content="{{  Dashboard::prefix() }}">

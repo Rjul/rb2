@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Laravelista\Comments\Commentable;
@@ -31,6 +32,34 @@ class Programme extends Model
     public function emisions()
     {
         return $this->hasMany(Emision::class);
+    }
+
+    public function scopeWithAuthPermissions(Builder $builder): Builder
+    {
+        $programmes_id = [];
+        $permisions = Auth()->user()->permissions;
+        if (!Auth()->user()->roles->isEmpty()) {
+            foreach (Auth()->user()->roles as $role) {
+                $permisions = array_merge($permisions ?? [], $role->permissions);
+            }
+        }
+        foreach ($permisions as $permision => $key) {
+            if ($permision === "platform.programmes" && ($key === "1" || $key === true) ) {
+                return $builder;
+
+            } else if (str_contains($permision, 'platform.emission.') && ($key === "1" || $key === true) ) {
+                preg_match('/platform\.emission\.([0-9]+)/', $permision, $matches);
+                $programmes_id[] = $matches[1];
+            }
+        }
+        if (!empty($programmes_id)) {
+            foreach ($programmes_id as $id) {
+                $builder->orWhere('id', $id);
+            };
+            return $builder;
+        }
+
+        return $builder;
     }
 
     /**

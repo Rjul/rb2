@@ -62,7 +62,7 @@ return [
         'emission_video' => [
             'driver' => 'local',
             'root' => storage_path('app/public/emission/video'),
-            'url' => env('APP_URL').'/storage/emission/video',
+            'url' => env('APP_URL').'/storage/public/emission/video',
             'visibility' => 'public',
             'throw' => false,
         ],

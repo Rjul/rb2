@@ -26,12 +26,13 @@ class EmissionsListLayout extends Table
         return [
             TD::make('name', 'Titre')
                 ->sort()
+                ->filter()
                 ->render(function (Emission $emission) {
                     return Link::make($emission->name)
-                        ->route('platform.emission.edit', $emission);
+                        ->route($emission->media_type === 'audio' ? 'platform.emission.edit' : ($emission->media_type === 'video' ? 'platform.emission.video.edit' : 'platform.emission.text.edit')
+                            , $emission);
                 }),
             TD::make('programme.name', 'Programme')
-                ->sort()
                 ->render(function (Emission $emission) {
                     return Link::make($emission->programme->name)
                         ->route('platform.programme.edit', $emission->programme->id);

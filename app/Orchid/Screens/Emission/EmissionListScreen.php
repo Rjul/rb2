@@ -39,7 +39,7 @@ class EmissionListScreen extends Screen
     public function query(): array
     {
         return [
-            'emissions' => Emission::filters()->defaultSort('active_at')->paginate()
+            'emissions' => Emission::filters()->withAuthPermissions()->defaultSort('active_at')->paginate()
         ];
     }
 
@@ -69,7 +69,10 @@ class EmissionListScreen extends Screen
         return [
             Link::make('Nouvelle emission')
                 ->icon('pencil')
-                ->route('platform.emission.edit')
+                ->route('platform.emission.edit'),
+            Link::make('Nouvelle emission video')
+                ->icon('pencil')
+                ->route('platform.emission.video.edit')
         ];
     }
 

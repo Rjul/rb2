@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Emision as Emission;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
@@ -49,6 +50,34 @@ class Emision extends Model
             ->get();
     }
 
+    public function scopeWithAuthPermissions(Builder $builder): Builder
+    {
+        $programmes_id = [];
+        $permisions = Auth()->user()->permissions;
+        if (!Auth()->user()->roles->isEmpty()) {
+            foreach (Auth()->user()->roles as $role) {
+                $permisions = array_merge($permisions ?? [], $role->permissions);
+            }
+        }
+        foreach ($permisions as $permision => $key) {
+            if ($permision === "platform.programmes" && ($key === "1" || $key === true) ) {
+                return $builder;
+
+            } else if (str_contains($permision, 'platform.emission.') && ($key === "1" || $key === true) ) {
+                preg_match('/platform\.emission\.([0-9]+)/', $permision, $matches);
+                $programmes_id[] = $matches[1];
+            }
+        }
+        if (!empty($programmes_id)) {
+            foreach ($programmes_id as $id) {
+                $builder->orWhere('programme_id', $id);
+            };
+            return $builder;
+        }
+
+        return $builder;
+    }
+
     /**
      * Get the group Programme for the blog post.
      */
@@ -77,7 +106,26 @@ class Emision extends Model
         return $query
             ->orderBy('sort');
     }
+    public function attachments(string $group = null, ?int $duration = null): MorphToMany
+    {
+        $query = $this->morphToMany(
+            Dashboard::model(\App\Models\Attachment::class),
+            'attachmentable',
+            'attachmentable',
+            'attachmentable_id',
+            'attachment_id'
+        );
 
+        if ($group !== null) {
+            $query->where('group', $group);
+        }
+        if ($duration !== null) {
+            $query->where('duration', $duration);
+        }
+
+        return $query
+            ->orderBy('sort');
+    }
     /**
      * The attributes that are mass assignable.
      *
@@ -88,6 +136,7 @@ class Emision extends Model
         'user_id',
         'name',
         'description',
+        'duration',
         'media_type',
         'is_put_forward',
         'image',

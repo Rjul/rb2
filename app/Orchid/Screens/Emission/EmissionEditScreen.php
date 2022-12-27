@@ -4,6 +4,7 @@ namespace App\Orchid\Screens\Emission;
 
 use App\Models\Emision as Emission;
 use App\Models\Programme;
+use App\Models\Tag;
 use App\Models\GroupProgramme;
 use App\Orchid\Overrides\UploadOverRide;
 use Illuminate\Http\Request;
@@ -32,7 +33,7 @@ use Orchid\Screen\Fields\UTM;
 use Orchid\Screen\Screen;
 use Orchid\Support\Color;
 use Orchid\Support\Facades\Layout;
-use Spatie\Tags\Tag;
+
 
 class EmissionEditScreen extends Screen
 {
@@ -115,6 +116,7 @@ class EmissionEditScreen extends Screen
                         ->required(),
                     Relation::make('emission.programme_id')
                         ->fromModel(Programme::class, 'name')
+                        ->applyScope('WithAuthPermissions')
                         ->title('Choisir le programme')
                         ->required(),
                     Relation::make('emission.tags')
@@ -160,11 +162,16 @@ class EmissionEditScreen extends Screen
 //                        ->acceptedFiles(env('FORMAT_AUDIO_ACCEPT'))
 //                    ,
 
-                    Input::make('duration')
+                    Input::make('emission.duration')
                         ->type('number')
                         ->max(120)
                         ->min(0)
-                        ->title('Temps pour consulter en minutes'),
+                        ->step(.01)
+                        ->required()
+                        ->title('Temps pour consulter en minutes')
+
+                        ->pattern( '^[0-9]{1,3}(.[0-5])?([0-9])?$'),
+
 
 
                     Input::make('emission.media_type')
@@ -221,8 +228,10 @@ class EmissionEditScreen extends Screen
             $request->input('media', [])
         );
 //        $emission->attachment->first()->duration = (int)$request->get('duration');
-        Alert::info('L\'emission a bien été crée');
+
 //        $emission->attachment->first()->save();
+        $emission->saveOrFail();
+        Alert::info('L\'emission a bien été crée');
         return redirect()->route('platform.emissions.list');
     }
 

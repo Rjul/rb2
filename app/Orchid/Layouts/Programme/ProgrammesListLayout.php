@@ -52,8 +52,6 @@ class ProgrammesListLayout extends Table
                         ->route('platform.programme.edit', $programme);
                 }),
             TD::make('group_programme.name', 'Groupe programme')
-                ->sort()
-                ->filter(Input::make('group_programme_id'))
                 ->render(function (Programme $programme) {
                     return Link::make($programme->group_programme->name)
                         ->route('platform.group.programme.edit', $programme->group_programme->id);

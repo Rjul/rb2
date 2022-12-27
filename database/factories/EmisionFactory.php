@@ -25,7 +25,7 @@ class EmisionFactory extends Factory
             'user_id' => User::all()->random()->id,
             'programme_id' => Programme::all()->random()->id,
             'description' => fake('fr_FR')->realText(200),
-            'media_type' => fake('fr_FR')->randomElement(['text', 'audio', 'video']),
+            'duration' => fake('fr_FR')->randomFloat(2, 1, 120),
             'is_put_forward' => fake('fr_FR')->boolean(4),
             'image' => "https://placeimg.com/800/533/any?nocache=".fake()->randomNumber(6),
             'active' => fake()->boolean(95),
