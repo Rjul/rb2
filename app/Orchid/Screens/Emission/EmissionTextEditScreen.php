@@ -35,7 +35,7 @@ use Orchid\Support\Color;
 use Orchid\Support\Facades\Layout;
 
 
-class EmissionEditScreen extends Screen
+class EmissionTextEditScreen extends Screen
 {
     public Emission $emission;
 
@@ -47,9 +47,7 @@ class EmissionEditScreen extends Screen
     public function query(Emission $emission): iterable
     {
         return [
-            'emission'  => $emission,
-            'media'     => $emission->attachment('audio')->get(),
-//            'duration'  => $emission->attachment('audio')->get()->first()->duration
+            'emission'  => $emission
         ];
     }
 
@@ -60,7 +58,7 @@ class EmissionEditScreen extends Screen
      */
     public function name(): ?string
     {
-        return $this->emission->exists ? 'Edition émission audio' : 'Nouvelle émission audio';
+        return $this->emission->exists ? 'Edition émission texte' : 'Nouvelle émission texte';
     }
 
     /**
@@ -70,7 +68,7 @@ class EmissionEditScreen extends Screen
      */
     public function description(): ?string
     {
-        return 'Configuration et creation d\'émission';
+        return 'Configuration et creation d\'emission';
     }
 
     /**
@@ -145,38 +143,9 @@ class EmissionEditScreen extends Screen
             ]),
             Layout::columns([
                 Layout::rows([
-                    UploadOverRide::make('media')
-                        ->storage('emission_audio')
-                        ->id('media-audio')
-                        ->maxFiles(1)
-                        ->groups('audio')
-                        ->media()
-                        ->acceptedFiles(env('FORMAT_AUDIO_ACCEPT'))
-                    ,
-//                    Upload::make('media')
-//                        ->storage('emission_audio')
-//                        ->id('media-audio')
-//                        ->maxFiles(1)
-//                        ->groups('audio')
-//                        ->media()
-//                        ->acceptedFiles(env('FORMAT_AUDIO_ACCEPT'))
-//                    ,
-
-                    Input::make('emission.duration')
-                        ->type('number')
-                        ->max(120)
-                        ->min(0)
-                        ->step(.01)
-                        ->required()
-                        ->title('Temps pour consulter en minutes')
-
-                        ->pattern( '^[0-9]{1,3}(.[0-5])?([0-9])?$'),
-
-
-
                     Input::make('emission.media_type')
                                     ->hidden(true)
-                                    ->value('audio'),
+                                    ->value('text'),
 
                 ]),
                 Layout::rows([
@@ -214,7 +183,8 @@ class EmissionEditScreen extends Screen
     {
         $emission->fill($request->get('emission'));
         $emission->user_id = Auth::user()->id;
-        $emission->media_type = 'audio';
+        $emission->media_type = 'text';
+        $emission->saveOrFail();
         if (array_key_exists('tags', $request->get('emission')) && !empty($request->get('emission')['tags'])) {
             $tags = Tag::query();
             foreach ($request->get('emission')['tags'] as $tagId) {
@@ -223,13 +193,6 @@ class EmissionEditScreen extends Screen
             $emission->tags()->sync($tags->get()->pluck('id')->toArray());
         }
 
-
-        $emission->attachment()->sync(
-            $request->input('media', [])
-        );
-//        $emission->attachment->first()->duration = (int)$request->get('duration');
-
-//        $emission->attachment->first()->save();
         $emission->saveOrFail();
         Alert::info('L\'emission a bien été crée');
         return redirect()->route('platform.emissions.list');

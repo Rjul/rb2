@@ -19,6 +19,9 @@ use App\Orchid\Screens\Programme\ProgrammeEditScreen;
 use App\Orchid\Screens\Programme\ProgrammeListScreen;
 
 
+use App\Orchid\Screens\Comment\CommentListScreen;
+
+
 
 
 use Illuminate\Support\Facades\Route;
@@ -138,7 +141,7 @@ Route::screen('emission/audio/{emission?}', \App\Orchid\Screens\Emission\Emissio
     ->name('platform.emission.edit');
 Route::screen('emission/video/{emission?}', \App\Orchid\Screens\Emission\EmissionVideoEditScreen::class)
     ->name('platform.emission.video.edit');
-Route::screen('emission/text/{emission?}', \App\Orchid\Screens\Emission\EmissionVideoEditScreen::class)
+Route::screen('emission/text/{emission?}', \App\Orchid\Screens\Emission\EmissionTextEditScreen::class)
     ->name('platform.emission.text.edit');
 
 Route::screen('emissions', \App\Orchid\Screens\Emission\EmissionListScreen::class)
@@ -153,6 +156,19 @@ Route::screen('annonce/{websiteNew?}', \App\Orchid\Screens\WebsiteNewEditScreen:
 Route::screen('annonces', \App\Orchid\Screens\WebsiteNewListScreen::class)
     ->name('platform.annonces.list');
 
+//=======================================================
+// Comments                                             |
+//=======================================================
+//Route::screen('commentaires/{websiteNew?}', \App\Orchid\Screens\WebsiteNewEditScreen::class)
+//    ->name('platform.annonce.edit');
+
+Route::screen('commentaires', CommentListScreen::class)
+    ->name('platform.comments.list');
+
+Route::get('commentaires/inverse/{comment:id}', [\App\Http\Controllers\CommentController::class, 'inverseApproved'])
+    ->name('platform.comment.approved');
+Route::get('commentaires/delete/{comment:id}', [\App\Http\Controllers\CommentController::class, 'delete'])
+    ->name('platform.comment.delete');
 
 
 

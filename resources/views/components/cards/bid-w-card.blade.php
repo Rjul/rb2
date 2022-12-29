@@ -1,6 +1,6 @@
 <div class="col-12 col-xl-12 col-xxl-6 mb-3 mb-xxl-0">
     <article class="item-card item-card--big h-100">
-        <div class="row">
+        <div class="row h-100">
             <div class="col-10">
                 <div class="item-card_left">
                     <div class="row">

@@ -60,7 +60,7 @@ class EmissionVideoEditScreen extends Screen
      */
     public function name(): ?string
     {
-        return $this->emission->exists ? 'Edition emission video' : 'Nouvelle emission video';
+        return $this->emission->exists ? 'Edition émission video' : 'Nouvelle émission video';
     }
 
     /**

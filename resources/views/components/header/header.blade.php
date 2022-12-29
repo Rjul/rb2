@@ -52,4 +52,15 @@
             </div>
         </div>
     </nav>
+    @if(!empty($websiteNews))
+        <div id="header_annonce" class="text-container">
+            <span class="target ">
+                @foreach($websiteNews as $websiteNew)
+                    <h3># {{ $websiteNew->content }}</h3>
+                @endforeach
+            </span>
+            <div class="fader fader-left"></div>
+            <div class="fader fader-right"></div>
+        </div>
+    @endif
 </header>

@@ -4,8 +4,10 @@ declare(strict_types=1);
 
 namespace App\Orchid;
 
+use App\Models\Comment;
 use App\Models\Emission;
 use App\Models\Programme;
+use App\Models\WebsiteNew;
 use Orchid\Platform\Dashboard;
 use Orchid\Platform\ItemPermission;
 use Orchid\Platform\OrchidServiceProvider;
@@ -54,9 +56,12 @@ class PlatformProvider extends OrchidServiceProvider
                 ->list([
                     Menu::make('Liste emissions')->icon('list')
                     ->route('platform.emissions.list'),
-                    Menu::make('Nouveau article')->icon('notebook'),
-                    Menu::make('Nouveau audio')->icon('volume-2'),
-                    Menu::make('Nouvelle video')->icon('video'),
+                    Menu::make('Nouveau article')->icon('notebook')
+                        ->route('platform.emission.text.edit'),
+                    Menu::make('Nouveau audio')->icon('volume-2')
+                        ->route('platform.emission.edit'),
+                    Menu::make('Nouvelle video')->icon('video')
+                        ->route('platform.emission.video.edit'),
                 ]),
 
             Menu::make('Tags')
@@ -66,15 +71,17 @@ class PlatformProvider extends OrchidServiceProvider
             Menu::make('Commentaires')
                 ->title('Formulaires')
                 ->icon('layers')
-                ->route('platform.tag.list')
+                ->route('platform.comments.list')
                 ->badge(function () {
-                    return 2;
+                    return Comment::query()->selectRaw('COUNT(id) as count')
+                        ->where('approved', 0)->get()
+                        ->pluck('count')->first();
                 }),
             Menu::make('Annonces')
                 ->icon('layers')
                 ->route('platform.annonces.list')
                 ->badge(function () {
-                    return 1;
+                    return count(WebsiteNew::getActive());
                 }),
 
             Menu::make('Contacts')
