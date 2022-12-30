@@ -1,4 +1,4 @@
-<button type="button" style="z-index: 2" class="btn btn-header-login-modal" data-bs-toggle="modal" data-bs-target="#ModalForm">
+<button type="button" style="z-index: 999" class="btn btn-header-login-modal" data-bs-toggle="modal" data-bs-target="#ModalForm">
     <div class="icon-container">
         <svg xmlns="http://www.w3.org/2000/svg" width="42" height="42" fill="#608762" class="bi bi-person-circle" viewBox="0 0 16 16">
             <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
@@ -22,7 +22,11 @@
                             <label for="exampleInputPassword1" class="form-label">Mots de passe</label>
                             <input type="password" name="password" class="form-control" id="exampleInputPassword1">
                         </div>
-                        <div class="d-flex flex-wrap justify-content-around mb-3">
+                        <label for="remember_me" class="inline-flex items-center">
+                            <input id="remember_me" type="checkbox" class="rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500" name="remember">
+                            <span class="ml-2 text-sm text-gray-600">{{ __('Rester connecté') }}</span>
+                        </label>
+                        <div class="d-flex flex-wrap justify-content-around mb-3 pb-3">
                             <div class="flex items-center justify-end mt-4">
                                 <a href="{{ route('login.google') }}">
                                     <img src="/imgs/gg_logo.png" style="width: 45px; height: 45px;">
@@ -35,9 +39,13 @@
                             </div>
                         </div>
                         <button type="submit" class="btn btn-light mt-3">LOGIN</button>
-                        <p>Not a member? <a href="#">Signup now</a></p>
-{{--                        switch modal ??? --}}
+
                     </form>
+                    <a class="p-3" href="{{ route('password.request') }}">
+                        {{ __('Mots de passe oublié?') }}
+                    </a>
+                    <p class="p-3">Pas de compte? <a href="#">Créer un compte</a></p>
+                    {{--                        switch modal ??? --}}
                 </div>
             </div>
         </div>

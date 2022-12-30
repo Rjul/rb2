@@ -23,14 +23,14 @@
 
             </div>
             <div class="row mt-auto">
-                <div class="col-6 h-100">
-                    <div class="item-card--small_tag-wrapper">
+                <div class="col-9 h-100">
+                    <div class="item-card--small_tag-wrapper mt-3">
                         @foreach($emision->tags as $tag)
                             <x-tag :$tag :isLarge="false" ></x-tag>
                         @endforeach
                     </div>
                 </div>
-                <div class="col-6 h-100">
+                <div class="col-3 h-100">
                     <div class="item-card--small_cta-wrapper">
                         <a href="{{ route('view-emision', [ 'programme' => $emision->programme, 'emision' => $emision ]) }}" class="item-card--small_cta {{$emision->media_type}}">
                             @if ($emision->media_type == 'audio')

@@ -1,3 +1,3 @@
 <div>
-    {{ dump($tags) }}
+    @dump($tags)
 </div>
