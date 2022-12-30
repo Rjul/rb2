@@ -32,41 +32,41 @@ class PlatformProvider extends OrchidServiceProvider
     public function registerMainMenu(): array
     {
         return [
-            Menu::make('Accueil BO')
-                ->route('platform.main')
-                ->title('Navigation'),
-
             Menu::make('Accueil Site')
                 ->href('/')
                 ->divider(),
 
-            Menu::make('Groupe Programmes')
-                ->title('Contenues')
-                ->icon('handbag')
-                ->permission('platform.group.programme')
-                ->route('platform.group.programme.list'),
+            Menu::make('Liste emissions')->icon('list')
+                ->route('platform.emissions.list'),
+            Menu::make('Nouveau article')->icon('notebook')
+                ->route('platform.emission.text.edit'),
+            Menu::make('Nouveau audio')->icon('volume-2')
+                ->route('platform.emission.edit'),
+            Menu::make('Nouvelle video')->icon('video')
+                ->route('platform.emission.video.edit')->divider(),
 
-            Menu::make('Programmes')
-                ->icon('briefcase')
-                ->route('platform.programme.list'),
-
-            Menu::make('Emissions')
-                ->slug('emissions')
+            Menu::make('Contenues')
+                ->slug('contenues')
                 ->icon('arrow-down')
                 ->list([
-                    Menu::make('Liste emissions')->icon('list')
-                    ->route('platform.emissions.list'),
-                    Menu::make('Nouveau article')->icon('notebook')
-                        ->route('platform.emission.text.edit'),
-                    Menu::make('Nouveau audio')->icon('volume-2')
-                        ->route('platform.emission.edit'),
-                    Menu::make('Nouvelle video')->icon('video')
-                        ->route('platform.emission.video.edit'),
-                ]),
-
-            Menu::make('Tags')
-                ->icon('list')
-                ->route('platform.tag.list')->divider(),
+                    Menu::make('Groupes de Programme')
+                        ->title('Contenues')
+                        ->icon('handbag')
+                        ->permission('platform.group.programme')
+                        ->route('platform.group.programme.list'),
+                    Menu::make('Programmes')
+                        ->icon('briefcase')
+                        ->route('platform.programme.list'),
+                    Menu::make('Annonces')
+                        ->icon('layers')
+                        ->route('platform.annonces.list')
+                        ->badge(function () {
+                            return count(WebsiteNew::getActive());
+                        }),
+                    Menu::make('Tags')
+                        ->icon('list')
+                        ->route('platform.tag.list')
+                ])->divider(),
 
             Menu::make('Commentaires')
                 ->title('Formulaires')
@@ -77,12 +77,7 @@ class PlatformProvider extends OrchidServiceProvider
                         ->where('approved', 0)->get()
                         ->pluck('count')->first();
                 }),
-            Menu::make('Annonces')
-                ->icon('layers')
-                ->route('platform.annonces.list')
-                ->badge(function () {
-                    return count(WebsiteNew::getActive());
-                }),
+
 
             Menu::make('Contacts')
                 ->icon('layers')

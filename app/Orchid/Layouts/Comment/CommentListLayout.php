@@ -6,6 +6,8 @@ use App\Models\Comment;
 use App\Models\GroupProgramme;
 use App\Models\Programme;
 use App\Orchid\Actions\ApprovedAction;
+use Orchid\Icons\IconComponent;
+use Orchid\Icons\IconFinder;
 use Orchid\Screen\Actions\Link;
 use Orchid\Screen\Fields\Group;
 use Orchid\Screen\Fields\Select;
@@ -55,17 +57,17 @@ class CommentListLayout extends Table
                         0 => 'Non'
                     ]))
                 ->render(function (Comment $comment) {
-                    return Group::make([
-                            Link::make($comment->approved ? 'Oui' : 'Non')->route('platform.comment.approved', $comment),
-                            Link::make('Suprimmer')->route('platform.comment.delete', $comment),
-                        ]);
+                    return Link::make('')
+                        ->icon($comment->approved ? 'check' : 'close')
+                        ->route('platform.comment.approved', $comment);
                 }),
+            TD::make('delete', 'Supprimé')
+                ->render(function (Comment $comment) {
+                    return Link::make('')
+                        ->icon('trash')
+                        ->route('platform.comment.delete', $comment);
+            }),
 
-//            TD::make('tag.active', 'Active')
-//                ->sort()
-//                ->render(function (GroupProgramme $programme) {
-//                    return $programme->active ? 'Oui' : 'Non';
-//            }),
         ];
     }
 }

@@ -178,6 +178,7 @@ class Emision extends Model
      */
     protected $allowedFilters = [
         'programme_id',
+        'programme.name',
         'user_id',
         'name',
         'description',
@@ -202,6 +203,7 @@ class Emision extends Model
         'is_put_forward',
         'image',
         'active',
-        'active_at'
+        'active_at',
+        'programme.name'
     ];
 }

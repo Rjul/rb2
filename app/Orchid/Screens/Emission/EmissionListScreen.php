@@ -4,6 +4,7 @@ namespace App\Orchid\Screens\Emission;
 
 use App\Models\Emision as Emission;
 use App\Models\Programme;
+use App\Orchid\Filters\ProgrammeFilter;
 use App\Orchid\Layouts\Emissions\EmissionsListLayout;
 use App\Orchid\Layouts\Programme\ProgrammesListLayout;
 use Orchid\Platform\Models\User;
@@ -39,7 +40,7 @@ class EmissionListScreen extends Screen
     public function query(): array
     {
         return [
-            'emissions' => Emission::filters()->withAuthPermissions()->defaultSort('active_at')->paginate()
+            'emissions' => Emission::filters([ProgrammeFilter::class])->withAuthPermissions()->defaultSort('active_at', 'DESC')->paginate()
         ];
     }
 
@@ -49,6 +50,11 @@ class EmissionListScreen extends Screen
     public function name(): ?string
     {
         return 'Emissions';
+    }
+
+    public function with(): array
+    {
+        return ['programme'];
     }
 
     /**
