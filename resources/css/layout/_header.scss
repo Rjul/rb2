@@ -109,22 +109,6 @@
         top: 0;
         height: 100%;
         width: 25px;
-        &.fader-left {
-            left: 0;
-            background: linear-gradient(
-                    to left,
-                    rgba(255, 255, 255, 0),
-                    rgba(255, 255, 255, 1)
-            );
-        }
-        &.fader-right {
-            right: 0;
-            background: linear-gradient(
-                    to right,
-                    rgba(255, 255, 255, 0),
-                    rgba(255, 255, 255, 1)
-            );
-        }
     }
 
     @media (max-width: 450px) {

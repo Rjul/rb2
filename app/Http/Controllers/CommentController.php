@@ -14,6 +14,7 @@ class CommentController extends Controller
         $comment->update();
         return Redirect::back();
     }
+    
     public function delete($comment)
     {
         $comment->delete();

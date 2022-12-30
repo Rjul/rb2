@@ -52,6 +52,8 @@
             </div>
         </div>
     </nav>
+
+
     @if(!empty($websiteNews))
         <div id="header_annonce" class="text-container">
             <span class="target ">
@@ -64,3 +66,4 @@
         </div>
     @endif
 </header>
+<x-auth-login-modal></x-auth-login-modal>
