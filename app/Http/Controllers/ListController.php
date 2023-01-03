@@ -24,9 +24,9 @@ class ListController extends Controller
         }
         if (!is_null($tag)) {
             $emisions->whereHas('tags', function (Builder $query) use ($tag) {
-                return $query->where('slug->en', $tag ?? 0);
+                return $query->where('slug->fr', $tag ?? 0);
             });
-            $tag = Tag::query()->where('slug->en', $tag ?? 0)->limit(1)->get()->first();
+            $tag = Tag::query()->where('slug->fr', $tag ?? 0)->limit(1)->get()->first();
         }
         if (!is_null($type)) {
             $emisions

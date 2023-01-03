@@ -68,7 +68,7 @@ class SearchController extends Controller
     {
         collect($query)->each(function ($value) use ($model) {
             $model
-                ->where('name->en', 'LIKE' , '%'.$value.'%')
+                ->where('name->fr', 'LIKE' , '%'.$value.'%')
                 ->orWhere('description', 'LIKE' , '%'.$value.'%');
         });
         return $model;
