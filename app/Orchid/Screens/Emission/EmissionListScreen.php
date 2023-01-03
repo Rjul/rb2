@@ -73,12 +73,7 @@ class EmissionListScreen extends Screen
     public function commandBar(): array
     {
         return [
-            Link::make('Nouvelle emission')
-                ->icon('pencil')
-                ->route('platform.emission.edit'),
-            Link::make('Nouvelle emission video')
-                ->icon('pencil')
-                ->route('platform.emission.video.edit')
+
         ];
     }
 
