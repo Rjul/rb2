@@ -19,5 +19,5 @@
     <x-home-tags></x-home-tags>
 @endpush
 @push('scripts')
-    @vite('resources/js/homepage.js')
+{{--    @vite('resources/js/homepage.js')--}}
 @endpush
