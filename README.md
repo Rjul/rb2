@@ -1,5 +1,9 @@
 # rules
+## server cmd
+```bash
+git pull && sudo -u www-data php artisan cache:clear  && npm run build
 
+```
 ## Installation
 ```bash
 composer install && npm install && ./vendor/bin/sail up 
