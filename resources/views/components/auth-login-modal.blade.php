@@ -13,7 +13,8 @@
                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
                 <div class="myform">
                     <h2 class="text-center">Connection</h2>
-                    <form method="POST" action="{{ route('login') }}">
+                    <form method="post" action="{{ route('login') }}">
+                        @csrf
                         <div class="mb-3 mt-4">
                             <label for="exampleInputEmail1" class="form-label">Email</label>
                             <input type="email" name="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
