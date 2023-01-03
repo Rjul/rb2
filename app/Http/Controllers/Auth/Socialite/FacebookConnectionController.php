@@ -61,7 +61,7 @@ class FacebookConnectionController extends Controller
                 return redirect()->intended('dashboard');
             }
         } catch (Exception $e) {
-            Log::error(printf('Error login with google: %s', $e->getMessage()));
+            Log::error(printf('Error login with facebook: %s', $e->getMessage()));
         }
     }
 }
