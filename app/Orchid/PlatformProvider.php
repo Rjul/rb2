@@ -39,9 +39,9 @@ class PlatformProvider extends OrchidServiceProvider
 
             Menu::make('Liste emissions')->icon('list')
                 ->route('platform.emissions.list'),
-            Menu::make('Nouvelle article')->icon('notebook')
+            Menu::make('Nouvel article')->icon('notebook')
                 ->route('platform.emission.text.edit'),
-            Menu::make('Nouvelle audio')->icon('volume-2')
+            Menu::make('Nouvel audio')->icon('volume-2')
                 ->route('platform.emission.edit'),
             Menu::make('Nouvelle video')->icon('video')
                 ->route('platform.emission.video.edit')->divider(),
