@@ -58,7 +58,7 @@ class EmissionTextEditScreen extends Screen
      */
     public function name(): ?string
     {
-        return $this->emission->exists ? 'Edition émission texte' : 'Nouvelle émission texte';
+        return $this->emission->exists ? 'Edition article' : 'Nouvel article';
     }
 
     /**
