@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\Relations\MorphToMany;
+use Laravelista\Comments\Commentable;
 use Orchid\Attachment\Attachable;
 use Orchid\Filters\Filterable;
 use Orchid\Platform\Dashboard;
@@ -22,7 +23,7 @@ use Spatie\Translatable\HasTranslations;
 class Emision extends Model
 {
     use HasFactory, HasSlug, Attachable;
-    use AsSource, Filterable, HasTags;
+    use AsSource, Filterable, HasTags, Commentable;
 
     /**
      * Avalable type audio / video
