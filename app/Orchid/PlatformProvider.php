@@ -8,6 +8,7 @@ use App\Models\Comment;
 use App\Models\Emission;
 use App\Models\Programme;
 use App\Models\WebsiteNew;
+use Illuminate\Support\Facades\Schema;
 use Orchid\Platform\Dashboard;
 use Orchid\Platform\ItemPermission;
 use Orchid\Platform\OrchidServiceProvider;
@@ -119,19 +120,23 @@ class PlatformProvider extends OrchidServiceProvider
 
         // Todo extend permision item for auto include all programmes
         // type : ->addProgrammesPermission(Programme)
-        $programmes = Programme::all();
-        $programmesRoles = ItemPermission::group(__('Emissions'));
-        foreach ($programmes as $programme) {
-            $programmesRoles->addPermission('platform.emission.'.$programme->id, __($programme->name));
+        if (Schema::hasTable('programmes')) {
+            $programmes = Programme::all();
+            $programmesRoles = ItemPermission::group(__('Emissions'));
+            foreach ($programmes as $programme) {
+                $programmesRoles->addPermission('platform.emission.'.$programme->id, __($programme->name));
+            }
+            return [
+                ItemPermission::group(__('System'))
+                    ->addPermission('platform.systems.roles', __('Roles'))
+                    ->addPermission('platform.systems.users', __('Users')),
+                ItemPermission::group(__('Contenue'))
+                    ->addPermission('platform.group.programme', __('Groupe de programmes'))
+                    ->addPermission('platform.programmes', __('Tous Programmes')),
+                $programmesRoles,
+            ];
         }
-        return [
-            ItemPermission::group(__('System'))
-                ->addPermission('platform.systems.roles', __('Roles'))
-                ->addPermission('platform.systems.users', __('Users')),
-            ItemPermission::group(__('Contenue'))
-                ->addPermission('platform.group.programme', __('Groupe de programmes'))
-                ->addPermission('platform.programmes', __('Tous Programmes')),
-            $programmesRoles,
-        ];
+        else { return []; }
+
     }
 }

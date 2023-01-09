@@ -29,7 +29,6 @@ class ViewService extends ServiceProvider
      */
     public function boot()
     {
-        View::composer('components.header.header', HeaderComposer::class);
         Blade::component('last-home', LastHome::class);
         Blade::component('big-w-card', BigWCard::class);
         Blade::component('small-card', SmallCard::class);
