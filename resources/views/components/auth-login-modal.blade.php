@@ -1,4 +1,4 @@
-<button type="button" style="z-index: 999" class="btn btn-header-login-modal" data-bs-toggle="modal" data-bs-target="#ModalForm">
+<button type="button" style="z-index: 999" class="btn btn-header-login-modal" data-bs-toggle="modal" data-bs-target="#ModalFormLogin">
     <div class="icon-container">
         <svg xmlns="http://www.w3.org/2000/svg" width="42" height="42" fill="#608762" class="bi bi-person-circle" viewBox="0 0 16 16">
             <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
@@ -6,7 +6,7 @@
         </svg>
     </div>
 </button>
-<div class="modal fade" id="ModalForm" tabindex="-1" aria-labelledby="ModalFormLabel" aria-hidden="true">
+<div class="modal fade" id="ModalFormLogin" tabindex="-1" aria-labelledby="ModalFormLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-body">
@@ -46,6 +46,57 @@
                         {{ __('Mots de passe oublié?') }}
                     </a>
                     <p class="p-3">Pas de compte? <a href="#">Créer un compte</a></p>
+                    {{--                        switch modal ??? --}}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{{-- create modal in bootstap 5 for register and Link for open it --}}
+<button type="button" style="z-index: 999" class="btn btn-header-login-modal" data-bs-toggle="modal" data-bs-target="#ModalFormRegister">
+    <div class="icon-container">
+        <svg xmlns="http://www.w3.org/2000/svg" width="42" height="42" fill="#608762" class="bi bi-person-circle" viewBox="0 0 16 16">
+            <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
+            <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
+        </svg>
+    </div>
+</button>
+<div class="modal fade" id="ModalFormRegister" tabindex="-1" aria-labelledby="ModalFormRegisterLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-body" style="background-color: #608762">
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                <div class="myform">
+                    <h2 class="text-center">Inscription</h2>
+                    <form method="post" action="{{ route('register') }}">
+                        @csrf
+                        <div class="mb-3 mt-4">
+                            <label for="exampleInputEmail1" class="form-label" style="color: white">Email</label>
+                            <input type="email" name="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                        </div>
+                        <div class="mb-3">
+                            <label for="exampleInputPassword1" class="form-label" style="color: white">Mots de passe</label>
+                            <input type="password" name="password" class="form-control" id="exampleInputPassword1">
+                        </div>
+                        <div class="mb-3">
+                            <label for="exampleInputPassword1" class="form-label" style="color: white">Confirmation du mots de passe</label>
+                            <input type="password" name="password_confirmation" class="form-control" id="exampleInputPassword1">
+                        </div>
+                        <div class="d-flex flex-wrap justify-content-around mb-3 pb-3">
+                            <div class="flex items" style="color: white">
+                                <a href="{{ route('login.google') }}">
+                                    <img src="/imgs/gg_logo.png" style="width: 45px; height: 45px;">
+                                </a>
+                            </div>
+                            <div class="flex items" style="color: white">
+                                <a href="{{ route('login.facebook') }}">
+                                    <img src="/imgs/fb_logo.png" style="width: 45px; height: 45px;">
+                                </a>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-light mt-3">REGISTER</button>
+                    </form>
+                    <p class="p-3">Déjà un compte? <a href="#">Se connecter</a></p>
                     {{--                        switch modal ??? --}}
                 </div>
             </div>

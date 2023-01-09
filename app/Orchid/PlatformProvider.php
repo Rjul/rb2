@@ -39,19 +39,19 @@ class PlatformProvider extends OrchidServiceProvider
 
             Menu::make('Liste emissions')->icon('list')
                 ->route('platform.emissions.list'),
-            Menu::make('Nouveau article')->icon('notebook')
+            Menu::make('Nouvelle article')->icon('notebook')
                 ->route('platform.emission.text.edit'),
-            Menu::make('Nouveau audio')->icon('volume-2')
+            Menu::make('Nouvelle audio')->icon('volume-2')
                 ->route('platform.emission.edit'),
             Menu::make('Nouvelle video')->icon('video')
                 ->route('platform.emission.video.edit')->divider(),
 
-            Menu::make('Contenues')
-                ->slug('contenues')
+            Menu::make('Contenus administrables')
+                ->slug('contenus')
                 ->icon('arrow-down')
                 ->list([
                     Menu::make('Groupes de Programme')
-                        ->title('Contenues')
+                        ->title('Contenus')
                         ->icon('handbag')
                         ->permission('platform.group.programme')
                         ->route('platform.group.programme.list'),
