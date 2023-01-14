@@ -1,4 +1,4 @@
-<div class="{{ $suggestion ? 'col-12' : 'col-12 col-md-6 col-xxl-3' }}">
+<div class="{{ $suggestion ? 'col-12' : 'col-12 col-md-6 col-xxl-3' }} mb-3">
     <article class="item-card item-card--small h-100">
         <div class="item-card_left item-card--small_left h-100">
             <div class="row">
@@ -9,7 +9,7 @@
                              class="item-card_img item-card_img--small lazyload img-fluid">
                     </div>
                     @if ($emision->media_type == 'audio' or $emision->media_type == 'video')
-                        <div class="item-card_content_length--small mt-4">55:55</div>
+                        <div class="item-card_content_length--small mt-4">{{ $emision->duration }}</div>
                     @endif
 
                 </div>

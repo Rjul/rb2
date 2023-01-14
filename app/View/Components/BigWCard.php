@@ -9,14 +9,17 @@ class BigWCard extends Component
 {
 
     protected Emision $emision;
+
+    protected bool $isForTagHome;
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct($emision)
+    public function __construct($emision, $isForTagHome = false)
     {
         $this->emision = $emision;
+        $this->isForTagHome = $isForTagHome;
     }
 
     /**
@@ -27,7 +30,8 @@ class BigWCard extends Component
     public function render()
     {
         return view('components.cards.bid-w-card', [
-            "emision" => $this->emision
+            "emision" => $this->emision,
+            "isForTagHome" => $this->isForTagHome
         ]);
     }
 }

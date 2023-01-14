@@ -1,4 +1,4 @@
-<div class="col-12 col-xl-12 col-xxl-6 mb-3 mb-xxl-0">
+<div class="{{ $isForTagHome ? 'col-12 col-xl-6 col-xxl-6 mb-3' : 'col-12 col-xl-12 col-xxl-6 mb-3' }}">
     <article class="item-card item-card--big h-100">
         <div class="row h-100">
             <div class="col-10">
@@ -17,7 +17,7 @@
                                 <p class="item-card_content-txt--big">{{ Str::words(strip_tags(Str::limit($emision->description, 200))) }}</p>
 {{--                                <p class="item-card_content-txt--big">Lorem ipsum dolor sit amet, consectetuer adipi elit, sed diam nonummy nibh euismod tincidunt ut laoreet Lorem ipsum dolor sit amet, consectetuer adipi elit, sed diam nonummy nibh euismod tincidunt ut laoreet Lorem ipsum dolor sit amet, consectetuer adipi elit, sed diam nonummy nibh euismod tincidunt ut laoreet Lorem ipsum dolor sit amet, consectetuer adipi elit, sed diam nonummy nibh euismod tincidunt ut laoreet Lorem ipsum dolor sit amet, consectetuer adipi elit, sed diam nonummy nibh euismod tincidunt ut laoreet Lorem ipsum dolor sit amet, consectetuer adipi elit, sed diam nonummy nibh euismod tincidunt ut laoreet</p>--}}
                                 @if ($emision->media_type == 'audio' or $emision->media_type == 'video')
-                                    <div class="item-card_content_length--big">55:55</div>
+                                    <div class="item-card_content_length--big">{{ $emision->duration }}</div>
                                 @endif
                             </div>
                         </div>

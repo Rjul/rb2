@@ -21,6 +21,6 @@ class Tag extends \Spatie\Tags\Tag
 
     public static function getQueryByOrderCountEmisions(int $limit): Builder
     {
-        return self::withCount('emisions')->orderBy("emisions_count", "DESC")->limit(10);
+        return self::withCount('emisions')->orderBy("emisions_count", "DESC")->limit($limit);
     }
 }
