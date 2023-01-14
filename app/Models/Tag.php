@@ -15,6 +15,10 @@ class Tag extends \Spatie\Tags\Tag
         return $this->morphedByMany(Emision::class, 'taggable');
     }
 
+    public function emisionsLimites($limite = 10) {
+        return $this->emisions()->limit($limite)->get();
+    }
+
     public static function getQueryByOrderCountEmisions(int $limit): Builder
     {
         return self::withCount('emisions')->orderBy("emisions_count", "DESC")->limit(10);

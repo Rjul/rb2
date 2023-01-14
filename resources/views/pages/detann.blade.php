@@ -8,8 +8,8 @@
             <div class="row m-5">
                 <div class="col-12">
                     <ul class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="">Homepage</a></li>
-                        <li class="breadcrumb-item"><a href="">Programme</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route("homepage") }}">Accueil</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('list-programme', [$programme]) }}">Programme {{ $programme->name }}</a></li>
                     </ul>
                 </div>
                 <div class="col-12 col-md-6 col-xl-8 col-xxl-9">
