@@ -21,6 +21,31 @@
 
                         <img src="{{ $emision->image }}" class="img-full w-100" alt="...">
                     </div>
+
+                    <div class="detann__down_image" >
+                        <svg class="svg__flech" id="Calque_1" data-name="Calque 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 1080">
+                            <defs>
+                                <style>
+                                    .cls-1 {
+                                        fill: #000000;
+                                    }
+                                </style>
+                            </defs>
+                            <path id="Tracé_11" data-name="Tracé 11" class="cls-1" d="M342.89,770.24l-3.05-460.48,400.31,227.61-397.26,232.87Z"/>
+                        </svg>
+                        <svg class="svg__flech svg__flech_reversed" id="Calque_1" data-name="Calque 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 1080">
+                            <defs>
+                                <style>
+                                    .cls-1 {
+                                        fill: #000000;
+                                    }
+                                </style>
+                            </defs>
+                            <path id="Tracé_11" data-name="Tracé 11" class="cls-1" d="M342.89,770.24l-3.05-460.48,400.31,227.61-397.26,232.87Z"/>
+                        </svg>
+
+
+                    </div>
                     <p class="card-text">{{ $emision->description }}</p>
 
                     <div class="commentaire">
@@ -43,5 +68,5 @@
     </section>
 @endpush
 @push('scripts')
-    {{--    @vite('resources/js/homepage.js')--}}
+        @vite('resources/js/detann.js')
 @endpush
