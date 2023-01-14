@@ -14,15 +14,7 @@ class HomeTags extends Component
      */
     public function __construct()
     {
-
-        $this->tags = \App\Models\Tag::getQueryByOrderCountEmisions(8)
-            ->with([
-                'emisions' => function($query) {
-                    $query
-                        ->limit(6);
-                }
-            ])->get();
-
+        $this->tags = \App\Models\Tag::getQueryByOrderCountEmisions(8)->get();
     }
 
     /**

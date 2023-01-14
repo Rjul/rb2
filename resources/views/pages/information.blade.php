@@ -56,7 +56,7 @@
                 Notre site dépose deux « cookies » sur votre ordinateur, ils expirent au bout de 24 heures (vingt-quatre heures).
                 Ces deux petits fichiers informatiques ne contiennent aucune donnée personnelle. Ils ne permettent pas de tracer votre activité sur le net en
                 dehors de votre visite sur notre site.
-                Les information de navigation sur notre site ne sont transmises à aucune autre instance et sont traitées anonymement et en interne par le webmestre
+                Les informations de navigation sur notre site ne sont transmises à aucune autre instance et sont traitées anonymement et en interne par le webmestre
                 afin d’établir des statistiques de fréquentation du site et de mettre en évidence l’intérêt porté par nos visiteurs sur nos divers contenus.
             </div>
 
