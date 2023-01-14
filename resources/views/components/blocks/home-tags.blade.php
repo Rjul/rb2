@@ -1,10 +1,10 @@
 <div class="container">{{-- je voudrais un section avec des tabs clickables fait un bootstrap 5 please --}}
-
+    <h2>Sélection de thèmes</h2>
     <ul class="nav nav-pills mb-3 border-bottom text-center" id="pills-tab" role="tablist">
         @foreach($tags as $tag)
         <li class="nav-item" role="presentation">
             <button class="nav-link {{ $loop->first ? 'active' : '' }}" id="tag-home-{{ $tag->id }}" data-bs-toggle="pill" data-bs-target="#pills-home-{{ $tag->id }}"
-                    type="button" role="tab" aria-controls="pills-home-{{ $tag->id }}" aria-selected="{{ $loop->first ? 'true' : 'false' }}">{{ $tag->name }}</button>
+                    type="button" role="tab" aria-controls="pills-home-{{ $tag->id }}" aria-selected="{{ $loop->first ? 'true' : 'false' }}"><h3>{{ $tag->name }}</h3></button>
         </li>
         @endforeach
 
