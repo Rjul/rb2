@@ -40,7 +40,10 @@
             @stack('body')
         </main>
         <footer class="bg-tertiary">
-
+            <div class="footer_wrapper">
+                <img src="/imgs/Bastides_onde_footer.svg" alt="">
+                <img src="/imgs/Bastides_onde_footer.svg" alt="">
+            </div>
         </footer>
     </body>
 </html>
