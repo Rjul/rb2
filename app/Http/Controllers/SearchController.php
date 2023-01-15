@@ -17,6 +17,10 @@ class SearchController extends Controller
         return view('pages.list', [
             'emisions' => $this->searchEmision(Emision::query(), $request)
                 ->paginate(25)->appends($request->validated()),
+            'programme'         => null,
+            'tag'               => null,
+            'type'              => null,
+            'query'            => $request->input('query') ?? null,
         ]);
     }
 

@@ -37,6 +37,7 @@ class ListController extends Controller
             'programme'         => $programme,
             'tag'               => $tag,
             'type'              => $type,
+            'query'             => null,
             'emisions'          => $emisions->paginate(25)
         ]);
     }

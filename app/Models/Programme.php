@@ -34,6 +34,11 @@ class Programme extends Model
         return $this->hasMany(Emision::class);
     }
 
+    static public function allActiveEmisions()
+    {
+        return self::query()->where('active', true);
+    }
+
     public function scopeWithAuthPermissions(Builder $builder): Builder
     {
         $programmes_id = [];

@@ -3,17 +3,16 @@
 @push('body')
 
     <div class="app-container d-flex" >
-        <aside class="w-25 bg-black">
-
-
-        </aside>
-        <div class="section col-10 row gy-3">
+        <x-search-engine></x-search-engine>
+        <div class="section row gy-3 w-75">
             <section class="m-3">
                 @if ($programme)
-                    <h2>Decouvrer notre programme <strong>{{  $programme->name }}</strong></h2>
+                    <h2>Découvrez notre programme <strong>{{  $programme->name }}</strong></h2>
                 <span>{{  $programme->description }}</span>
+                @elseif($query)
+                    <h2>Nos articles et émissions correspondant à votre recherche <strong>{{ $query }}</strong></h2>
                 @elseif($tag)
-                    <h2>Decouvrer notre théme <strong>{{ $tag->getTranslation("name", "fr") }}</strong></h2>
+                    <h2>Découvrez notre théme <strong>{{ $tag->getTranslation("name", "fr") }}</strong></h2>
                 <span>{{ $tag->description }}</span>
                 @endif
             </section>

@@ -1,4 +1,4 @@
-<div class="container">{{-- je voudrais un section avec des tabs clickables fait un bootstrap 5 please --}}
+<div class="container">
     <h2>Sélection de thèmes</h2>
     <ul class="nav nav-pills mb-3 border-bottom text-center" id="pills-tab" role="tablist">
         @foreach($tags as $tag)
