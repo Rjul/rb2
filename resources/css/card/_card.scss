@@ -157,5 +157,38 @@
 }
 //xl
 .item-card--xl {
-  
+  padding: 38px 0 14px 42px;
+}
+.item-card--xl_left {
+  padding: 0;
+}
+.item-card_content-title--xl {
+  font-size: 3.9rem;
+  line-height: 4.1rem;
+  color: $primary;
+  margin-bottom: 11px;
+}
+.item-card_content-txt--xl {
+  font-size: 2.2rem;
+  line-height: 1;
+  color: $tertiary;
+}
+
+.item-card_content_length--xl {
+  text-align: center;
+  font-family: berlin;
+  margin: 3px 0 6px;
+  font-size: 3.9rem;
+  line-height: 4.5rem;
+  color: $tertiary;
+}
+.item-card--xl_tag-wrapper > .btn-tag {
+  margin-bottom: 23px;
+}
+.item-card--xl_cta-wrapper {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
