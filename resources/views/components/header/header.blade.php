@@ -45,25 +45,19 @@
                 </ul>
                 <x-header-search></x-header-search>
             </div>
-            <div id="mask-popup" class="mask-popup position-absolute">
-                <div id="place-suggestion" class="place-suggestion">
 
-                </div>
-            </div>
         </div>
     </nav>
-
-
-    @if(!empty($websiteNews))
-        <div id="header_annonce" class="text-container">
+</header>
+@if(!empty($websiteNews))
+    <div id="header_annonce" class="text-container">
             <span class="target ">
                 @foreach($websiteNews as $websiteNew)
                     <h3># {{ $websiteNew->content }}</h3>
                 @endforeach
             </span>
-            <div class="fader fader-left"></div>
-            <div class="fader fader-right"></div>
-        </div>
-    @endif
-</header>
+        <div class="fader fader-left"></div>
+        <div class="fader fader-right"></div>
+    </div>
+@endif
 <x-auth-login-modal></x-auth-login-modal>

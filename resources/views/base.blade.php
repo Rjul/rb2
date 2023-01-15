@@ -45,5 +45,7 @@
                 <img src="/imgs/bastides_onde_footer.svg" alt="">
             </div>
         </footer>
+        <!-- Modal -->
+        <x-modal></x-modal>
     </body>
 </html>

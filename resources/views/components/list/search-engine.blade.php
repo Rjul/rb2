@@ -1,54 +1,24 @@
 <aside class="w-md-25 w-25">
     <form action="{{ route('list-search') }}" method="get" class="d-flex flex-column">
-        <input type="text" name="q" placeholder="Search" value="{{ request('query') }}">
-
         <div class="accordion" id="accordionPanelsStayOpenExample">
             <div class="accordion-item">
-                <h2 class="accordion-header d-block">
-                    <button class="accordion-button fs-1" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-programmes" aria-expanded="true" aria-controls="panelsStayOpen-programmes">
-                        Nos Programmes
-                    </button>
-                </h2>
-                <div id="panelsStayOpen-programmes" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-programmes">
-                    <div class="accordion-body">
-                        <div class="form-check d-flex flex-wrap">
-                            @foreach($programmesSearch as $programmeSearch)
-                                <div class="position-relative ">
-                                    <label id="label-programme-{{ $programmeSearch->id }}" class="form-check fs-3 label btn btn--small btn-secondary
-                                        {{ in_array($programmeSearch->id, request('programmes', [])) ? 'active btn-tertiary' :
-                                                ($programmeSearch->id === request('programme', new \App\Models\Programme() )->id ?? false  ? 'active btn-tertiary' : '') }}
-                                        " for="programme-{{ $programmeSearch->id }}"
-                                        >
-                                        <input class="position-absolute check-box__elm-search-engin left right d-none" type="checkbox" name="programmes[]" value="{{ $programmeSearch->id }}" id="programme-{{ $programmeSearch->id }}"
-                                            {{ in_array($programmeSearch->id, request('programmes', [])) ? 'checked' :
-                                                ($programmeSearch->id === request('programme', new \App\Models\Programme() )->id ?? false  ? 'checked' : '') }}
-                                        >
-                                        {{ $programmeSearch->name }}
-                                    </label>
-                                </div>
-                            @endforeach
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="accordion-item">
                 <h2 class="accordion-header" id="panelsStayOpen-heading__themes">
-                    <button class="accordion-button fs-1 collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-themes" aria-expanded="false" aria-controls="panelsStayOpen-themes">
+                    <button class="accordion-button fs-1 collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-themes" aria-expanded="true" aria-controls="panelsStayOpen-themes">
                         Nos thèmes
                     </button>
                 </h2>
-                <div id="panelsStayOpen-themes" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-themes">
+                <div id="panelsStayOpen-themes" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-themes">
                     <div class="accordion-body">
                         <div class="form-check d-flex flex-wrap">
                             @foreach($tagsSearch as $tagSearch)
                                 <div class="position-relative ">
-                                    <label id="label-tag-{{ $tagSearch->id }}" class="form-check fs-3 label btn btn-secondary btn--small
-                                        {{ in_array($tagSearch->id, request('tags', [])) ? 'active btn-tertiary' :
-                                                ($tagSearch->slug === request('tag', new \App\Models\Tag() ) ?? false  ? 'active btn-tertiary' : '') }}
+                                    <label id="label-tag-{{ $tagSearch->id }}" class="form-check fs-4 label btn btn-primary btn--small
+                                        {{ in_array($tagSearch->id, request('tags_id', [])) ? 'active btn-secondary' :
+                                                ($tagSearch->slug === request('tag', new \App\Models\Tag() ) ?? false  ? 'active btn-secondary' : '') }}
                                         " for="tag-{{ $tagSearch->id }}"
                                     >
-                                        <input class="position-absolute check-box__elm-search-engin left right d-none" type="checkbox" name="tags[]" value="{{ $tagSearch->id }}" id="tag-{{ $tagSearch->id }}"
-                                            {{ in_array($tagSearch->id, request('tags', [])) ? 'checked' :
+                                        <input class="position-absolute check-box__elm-search-engin left right d-none" type="checkbox" name="tags_id[]" value="{{ $tagSearch->id }}" id="tag-{{ $tagSearch->id }}"
+                                            {{ in_array($tagSearch->id, request('tags_id', [])) ? 'checked' :
                                                 ($tagSearch->slug === request('tag', new \App\Models\Tag() ) ?? false  ? 'checked' : '') }}
                                         >
                                         {{ $tagSearch->name }}
@@ -59,6 +29,36 @@
                     </div>
                 </div>
             </div>
+
+            <div class="accordion-item">
+                <h2 class="accordion-header">
+                    <button class="accordion-button fs-1" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-programmes" aria-expanded="false" aria-controls="panelsStayOpen-programmes">
+                        Nos Programmes
+                    </button>
+                </h2>
+                <div id="panelsStayOpen-programmes" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-programmes">
+                    <div class="accordion-body">
+                        <div class="form-check d-flex flex-wrap">
+                            @foreach($programmesSearch as $programmeSearch)
+                                <div class="position-relative ">
+                                    <label id="label-programme-{{ $programmeSearch->id }}" class="form-check fs-4 label btn  btn-primary btn--small
+                                        {{ in_array($programmeSearch->id, request('programmes_id', [])) ? 'active btn-secondary' :
+                                                ($programmeSearch->id === request('programme', new \App\Models\Programme() )->id ?? false  ? 'active btn-secondary' : '') }}
+                                        " for="programme-{{ $programmeSearch->id }}"
+                                        >
+                                        <input class="position-absolute check-box__elm-search-engin left right d-none" type="checkbox" name="programmes_id[]" value="{{ $programmeSearch->id }}" id="programme-{{ $programmeSearch->id }}"
+                                            {{ in_array($programmeSearch->id, request('programmes_id', [])) ? 'checked' :
+                                                ($programmeSearch->id === request('programme', new \App\Models\Programme() )->id ?? false  ? 'checked' : '') }}
+                                        >
+                                        {{ $programmeSearch->name }}
+                                    </label>
+                                </div>
+                            @endforeach
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <div class="accordion-item">
                 <h2 class="accordion-header" id="panelsStayOpen-headingThree">
                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="false" aria-controls="panelsStayOpen-collapseThree">
