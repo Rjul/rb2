@@ -28,7 +28,17 @@ const initSuggestion = function () {
   let inputSuggestion = document.getElementById('input-suggestion');
   let placeSuggestion = document.getElementById('place-suggestion');
   let searchBtnElm    = document.getElementById('search-btn');
+  let btnSearchSuggestion = document.getElementById('btn__search-suggestion');
 
+  if (btnSearchSuggestion !== undefined && inputSuggestion !== undefined && placeSuggestion !== undefined) {
+    btnSearchSuggestion.addEventListener('click', (e) => {
+      console.log("click");
+      setTimeout(() => {
+        inputSuggestion.focus();
+
+      }, 500);
+    })
+  }
   if (inputSuggestion !== undefined) {
     inputSuggestion.addEventListener('input', function(e) {
       console.log('prout')
@@ -40,7 +50,6 @@ const initSuggestion = function () {
       } else {
         placeSuggestion.innerHTML = '';
       }
-
     })
   }
 }
