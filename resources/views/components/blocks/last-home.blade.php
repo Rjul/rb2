@@ -1,4 +1,4 @@
-<div class="relative d-flex flex-row mt-5 section-lasthome flex-wrap">
+<div class="relative d-flex flex-row mt-3 section-lasthome flex-wrap">
     <div>
         @if($type == "audio")
             <span class="home-card_big-title title__ecouter">Ecouter</span>

@@ -1,7 +1,5 @@
 <aside class="w-md-25 w-25">
     <form action="{{ route('list-search') }}" method="get" class="d-flex flex-column">
-        <input type="text" name="q" placeholder="Search" value="{{ request('query') }}">
-
         <div class="accordion" id="accordionPanelsStayOpenExample">
             <div class="accordion-item">
                 <h2 class="accordion-header" id="panelsStayOpen-heading__themes">
@@ -33,7 +31,7 @@
             </div>
 
             <div class="accordion-item">
-                <h2 class="accordion-header d-block">
+                <h2 class="accordion-header">
                     <button class="accordion-button fs-1" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-programmes" aria-expanded="false" aria-controls="panelsStayOpen-programmes">
                         Nos Programmes
                     </button>

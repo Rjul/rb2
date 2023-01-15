@@ -1,5 +1,5 @@
 <div id="suggestion--container" class="suggestion--container row">
-    <div class="suggestion-container-visible p-3 offset-sm-0 col-sm-12 offset-md-4 col-md-8 offset-xl-7 col-xl-5 row">
+    <div class="suggestion-container-visible p-3 row overflow-auto">
     @if(!$tags->isEmpty() | !$programmes->isEmpty() | !$groups_programme->isEmpty())
         <div class="suggestion__tag-container col-4">
             @if($tags)
@@ -32,7 +32,7 @@
     @endif
 
     @if($emisions)
-        <div class="suggestion--emissions-container col-8">
+        <div class="suggestion--emissions-container {{$tags->isEmpty() & $programmes->isEmpty() & $groups_programme->isEmpty() ? 'col-12' : 'col-8'}}">
             Nos Emissions
             <div class="mt-3">
             @foreach($emisions as $emision)
