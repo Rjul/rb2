@@ -5,7 +5,7 @@
         <div class="accordion" id="accordionPanelsStayOpenExample">
             <div class="accordion-item">
                 <h2 class="accordion-header d-block">
-                    <button class="accordion-button fs-2" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-programmes" aria-expanded="true" aria-controls="panelsStayOpen-programmes">
+                    <button class="accordion-button fs-1" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-programmes" aria-expanded="true" aria-controls="panelsStayOpen-programmes">
                         Nos Programmes
                     </button>
                 </h2>
@@ -14,9 +14,9 @@
                         <div class="form-check d-flex flex-wrap">
                             @foreach($programmesSearch as $programmeSearch)
                                 <div class="position-relative ">
-                                    <label id="label-programme-{{ $programmeSearch->id }}" class="form-check label btn btn-secondary btn--small
-                                        {{ in_array($programmeSearch->id, request('programmes', [])) ? 'active' :
-                                                ($programmeSearch->id === request('programme', new \App\Models\Programme() )->id ?? false  ? 'active' : '') }}
+                                    <label id="label-programme-{{ $programmeSearch->id }}" class="form-check fs-3 label btn btn--small btn-secondary
+                                        {{ in_array($programmeSearch->id, request('programmes', [])) ? 'active btn-tertiary' :
+                                                ($programmeSearch->id === request('programme', new \App\Models\Programme() )->id ?? false  ? 'active btn-tertiary' : '') }}
                                         " for="programme-{{ $programmeSearch->id }}"
                                         >
                                         <input class="position-absolute check-box__elm-search-engin left right d-none" type="checkbox" name="programmes[]" value="{{ $programmeSearch->id }}" id="programme-{{ $programmeSearch->id }}"
@@ -33,7 +33,7 @@
             </div>
             <div class="accordion-item">
                 <h2 class="accordion-header" id="panelsStayOpen-heading__themes">
-                    <button class="accordion-button fs-2 collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-themes" aria-expanded="false" aria-controls="panelsStayOpen-themes">
+                    <button class="accordion-button fs-1 collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-themes" aria-expanded="false" aria-controls="panelsStayOpen-themes">
                         Nos thèmes
                     </button>
                 </h2>
@@ -42,9 +42,9 @@
                         <div class="form-check d-flex flex-wrap">
                             @foreach($tagsSearch as $tagSearch)
                                 <div class="position-relative ">
-                                    <label id="label-tag-{{ $tagSearch->id }}" class="form-check label btn btn-secondary btn--small
-                                        {{ in_array($tagSearch->id, request('tags', [])) ? 'active' :
-                                                ($tagSearch->slug === request('tag', new \App\Models\Tag() ) ?? false  ? 'active' : '') }}
+                                    <label id="label-tag-{{ $tagSearch->id }}" class="form-check fs-3 label btn btn-secondary btn--small
+                                        {{ in_array($tagSearch->id, request('tags', [])) ? 'active btn-tertiary' :
+                                                ($tagSearch->slug === request('tag', new \App\Models\Tag() ) ?? false  ? 'active btn-tertiary' : '') }}
                                         " for="tag-{{ $tagSearch->id }}"
                                     >
                                         <input class="position-absolute check-box__elm-search-engin left right d-none" type="checkbox" name="tags[]" value="{{ $tagSearch->id }}" id="tag-{{ $tagSearch->id }}"
@@ -55,7 +55,8 @@
                                     </label>
                                 </div>
                             @endforeach
-                        </div>                    </div>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="accordion-item">
