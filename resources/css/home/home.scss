@@ -3,3 +3,34 @@
 @import "~bootstrap/scss/_variables";
 @import "~bootstrap/scss/_mixins";
 
+
+//section au programme
+.wavy-box {
+  padding: 30px 0 50px;
+}
+
+.home-prog_big-title {
+  font-family: 'berlin';
+  font-size: 6.9rem;
+  line-height: 1;
+  font-weight: 900;
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  transform: rotateZ(180deg) translateX(100%);
+  position: absolute;
+}
+.home-prog_big_item-wrapper {
+  display: flex;
+  justify-content: center;
+}
+.home-prog_big_item {
+  font-size: 2.6rem;
+  line-height: 3.1rem;
+  //margin: 0 28px;
+  &:not(:last-child) {
+    margin-bottom: 50px;
+    @include media-breakpoint-up(lg) {
+      margin-bottom: 108px;
+    }
+  }
+}
