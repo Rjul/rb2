@@ -19,7 +19,7 @@
                                                 ($programmeSearch->id === request('programme', new \App\Models\Programme() )->id ?? false  ? 'active' : '') }}
                                         " for="programme-{{ $programmeSearch->id }}"
                                         >
-                                        <input class="position-absolute check-box__elm-search-engin left right" type="checkbox" name="programmes[]" value="{{ $programmeSearch->id }}" id="programme-{{ $programmeSearch->id }}"
+                                        <input class="position-absolute check-box__elm-search-engin left right d-none" type="checkbox" name="programmes[]" value="{{ $programmeSearch->id }}" id="programme-{{ $programmeSearch->id }}"
                                             {{ in_array($programmeSearch->id, request('programmes', [])) ? 'checked' :
                                                 ($programmeSearch->id === request('programme', new \App\Models\Programme() )->id ?? false  ? 'checked' : '') }}
                                         >
@@ -47,7 +47,7 @@
                                                 ($tagSearch->slug === request('tag', new \App\Models\Tag() ) ?? false  ? 'active' : '') }}
                                         " for="tag-{{ $tagSearch->id }}"
                                     >
-                                        <input class="position-absolute check-box__elm-search-engin left right" type="checkbox" name="tags[]" value="{{ $tagSearch->id }}" id="tag-{{ $tagSearch->id }}"
+                                        <input class="position-absolute check-box__elm-search-engin left right d-none" type="checkbox" name="tags[]" value="{{ $tagSearch->id }}" id="tag-{{ $tagSearch->id }}"
                                             {{ in_array($tagSearch->id, request('tags', [])) ? 'checked' :
                                                 ($tagSearch->slug === request('tag', new \App\Models\Tag() ) ?? false  ? 'checked' : '') }}
                                         >
