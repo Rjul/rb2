@@ -15,6 +15,7 @@ export default defineConfig({
         laravel({
             input: [
                 'resources/js/main.js',
+                'resources/js/detann.js',
                 'resources/js/admin/admin.js',
                 'resources/js/home/home.js',
             ],
