@@ -44,12 +44,12 @@
                                 <div class="position-relative ">
                                     <label id="label-tag-{{ $tagSearch->id }}" class="form-check label btn btn-secondary btn--small
                                         {{ in_array($tagSearch->id, request('tags', [])) ? 'active' :
-                                                ($tagSearch->id === request('tag', new \App\Models\Tag() )->id ?? false  ? 'active' : '') }}
+                                                ($tagSearch->slug === request('tag', new \App\Models\Tag() ) ?? false  ? 'active' : '') }}
                                         " for="tag-{{ $tagSearch->id }}"
                                     >
                                         <input class="position-absolute check-box__elm-search-engin left right" type="checkbox" name="tags[]" value="{{ $tagSearch->id }}" id="tag-{{ $tagSearch->id }}"
                                             {{ in_array($tagSearch->id, request('tags', [])) ? 'checked' :
-                                                ($tagSearch->id === request('tag', new \App\Models\Tag() )->id ?? false  ? 'checked' : '') }}
+                                                ($tagSearch->slug === request('tag', new \App\Models\Tag() ) ?? false  ? 'checked' : '') }}
                                         >
                                         {{ $tagSearch->name }}
                                     </label>
