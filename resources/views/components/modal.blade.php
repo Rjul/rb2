@@ -1,6 +1,6 @@
 <div class="modal fade" id="exampleModal" tabindex="99" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-xl">
-        <div class="modal-content">
+        <div class="modal-content mw-100">
             <div class="modal-header w-100">
                 <div class="m-3 d-flex align-items-end">
                     <label class="modal-title" id="exampleModalLabel">Recherche</label>
