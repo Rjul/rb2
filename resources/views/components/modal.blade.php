@@ -11,15 +11,12 @@
                             </svg>
                         </i>
                     </button>
-
                 </div>
                 <button type="button" class="btn-close p-3" data-bs-dismiss="modal" aria-label="Close"></button>
-
             </div>
             <div class="modal-body">
-
                 <div id="place-suggestion" class="p-3">
-
+{{--                    Insert suggestion here with resources/js/header/suggestion.js --}}
                 </div>
             </div>
         </div>
