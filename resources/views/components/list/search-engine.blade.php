@@ -102,33 +102,31 @@
                     </div>
                 </div>
 
-            <h2 class="accordion-header" id="panelsStayOpen-heading__duration">
-                <button class="accordion-button fs-1 collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-duration" aria-expanded="true" aria-controls="panelsStayOpen-duration">
-                    Durée
-                </button>
-            </h2>
-            <div id="panelsStayOpen-duration" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-duration">
-                <div class="accordion-body">
-                    <div class="d-flex flex-wrap">
-                        @foreach($durations as $key => $duration)
-                            <div class="position-relative m-1 ">
-                                <label id="label-tag-{{ $duration }}" class="label-search-facet-elms flex-center h-100 form-check fs-4 label btn btn-primary btn--small
-                                        {{ in_array($duration, request('duration', [])) ? ' active border border-success border-3' : '' }}
-                                        " for="duration-{{ $duration }}"
-                                >
-                                    <input class="position-absolute check-box__elm-search-engin check-box__elm-duration-search-engin left right d-none" type="checkbox" name="duration[]" value="{{ $duration }}" id="duration-{{ $duration }}"
-                                        {{ in_array($duration, request('duration', [])) ? 'checked' : '' }}
+                <h2 class="accordion-header" id="panelsStayOpen-heading__duration">
+                    <button class="accordion-button fs-1 collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-duration" aria-expanded="true" aria-controls="panelsStayOpen-duration">
+                        Durée
+                    </button>
+                </h2>
+                <div id="panelsStayOpen-duration" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-duration">
+                    <div class="accordion-body">
+                        <div class="d-flex flex-wrap">
+                            @foreach($durations as $key => $duration)
+                                <div class="position-relative m-1 ">
+                                    <label id="label-tag-{{ $duration }}" class="label-search-facet-elms flex-center h-100 form-check fs-4 label btn btn-primary btn--small
+                                            {{ in_array($duration, request('duration', [])) ? ' active border border-success border-3' : '' }}
+                                            " for="duration-{{ $duration }}"
                                     >
-                                    <div class="">{{ $key }}</div>
-                                </label>
-                            </div>
-                        @endforeach
+                                        <input class="position-absolute check-box__elm-search-engin check-box__elm-duration-search-engin left right d-none" type="checkbox" name="duration[]" value="{{ $duration }}" id="duration-{{ $duration }}"
+                                            {{ in_array($duration, request('duration', [])) ? 'checked' : '' }}
+                                        >
+                                        <div class="">{{ $key }}</div>
+                                    </label>
+                                </div>
+                            @endforeach
+                        </div>
                     </div>
                 </div>
             </div>
-
-
         </div>
-
     </form>
 </aside>
