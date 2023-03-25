@@ -18,7 +18,6 @@
                         <h3 class="item-card_content-title--small">{{ $emision->name }}</h3>
                         <p class="item-card_content-txt--small">{{ Str::words(strip_tags(Str::limit($emision->description, 200))) }}</p>
                     </div>
-
                 </div>
 
             </div>

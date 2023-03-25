@@ -65,6 +65,12 @@ class SearchController extends Controller
         if ($request->has('groups_programme_id')) {
             $emisions = $this->searchByGroupsProgramme($emisions, $request);
         }
+        if ($request->has('type')) {
+            $emisions = $this->searchByType($emisions, $request);
+        }
+        if ($request->has('duration')) {
+            $emisions = $this->searchByDuration($emisions, $request);
+        }
         return $emisions;
     }
 
@@ -84,6 +90,31 @@ class SearchController extends Controller
             $model
                 ->where('name', 'LIKE' , '%'.$value.'%')
                 ->orWhere('description', 'LIKE' , '%'.$value.'%');
+        });
+        return $model;
+    }
+
+    private function searchByType(Builder $model, SearchRequest $request): Builder
+    {
+        collect($request->get('type'))->each(function ($value, $key) use ($model) {
+            if ($key === 0) {
+                $model
+                    ->where('media_type', $value);
+            } else {
+                $model
+                    ->orWhere('media_type', $value);
+            }
+        });
+        return $model;
+    }
+
+    private function searchByDuration(Builder $model, SearchRequest $request): Builder
+    {
+        collect($request->get('duration'))->each(function ($value, $key) use ($model) {
+            if ($key === 0) {
+                $model
+                    ->where('duration', '<',  $value);
+            }
         });
         return $model;
     }

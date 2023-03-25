@@ -7,7 +7,11 @@ import './homepage'
 
 //global scss
 import "../css/main.scss";
+import Alpine from 'alpinejs'
 
+window.Alpine = Alpine
+
+Alpine.start()
 
 // Anime text annonce sous header
 let containerAnnonces = document.querySelector("#header_annonce");

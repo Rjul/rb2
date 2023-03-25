@@ -25,6 +25,10 @@ class Emision extends Model
     use HasFactory, HasSlug, Attachable;
     use AsSource, Filterable, HasTags, Commentable;
 
+    const TYPE_TEXT = 'text';
+    const TYPE_AUDIO = 'audio';
+    const TYPE_VIDEO = 'video';
+
     /**
      * Avalable type audio / video
      * @Todo voir pour le contenue text

@@ -2,6 +2,7 @@
 
 namespace App\View\Components;
 
+use App\Models\Emision;
 use App\Models\Programme;
 use Illuminate\View\Component;
 
@@ -10,11 +11,11 @@ class SearchEngine extends Component
 
     public $programmesSearch;
 
-    public $type;
+    public $types;
 
     public $tagsSearch;
 
-    public $duration;
+    public $durations;
 
     /**
      * Create a new component instance.
@@ -25,6 +26,16 @@ class SearchEngine extends Component
     {
         $this->programmesSearch = Programme::allActiveEmisions()->get();
         $this->tagsSearch = \App\Models\Tag::all();
+        $this->types = [
+            'Audio' => Emision::TYPE_AUDIO,
+            'Video' => Emision::TYPE_VIDEO,
+            'Article' => Emision::TYPE_TEXT
+        ];
+        $this->durations = [
+            'Moins de 5 minutes' => 5.01,
+            'Moins de 15 minutes' => 15.01,
+            'Moins de 30 minutes' => 30.01
+        ];
     }
 
     /**
