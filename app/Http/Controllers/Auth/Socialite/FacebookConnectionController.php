@@ -39,14 +39,14 @@ class FacebookConnectionController extends Controller
             if ($finduser) {
 
                 Auth::login($finduser);
-                return redirect()->intended('dashboard');
+                return redirect()->intended();
 
             }
             $finduser = User::where('email', $user->email)->first();
 
             if ($finduser) {
                 Auth::login($finduser);
-                return redirect()->intended('dashboard');
+                return redirect()->intended();
             }
             else {
 
@@ -58,7 +58,7 @@ class FacebookConnectionController extends Controller
                 ]);
 
                 Auth::login($newUser);
-                return redirect()->intended('dashboard');
+                return redirect()->intended();
             }
         } catch (Exception $e) {
             Log::error(printf('Error login with facebook: %s', $e->getMessage()));
