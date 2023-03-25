@@ -18,6 +18,8 @@ export default defineConfig({
                 'resources/js/detann.js',
                 'resources/js/admin/admin.js',
                 'resources/js/home/home.js',
+                'resources/js/list/search.js',
+
             ],
             refresh: true,
         }),

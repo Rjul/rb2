@@ -6,6 +6,14 @@ use PHPUnit\Framework\TestCase;
 
 class ExampleTest extends TestCase
 {
+
+    public function up_database_testing()
+    {
+        // Create a test database
+        // Create a test user
+        // Create a test table
+        // Create a test record
+    }
     /**
      * A basic test example.
      *

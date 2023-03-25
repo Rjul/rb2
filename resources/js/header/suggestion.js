@@ -4,7 +4,6 @@ const fetchSuggestion = async function(query) {
   return await fetch('/api/recherche/suggestion?query='+encodeURI(query) , {
     method: "get",
   }).then((response) => response.text() )
-
 }
 
 const locationSearch = function () {
@@ -25,35 +24,32 @@ const locationSearch = function () {
 }
 
 const initSuggestion = function () {
-  let inputSuggestion = document.getElementById('input-suggestion');
-  let placeSuggestion = document.getElementById('place-suggestion');
+  let inputSuggestionElm = document.getElementById('input-suggestion');
+  let placeSuggestionElm = document.getElementById('place-suggestion');
   let searchBtnElm    = document.getElementById('search-btn');
-  let btnSearchSuggestion = document.getElementById('btn__search-suggestion');
+  let btnSearchSuggestionElm = document.getElementById('btn__search-suggestion');
 
-  if (btnSearchSuggestion !== undefined && inputSuggestion !== undefined && placeSuggestion !== undefined) {
-    btnSearchSuggestion.addEventListener('click', (e) => {
-      console.log("click");
+  if (btnSearchSuggestionElm !== undefined && inputSuggestionElm !== undefined && placeSuggestionElm !== undefined) {
+    btnSearchSuggestionElm.addEventListener('click', (e) => {
       setTimeout(() => {
-        inputSuggestion.focus();
+        inputSuggestionElm.focus();
 
       }, 500);
     })
   }
-  if (inputSuggestion !== undefined) {
-    inputSuggestion.addEventListener('input', function(e) {
-      console.log('prout')
-      if (inputSuggestion.value.length > 1 && inputSuggestion.value.length < 55) {
-        fetchSuggestion(inputSuggestion.value).then((response) => {
-          placeSuggestion.innerHTML = response;
+  if (inputSuggestionElm !== undefined) {
+    inputSuggestionElm.addEventListener('input', function(e) {
+      if (inputSuggestionElm.value.length > 1 && inputSuggestionElm.value.length < 55) {
+        fetchSuggestion(inputSuggestionElm.value).then((response) => {
+          placeSuggestionElm.innerHTML = response;
             e.stopPropagation();
           })
       } else {
-        placeSuggestion.innerHTML = '';
+        placeSuggestionElm.innerHTML = '';
       }
     })
   }
 }
-
 document.addEventListener('DOMContentLoaded', () => {
   initSuggestion()
   locationSearch()

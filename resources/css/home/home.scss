@@ -20,7 +20,7 @@
   position: absolute;
 }
 .home-prog_big_item-wrapper {
-  display: flex;
+  //display: flex;
   justify-content: center;
 }
 .home-prog_big_item {
@@ -28,9 +28,9 @@
   line-height: 3.1rem;
   //margin: 0 28px;
   &:not(:last-child) {
-    margin-bottom: 50px;
+    //margin-bottom: 50px;
     @include media-breakpoint-up(lg) {
-      margin-bottom: 108px;
+      //margin-bottom: 108px;
     }
   }
 }

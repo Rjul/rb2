@@ -1,4 +1,7 @@
 <aside class="w-md-25 w-25">
+    @push('scripts')
+        @vite(['resources/js/list/search.js'])
+    @endpush
     <form action="{{ route('list-search') }}" method="get" class="d-flex flex-column">
         <div class="accordion" id="accordionPanelsStayOpenExample">
             <div class="accordion-item">
