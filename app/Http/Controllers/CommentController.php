@@ -8,14 +8,14 @@ use Illuminate\Support\Facades\Redirect;
 
 class CommentController extends Controller
 {
-    public function inverseApproved($comment)
+    public function inverseApproved($comment): \Illuminate\Http\RedirectResponse
     {
         $comment->approved = !$comment->approved;
         $comment->update();
         return Redirect::back();
     }
-    
-    public function delete($comment)
+
+    public function delete($comment): \Illuminate\Http\RedirectResponse
     {
         $comment->delete();
         return Redirect::back();

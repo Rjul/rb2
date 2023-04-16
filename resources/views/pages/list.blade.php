@@ -4,7 +4,8 @@
 
     <div class="app-container d-flex" >
         <x-search-engine></x-search-engine>
-        <div class="section row gy-3 w-75">
+        <div class="section row gy-3 mt-2 w-75">
+            @if ($programme || $query || $tag)
             <section class="m-3">
                 @if ($programme)
                     <h2>Découvrez notre programme <strong>{{  $programme->name }}</strong></h2>
@@ -16,11 +17,13 @@
                 <span>{{ $tag->description }}</span>
                 @endif
             </section>
+            @endif
+            <section class="p-3 mt-2 row">
             @foreach($emisions as $emision)
-{{--                <x-small-card :$emision ></x-small-card>--}}
-                <x-big-w-card :$emision></x-big-w-card>
+                <x-small-card :$emision ></x-small-card>
+{{--                <x-big-w-card :$emision></x-big-w-card>--}}
             @endforeach
-
+            </section>
             <div class="section text-center">
                 <div>
                 {{ $emisions->render() }}
