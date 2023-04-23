@@ -53,3 +53,8 @@
     }
   }
 }
+.m-sm-o {
+  @include media-breakpoint-down(md) {
+    margin: 0;
+  }
+}

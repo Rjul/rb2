@@ -15,7 +15,7 @@
                 <div class="col-12 col-xl-6">
                     <div class="row">
                     @foreach($emisions as $emision)
-                        <button class="btn btn-sm btn-primary row-cols-xl-1 rounded-5 m-5 btn-home_tag_card-selector {{ $loop->first ? 'selected' : '' }}" type="button" data-bs-toggle="collapse" data-bs-target="#multiCollapseCard{{ $loop->index }}" aria-expanded="{{ $loop->first ? 'true' : 'false' }}" aria-controls="#multiCollapseCard{{ $loop->index }}">
+                        <button class="btn btn-sm btn-primary row-cols-xl-1 rounded-5 mt-5 mb-5 btn-home_tag_card-selector {{ $loop->first ? 'selected' : '' }}" type="button" data-bs-toggle="collapse" data-bs-target="#multiCollapseCard{{ $loop->index }}" aria-expanded="{{ $loop->first ? 'true' : 'false' }}" aria-controls="#multiCollapseCard{{ $loop->index }}">
                             <a class=" text-start text-secondary home-prog_big_item " href="#">{{ $emision->programme->name }}</a>
                             <a class=" text-end text-white home-prog_big_item strong" href="{{ route('view-emision', [ 'programme' => $emision->programme, 'emision' => $emision ]) }}">{{ $emision->name }}</a>
                         </button>
