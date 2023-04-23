@@ -1,5 +1,5 @@
 <div class="mb-3">
-    <article class="item-card item-card--tag-card p-sm-3 p-md-3">
+    <article class="item-card item-card--tag-card h-100 p-sm-3 p-md-3">
         <div class="item-card_left item-card--xl_left h-100">
             <div class="row">
                 <div class="col-sm-6 col-12 ">
