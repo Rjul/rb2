@@ -192,3 +192,45 @@
   justify-content: center;
   align-items: center;
 }
+.item-card--xl_cta {
+  margin-top: 2.6rem;
+  font-weight: 900;
+  font-size: 1.6rem;
+  line-height: 2rem;
+  padding: 6px 12px;
+  transition: $transition-sexy;
+  border-radius: 3px;
+  color: $white;
+
+  &.audio {
+    background-color: $primary;
+    border: 2px solid $primary;
+    &:hover, &:focus {
+      color: $primary;
+      background-color: transparent;
+    }
+  }
+  &.text {
+    background-color: $secondary;
+    border: 2px solid $secondary;
+    &:hover, &:focus {
+      color: $secondary;
+      background-color: transparent;
+    }
+  }
+  &.video {
+    background-color: $tertiary;
+    border: 2px solid $tertiary;
+    &:hover, &:focus {
+      color: $tertiary;
+      background-color: transparent;
+    }
+  }
+}
+
+.item-card--tag-card {
+  padding: 20px;
+}
+.lower-margin {
+  margin: -2px;
+}
