@@ -1,4 +1,4 @@
-<div class="{{ $suggestion ? 'col-12' : 'col-12 col-md-6 col-xxl-4' }} mb-3">
+<div class="{{ $suggestion ? 'col-12' : 'col-12 col-md-6 col-xxl-3' }} mb-3">
     <article class="item-card item-card--small h-100">
         <div class="item-card_left item-card--small_left h-100">
             <div class="row">
