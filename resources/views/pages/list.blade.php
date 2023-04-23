@@ -4,7 +4,7 @@
 
     <div class="app-container d-flex" >
         <x-search-engine></x-search-engine>
-        <div class="section row gy-3 mt-2 w-75">
+        <div class="section gy-3 mt-2 w-75">
             @if ($programme || $query || $tag)
             <section class="m-3">
                 @if ($programme)
