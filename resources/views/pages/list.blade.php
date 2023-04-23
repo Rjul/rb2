@@ -20,8 +20,8 @@
             @endif
             <section class="p-3 mt-2 row">
             @foreach($emisions as $emision)
-                <x-small-card :$emision ></x-small-card>
-{{--                <x-big-w-card :$emision></x-big-w-card>--}}
+{{--                <x-small-card :$emision ></x-small-card>--}}
+                <x-big-w-card :$emision></x-big-w-card>
             @endforeach
             </section>
             <div class="section text-center">
