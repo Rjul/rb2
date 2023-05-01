@@ -13,6 +13,8 @@
         "laravel/socialite": "^5.5",
         "laravel/tinker": "^2.7",
         "laravelista/comments": "dev-master",
+        "league/flysystem-ftp": "^3.0",
+        "league/flysystem-sftp-v3": "^3.0",
         "opcodesio/log-viewer": "^1.7",
         "orchid/platform": "^13.2",
         "spatie/laravel-sluggable": "^3.4",

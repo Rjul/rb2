@@ -60,11 +60,20 @@ return [
         ],
 
         'emission_video' => [
-            'driver' => 'local',
-            'root' => storage_path('app/public/emission/video'),
-            'url' => env('APP_URL').'/storage/public/emission/video',
+            'driver' => 'ftp',
+            'host' => env('FTP_HOST'),
+            'port' => env('FTP_PORT', 21),
+            'username' => env('FTP_USERNAME'),
+            'password' => env('FTP_PASSWORD'),
+            'maxTries' => 4,
+            'root' => env('SFTP_ROOT', '/mnt/ee75587c-11ba-4f43-94ae-0c3a6ab6fee6/storage'),
+            'url' => env('STORAGE_URL'),
+            'public' => true,
             'visibility' => 'public',
-            'throw' => false,
+            'directory_visibility' => 'public',
+            'timeout' => 30,
+            'useAgent' => true,
+            'throw' => true,
         ],
 
         's3' => [
