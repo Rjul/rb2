@@ -153,14 +153,6 @@ class EmissionVideoEditScreen extends Screen
                         ->media()
 //                        ->acceptedFiles(env('FORMAT_VIDEO_ACCEPT'))
                     ,
-//                    Upload::make('media')
-//                        ->storage('emission_audio')
-//                        ->id('media-audio')
-//                        ->maxFiles(1)
-//                        ->groups('audio')
-//                        ->media()
-//                        ->acceptedFiles(env('FORMAT_AUDIO_ACCEPT'))
-//                    ,
 
                     Input::make('emission.duration')
                         ->type('number')
@@ -169,10 +161,7 @@ class EmissionVideoEditScreen extends Screen
                         ->step(.01)
                         ->required()
                         ->title('Temps pour consulter en minutes')
-
                         ->pattern( '^[0-9]{1,3}(.[0-5])?([0-9])?$'),
-
-
 
                     Input::make('emission.media_type')
                                     ->hidden(true)

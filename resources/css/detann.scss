@@ -1,8 +1,27 @@
-svg__flech_reversed {
+.detann__down_image {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.svg__flech_reversed {
   transform: rotate(180deg);
 }
-svg__flech {
-  width: 30px;
-  height: 30px;
+.svg__flech {
+  width: 8rem;
+  height: 8rem;
   fill: #000;
+}
+.article__administrable_content {
+  img, iframe {
+    width: 100%;
+    height: auto;
+  }
+  iframe {
+    height: calc((100vw * 0.5625) - 400px);
+    @media screen and (max-width: 768px) {
+      height: calc(100vw * 0.5625);
+    }
+  }
+
 }
