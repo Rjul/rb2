@@ -17,7 +17,7 @@
                 <button data-bs-toggle="modal" data-bs-target="#comment-modal-{{ $comment->getKey() }}" class="btn btn--small text-black text-uppercase">Modifier</button>
             @endcan
             @can('delete-comment', $comment)
-                <a href="{{ route('comments.destroy', $comment->getKey()) }}" onclick="event.preventDefault();document.getElementById('comment-delete-form-{{ $comment->getKey() }}').submit();" class="btn btn-sm btn-link text-danger text-uppercase">@lang('comments::comments.delete')</a>
+                <a href="{{ route('comments.destroy', $comment->getKey()) }}" onclick="event.preventDefault();document.getElementById('comment-delete-form-{{ $comment->getKey() }}').submit();" class="btn btn-danger btn--small text-black text-uppercase text-danger text-uppercase">Supprimer</a>
                 <form id="comment-delete-form-{{ $comment->getKey() }}" action="{{ route('comments.destroy', $comment->getKey()) }}" method="POST" style="display: none;">
                     @method('DELETE')
                     @csrf
