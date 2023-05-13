@@ -66,7 +66,7 @@
                                 </div>
                             </div>
                             <div class="modal-footer">
-                                <button type="submit" class="btn btn-sm btn-outline-success text-uppercase">Répondre</button>
+                                <button type="submit" class="btn btn-primary text-white btn--small text-black text-uppercase">Répondre</button>
                             </div>
                         </form>
                     </div>
