@@ -28,7 +28,7 @@
 
                     <section class="detann__down_image mt-5">
                         <h2 class="m-3 h1">Poursuivre parmi les émissions du programme <u>{{ $emision->programme->name }}</u></h2>
-                        <div class="d-flex flex-row justify-content-around align-items-center">
+                        <div class="d-flex w-100 flex-row justify-content-around align-items-center">
                             <div class="detann__next-and-preview">
                                 <h3 class="detann__next_title h2">{{ $emision->name }}</h3>
                                 <svg class="svg__flech svg__flech_reversed" id="Calque_1" data-name="Calque 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 1080">

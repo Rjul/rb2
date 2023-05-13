@@ -25,7 +25,11 @@
 }
 
 .detann__down_image {
-
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   .detann__next-and-preview {
     display: flex;
     justify-content: space-around;
