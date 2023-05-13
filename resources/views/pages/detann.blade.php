@@ -15,11 +15,11 @@
                 <div class="col-12 col-md-6 col-xl-8 col-xxl-9">
 
                     <div class="img-full">
-                        <div class="w-100" style="background: #0D2520 0% 0% no-repeat padding-box;">
-                            <h2 class="card-title text-center">{{ $emision->name }}</h2>
+                        <div class="w-100">
+                            <h1 class="detann__title text-center rounded-top {{ $emision->media_type }}">{{ $emision->name }}</h1>
                         </div>
 
-                        <img src="{{ $emision->image }}" class="img-full w-100" alt="...">
+                        <img src="{{ $emision->image }}" class="img-full w-100 rounded-bottom" alt="...">
                     </div>
                     <section class="article__administrable_content">
                         <p class="card-text">{!! $emision->description !!}</p>
