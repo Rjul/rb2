@@ -22,7 +22,7 @@
                     Un message est requis.
                 </div>
             </div>
-            <button type="submit" class="btn btn-primary text-uppercase">Envoyer</button>
+            <button type="submit" class="btn btn-primary btn--small btn-outline m-3 text-uppercase">Envoyer</button>
         </form>
     </div>
 </div>
