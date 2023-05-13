@@ -1,5 +1,5 @@
 @auth()
-<a href="{{ route('profile.edit') }}" style="z-index: 999" class="btn btn-header-login-modal">
+<a href="{{ route('profile.edit') }}" style="z-index: 999" class="btn btn-header-login-modal  btn-header-login-modal-style">
     <div class="icon-container">
         <svg xmlns="http://www.w3.org/2000/svg" width="42" height="42" fill="#608762" class="bi bi-person-circle" viewBox="0 0 16 16">
             <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
@@ -9,7 +9,7 @@
 </a>
 @endauth
 @guest()
-<button type="button" style="z-index: 999" class="btn btn-header-login-modal" data-bs-toggle="modal" data-bs-target="#ModalFormLogin">
+<button type="button" style="z-index: 999" class="btn btn-header-login-modal btn-header-login-modal-style" data-bs-toggle="modal" data-bs-target="#ModalFormLogin">
     <div class="icon-container">
         <svg xmlns="http://www.w3.org/2000/svg" width="42" height="42" fill="#608762" class="bi bi-person-circle" viewBox="0 0 16 16">
             <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>

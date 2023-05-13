@@ -4,7 +4,7 @@
 @endpush
 @push('body')
     <article class="section-default pt-2">
-        <div class="container-fluid" >
+        <div class="container-fluid">
             <div class="row m-2">
                 <div class="col-12">
                     <ul class="breadcrumb">
@@ -12,7 +12,7 @@
                         <li class="breadcrumb-item"><a href="{{ route('list-programme', [$programme]) }}">Programme {{ $programme->name }}</a></li>
                     </ul>
                 </div>
-                <div class="col-12 col-md-6 col-xl-8 col-xxl-9">
+                <div class="col-12 col-xl-8 col-xxl-9">
 
                     <div class="img-full">
                         <div class="w-100">
