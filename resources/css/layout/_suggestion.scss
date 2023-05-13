@@ -24,3 +24,13 @@
   display: contents;
   margin: auto;
 }
+.suggestion__close-btn {
+  position: absolute;
+  right: 0;
+  top: 0;
+  margin: 1rem;
+  cursor: pointer;
+  width: 3rem;
+  height: 3rem;
+  fill: #000;
+}
