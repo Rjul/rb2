@@ -10,7 +10,7 @@
         "lodash": "^4.17.19",
         "postcss": "^8.1.14",
         "sass": "^1.55.0",
-        "vite": "^3.0.0",
+        "vite": "^3.2.7",
         "vite-plugin-require-transform": "^1.0.4"
     },
     "dependencies": {
@@ -19,6 +19,7 @@
         "@hotwired/turbo": "^7.2.2",
         "@popperjs/core": "^2.11.6",
         "@vitejs/plugin-basic-ssl": "^0.1.2",
+        "@voerro/calamansi-js": "^1.0.0",
         "alpinejs": "^3.12.0",
         "bootstrap": "^5.2.3",
         "bootstrap-icons": "^1.9.1",

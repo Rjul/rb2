@@ -1,10 +1,25 @@
 @extends('base')
 @push('scripts')
     @vite(['resources/js/home/home.js'])
+    <link rel="stylesheet" href="/player-audio/ayon/skin.css">
+    <script src="/player-audio/ayon/skin.js"></script>
+@endpush
+
+@section('title', $emision->name)
+
+@push('metadata')
+    <meta property="og:title" content="{{ $emision->name }}" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="{{ route('view-emision', [ 'programme' => $emision->programme, 'emision' => $emision ]) }}" />
+    <meta property="og:image" content="{{ $emision->image }}" />
+    <meta property="og:description" content="{{ $emision->description }}" />
+    <meta property="og:site_name" content="RadioBastides" />
+    <meta property="og:locale" content="fr_FR" />
+
 @endpush
 @push('body')
     <article class="section-default pt-2">
-        <div class="container-fluid">
+        <div class="container">
             <div class="row m-2">
                 <div class="col-12">
                     <ul class="breadcrumb">
@@ -12,14 +27,14 @@
                         <li class="breadcrumb-item"><a href="{{ route('list-programme', [$programme]) }}">Programme {{ $programme->name }}</a></li>
                     </ul>
                 </div>
-                <div class="col-12 col-xl-8 col-xxl-9">
+                <div class="col-12 col-xl-7 col-xxl-8">
 
                     <div class="img-full">
                         <div class="w-100">
                             <h1 class="detann__title text-center rounded-top {{ $emision->media_type }}">{{ $emision->name }}</h1>
                         </div>
 
-                        <img src="{{ $emision->image }}" class="img-full w-100 rounded-bottom" alt="...">
+                        <img src="{{ $emision->image }}" class="img-full w-100 rounded-bottom" alt="Radiobastides - {{ $emision->name }}">
                     </div>
 
                     <section class="article__administrable_content mb-3">

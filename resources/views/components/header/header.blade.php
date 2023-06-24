@@ -12,9 +12,7 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav d-flex justify-content-between w-100">
                     @foreach ($groupProgrammes as $category)
-                        <li class="nav-item">
-                            <x-link-dropdown :category="$category"/>
-                        </li>
+                        <x-link-dropdown :category="$category"/>
                     @endforeach
                 </ul>
                 <x-header-search></x-header-search>

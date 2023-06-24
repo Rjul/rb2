@@ -4,7 +4,9 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>@yield('content', 'RadioBastides')</title>
+        <title>RadioBastides - @yield('title')</title>
+
+        @stack('metadata')
         {{-- Scripts --}}
         @vite(['resources/js/main.js'])
         @stack('scripts')

@@ -1,4 +1,4 @@
-<div class="col-12 col-xl-4 col-xxl-3">
+<div class="col-12 col-xl-5 col-xxl-4">
     {{-- a side sticky --}}
     <div class="sticky-rigth mt-3">
         @foreach($suggestionEmisions as $sug)
