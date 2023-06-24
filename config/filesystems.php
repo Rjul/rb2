@@ -66,7 +66,7 @@ return [
             'username' => env('FTP_USERNAME'),
             'password' => env('FTP_PASSWORD'),
             'maxTries' => 4,
-            'root' => env('SFTP_ROOT', '/mnt/ee75587c-11ba-4f43-94ae-0c3a6ab6fee6/storage'),
+            'root' => env('SFTP_ROOT', '/'),
             'url' => env('STORAGE_URL'),
             'public' => true,
             'visibility' => 'public',
