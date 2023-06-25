@@ -22,14 +22,14 @@
     </nav>
 </header>
 @if(!empty($websiteNews))
-    <div id="header_annonce" class="text-container">
-            <span class="target ">
-                @foreach($websiteNews as $websiteNew)
-                    <h3># {{ $websiteNew->content }}</h3>
-                @endforeach
-            </span>
-        <div class="fader fader-left"></div>
-        <div class="fader fader-right"></div>
-    </div>
+<div id="header_annonce" class="text-container">
+        <span class="target">
+            @foreach($websiteNews as $websiteNew)
+                <span># {{ $websiteNew->content }}</span>
+            @endforeach
+        </span>
+    <div class="fader fader-left"></div>
+    <div class="fader fader-right"></div>
+</div>
 @endif
 <x-auth-login-modal></x-auth-login-modal>

@@ -10,7 +10,6 @@
         {{-- Scripts --}}
         @vite(['resources/js/main.js'])
         @stack('scripts')
-
         @stack('styles')
     </head>
     <body class="body">
