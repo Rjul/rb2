@@ -151,7 +151,7 @@ class EmissionVideoEditScreen extends Screen
                         ->maxFiles(1)
                         ->groups('video')
                         ->media()
-//                        ->acceptedFiles(env('FORMAT_VIDEO_ACCEPT'))
+                        ->acceptedFiles(env('FORMAT_VIDEO_ACCEPT'))
                     ,
 
                     Input::make('emission.duration')
