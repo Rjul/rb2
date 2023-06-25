@@ -1,14 +1,16 @@
 @extends('base')
+
 @push('scripts')
-    @vite(['resources/js/home/home.js'])
-    <link rel="stylesheet" href="/player-audio/ayon/skin.css">
-    <script src="/player-audio/ayon/skin.js"></script>
+    @vite(['resources/js/home/home.js', 'resources/js/detann.js'])
+@endpush
+
+@push('styles')
 @endpush
 
 @section('title', $emision->name)
 
 @push('metadata')
-    <meta property="og:title" content="{{ $emision->name }}" />
+    <meta property="og:title" content="Radiobastides - {{ $emision->programme->name }} {{ $emision->name }}" />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="{{ route('view-emision', [ 'programme' => $emision->programme, 'emision' => $emision ]) }}" />
     <meta property="og:image" content="{{ $emision->image }}" />
@@ -34,7 +36,11 @@
                             <h1 class="detann__title text-center rounded-top {{ $emision->media_type }}">{{ $emision->name }}</h1>
                         </div>
 
-                        <img src="{{ $emision->image }}" class="img-full w-100 rounded-bottom" alt="Radiobastides - {{ $emision->name }}">
+                        <img src="{{ $emision->image }}" class="img-full w-100 rounded-bottom" alt="Radiobastides - {{ $emision->programme->name }} {{ $emision->name }}">
+                        <span id="audio-detann-player" class="calamansi mt-0 pt-0" data-skin="/player-audio/ayon"
+                              data-source="{{ $emision->attachment->first()->url }}"
+                              data-album-cover="{{ $emision->image }}"
+                        >Radiobastides - {{ $emision->programme->name }} {{ $emision->name }}</span>
                     </div>
 
                     <section class="article__administrable_content mb-3">

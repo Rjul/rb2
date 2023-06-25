@@ -2,7 +2,7 @@
 
 .calamansi-skin--ayon {
     position: relative;
-    padding-top: 60px;
+    padding-bottom: 10px;
     font-family: 'Fira Sans', sans-serif;
 }
 .calamansi-skin--ayon .clmns--info {
@@ -66,7 +66,7 @@
 .calamansi-skin--ayon .clmns--control-panel {
     position: relative;
     background-color: #fff;
-    border-radius: 15px;
+    border-radius: 0px 0px 15px 15px;
     height: 80px;
     z-index: 5;
     box-shadow: 0px 20px 20px 5px rgba(132, 132, 132, 0.3);

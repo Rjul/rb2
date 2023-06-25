@@ -9,6 +9,7 @@ export default defineConfig({
     resolve: {
         alias: {
             '~bootstrap': path.resolve(__dirname, 'node_modules/bootstrap'),
+            '~calamansi': path.resolve(__dirname, 'node_modules/@voerro/calamansi-js/dist'),
         }
     },
     plugins: [
@@ -19,7 +20,7 @@ export default defineConfig({
                 'resources/js/admin/admin.js',
                 'resources/js/home/home.js',
                 'resources/js/list/search.js',
-
+                '@voerro/calamansi-js/dist',
             ],
             refresh: true,
         }),
