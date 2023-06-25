@@ -1,7 +1,12 @@
 @extends('base')
 
 @push('scripts')
-    @vite(['resources/js/home/home.js', 'resources/js/detann.js'])
+    @vite([
+        'resources/js/home/home.js',
+        'resources/js/detann.js',
+    ])
+    <link href="//vjs.zencdn.net/8.3.0/video-js.min.css" rel="stylesheet">
+    <link href="https://unpkg.com/@videojs/themes@1/dist/forest/index.css" rel="stylesheet">
 @endpush
 
 @push('styles')
@@ -36,12 +41,26 @@
                             <h1 class="detann__title text-center rounded-top {{ $emision->media_type }}">{{ $emision->name }}</h1>
                         </div>
 
-                        <img src="{{ $emision->image }}" class="img-full w-100 rounded-bottom" alt="Radiobastides - {{ $emision->programme->name }} {{ $emision->name }}">
-                        <span id="audio-detann-player" class="calamansi mt-0 pt-0" data-skin="/player-audio/ayon"
-                              data-file-name="Radiobastides - {{ $emision->programme->name }} {{ $emision->name }}"
-                              data-source="{{ $emision->attachment->first()->url }}"
-                              data-album-cover="{{ $emision->image }}"
-                        >Radiobastides - {{ $emision->programme->name }} {{ $emision->name }}</span>
+                        @if($emision->media_type === "audio")
+                            <img src="{{ $emision->image }}" class="img-full w-100 rounded-bottom" alt="Radiobastides - {{ $emision->programme->name }} {{ $emision->name }}">
+                            <span id="audio-detann-player" class="calamansi mt-0 pt-0" data-skin="/player-audio/ayon"
+                                  data-file-name="Radiobastides - {{ $emision->programme->name }} {{ $emision->name }}"
+                                  data-source="{{ $emision->attachment->first()->url }}"
+                                  data-album-cover="{{ $emision->image }}"
+                            >Radiobastides - {{ $emision->programme->name }} {{ $emision->name }}</span>
+                        @elseif($emision->media_type === "video")
+                            <video-js
+                                id="video-detann-player"
+                                controls
+                                preload="auto"
+                                poster="{{ $emision->image }}"
+                                class="video-js vjs-theme-forest w-100 rounded-bottom">
+                                <source src="{{ $emision->attachment->first()->url }}">
+                            </video-js>
+                        @endif
+
+
+
                     </div>
 
                     <section class="article__administrable_content mb-3">

@@ -18,12 +18,14 @@
         "@hotwired/stimulus-webpack-helpers": "^1.0.1",
         "@hotwired/turbo": "^7.2.2",
         "@popperjs/core": "^2.11.6",
+        "@videojs/themes": "^1.0.1",
         "@vitejs/plugin-basic-ssl": "^0.1.2",
         "@voerro/calamansi-js": "^1.0.0",
         "alpinejs": "^3.12.0",
         "bootstrap": "^5.2.3",
         "bootstrap-icons": "^1.9.1",
         "lazysizes": "^5.3.2",
+        "video.js": "^8.3.0",
         "vite-plugin-commonjs": "^0.5.2"
     }
 }
