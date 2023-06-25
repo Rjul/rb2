@@ -38,6 +38,7 @@
 
                         <img src="{{ $emision->image }}" class="img-full w-100 rounded-bottom" alt="Radiobastides - {{ $emision->programme->name }} {{ $emision->name }}">
                         <span id="audio-detann-player" class="calamansi mt-0 pt-0" data-skin="/player-audio/ayon"
+                              data-file-name="Radiobastides - {{ $emision->programme->name }} {{ $emision->name }}"
                               data-source="{{ $emision->attachment->first()->url }}"
                               data-album-cover="{{ $emision->image }}"
                         >Radiobastides - {{ $emision->programme->name }} {{ $emision->name }}</span>

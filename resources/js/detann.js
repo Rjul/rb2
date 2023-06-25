@@ -13,10 +13,16 @@ import "../css/detann.scss";
 
 document.addEventListener('DOMContentLoaded', function () {
   let playerElm = document.getElementById('audio-detann-player')
-  let players = Calamansi.autoload();
-  if (players.length > 0) {
-    console.log(players[0]);
-    players[0]._options.defaultAlbumCover = playerElm.getAttribute('data-album-cover')
+  if (playerElm) {
+    let players = Calamansi.autoload();
+    if (players.length > 0) {
+      players[0]._options.defaultAlbumCover = playerElm.getAttribute('data-album-cover')
+      players[0]._options.playlists.default.map( (elm) => {
+        elm.info.titleOrFilename = playerElm.getAttribute('data-file-name')
+        elm.cover = playerElm.getAttribute('data-album-cover')
+      } ) ;
+    }
   }
+
 });
 
