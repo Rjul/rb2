@@ -17,7 +17,7 @@ class FollowNavigation extends Component
         $this->before = $emision::query()
             ->where('active_at',"<" , $emision->active_at )
             ->where('programme_id', "=", $emision->programme->id )
-            ->orderBy('active_at')
+            ->orderBy('active_at', 'desc')
             ->first();
         $this->next = $emision::query()
             ->where('active_at','>' , $emision->active_at)
