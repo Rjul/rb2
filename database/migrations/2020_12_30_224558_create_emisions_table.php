@@ -24,7 +24,7 @@ return new class extends Migration
                 ->references('id')
                 ->on('users');
             $table->string('name');
-            $table->string('duration');
+            $table->string('duration')->nullable();
             $table->text('description');
             $table->string('media_type');
             $table->boolean('is_put_forward');
