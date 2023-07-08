@@ -213,14 +213,10 @@ class EmissionVideoEditScreen extends Screen
             foreach ($request->get('emission')['tags'] as $tagId) {
                 $tags->orWhere('id', '=', $tagId);
             }
+
             $emission->tags()->sync($tags->get()->pluck('id')->toArray());
         }
 
-
-
-//        $emission->attachment->first()->duration = (int)$request->get('duration');
-
-//        $emission->attachment->first()->save();
         $emission->saveOrFail();
         Alert::info('L\'emission a bien été crée');
         return redirect()->route('platform.emissions.list');

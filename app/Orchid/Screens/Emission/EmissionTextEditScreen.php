@@ -184,6 +184,7 @@ class EmissionTextEditScreen extends Screen
         $emission->fill($request->get('emission'));
         $emission->user_id = Auth::user()->id;
         $emission->media_type = 'text';
+
         $emission->saveOrFail();
         if (array_key_exists('tags', $request->get('emission')) && !empty($request->get('emission')['tags'])) {
             $tags = Tag::query();

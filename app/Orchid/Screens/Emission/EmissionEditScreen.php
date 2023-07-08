@@ -215,6 +215,8 @@ class EmissionEditScreen extends Screen
         $emission->fill($request->get('emission'));
         $emission->user_id = Auth::user()->id;
         $emission->media_type = 'audio';
+
+        $emission->saveOrFail();
         if (array_key_exists('tags', $request->get('emission')) && !empty($request->get('emission')['tags'])) {
             $tags = Tag::query();
             foreach ($request->get('emission')['tags'] as $tagId) {
