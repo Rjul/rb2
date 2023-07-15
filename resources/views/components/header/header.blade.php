@@ -1,6 +1,6 @@
 <header class="header fixed-top">
     <nav class="navbar navbar-expand-lg bg-white px-lg-4">
-        <div class="container-fluid">
+        <div class="container-fluid h-100">
             <a class="navbar-brand" href="{{ route('homepage') }}">
                 <h1 class="mb-0">
                     <img class="header_logo-rb" width="164" srcset="/imgs/logo.png" alt="Radiobastides @todo seo"/>
@@ -9,8 +9,8 @@
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav d-flex justify-content-between w-100">
+            <div class="collapse navbar-collapse h-100" id="navbarNav">
+                <ul class="navbar-nav d-flex w-100">
                     @foreach ($groupProgrammes as $category)
                         <x-link-dropdown :category="$category"/>
                     @endforeach

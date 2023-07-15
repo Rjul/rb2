@@ -1,15 +1,35 @@
 .btn-header-login-modal-style {
   position: absolute;
   right: 0;
+  padding: 0;
+  margin: 0;
   height: 60px;
   width: 60px;
-  border-radius: 0px 0px 0px 100% ;
-  background-color: #ffffff;
+  a {
+    height: 60px;
+    width: 60px;
+  }
   .icon-container {
+    height: 60px;
+    width: 60px;
+    border-radius: 0px 0px 0px 100% ;
+    background-color: #ffffff;
     position: relative;
-    left: -16px;
-    bottom: 7px;
-
+    pointer-events: fill;
+    svg {
+      position: relative;
+      pointer-events: none;
+      top: 14%;
+      left: 4px;
+      height: 37px;
+      width: 30px;
+      &.connected {
+        fill: #68aa3d;
+      }
+      &.disconnected {
+        fill: #d9a94f;
+      }
+    }
   }
 }
 

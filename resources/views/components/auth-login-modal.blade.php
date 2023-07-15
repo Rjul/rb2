@@ -1,17 +1,17 @@
 @auth()
-<a href="{{ route('profile.edit') }}" style="z-index: 999" class="btn btn-header-login-modal  btn-header-login-modal-style">
-    <div class="icon-container">
-        <svg xmlns="http://www.w3.org/2000/svg" width="42" height="42" fill="#608762" class="bi bi-person-circle" viewBox="0 0 16 16">
+<div href="{{ route('profile.edit') }}" class="btn btn-header-login-modal  btn-header-login-modal-style">
+    <a href="{{ route('profile.edit') }}" style="z-index: 999" class="icon-container d-block">
+        <svg xmlns="http://www.w3.org/2000/svg" width="42" height="42" fill="#608762" class="bi bi-person-circle connected" viewBox="0 0 16 16">
             <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
             <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
         </svg>
-    </div>
-</a>
+    </a>
+</div>
 @endauth
 @guest()
-<button type="button" style="z-index: 999" class="btn btn-header-login-modal btn-header-login-modal-style" data-bs-toggle="modal" data-bs-target="#ModalFormLogin">
-    <div class="icon-container">
-        <svg xmlns="http://www.w3.org/2000/svg" width="42" height="42" fill="#608762" class="bi bi-person-circle" viewBox="0 0 16 16">
+<button style="" class="btn btn-header-login-modal btn-header-login-modal-style">
+    <div class="icon-container" type="button" style="z-index: 999" data-bs-toggle="modal" data-bs-target="#ModalFormLogin">
+        <svg xmlns="http://www.w3.org/2000/svg" width="42" height="42" fill="#608762" class="bi bi-person-circle disconnected" viewBox="0 0 16 16">
             <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
             <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
         </svg>
