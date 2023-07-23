@@ -23,9 +23,9 @@
 
                 <div class="row w-100">
                     <div class="col-12 col-md-6 col-xl-4 text-center m-auto p-3">
-                        <img style="max-width: 200px" src="https://radiobastides.fr/storage/img/blanco-peqe.png" class="responsive-img" alt=""> <br>
+                        <img style="max-width: 200px" src="/storage/img/blanco-peqe.png" class="responsive-img" alt=""> <br>
                         <span style="color: #45a362">La radio de Médias Citoyens en Villeneuvois.</span><br>
-                        <a href="https://mediascitoyens.fr/" target="blank"><img style="max-width: 200px" src="https://radiobastides.fr/storage/img/media-citoyens-blanco.png" class="responsive-img" alt=""></a>
+                        <a href="https://mediascitoyens.fr/" target="blank"><img style="max-width: 200px" src="/storage/img/media-citoyens-blanco.png" class="responsive-img" alt=""></a>
                     </div>
                     <div class="col-12 col-md-6 col-xl-4 text-center m-auto p-3">
                         <h6><b style="color: #45a362">Mentions légales</b></h6>
@@ -35,8 +35,8 @@
                     </div>
                     <div class="offset-md-3 col-12 col-md-6 col-xl-4 text-center m-auto p-3">
                         <h6><b style="color: #45a362">Abonnez-vous</b></h6>
-                        <a href="https://www.facebook.com/radiobastides" target="blank"><img style="max-width: 70px" src="https://radiobastides.fr/storage/img/fb.png" class="responsive-img" alt=""></a>
-                        <a href="https://www.instagram.com/radiobastides/" target="blank"><img style="max-width: 70px" src="https://radiobastides.fr/storage/img/ig.png" class="responsive-img" alt=""></a>
+                        <a href="https://www.facebook.com/radiobastides" target="blank"><img style="max-width: 70px" src="/storage/img/fb.png" class="responsive-img" alt=""></a>
+                        <a href="https://www.instagram.com/radiobastides/" target="blank"><img style="max-width: 70px" src="/storage/img/ig.png" class="responsive-img" alt=""></a>
                         <h6><b style="color: #45a362">Vous pouvez nous écrire à</b></h6>
                         <b><a style="color:white;" href="mailto:contactez-nous@mediascitoyens.fr">contactez-nous@mediascitoyens.fr</a></b>
                     </div>
