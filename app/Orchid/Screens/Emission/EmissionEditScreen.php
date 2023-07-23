@@ -134,7 +134,8 @@ class EmissionEditScreen extends Screen
                     DateTimer::make('emission.active_at')
                         ->enableTime(false)
                         ->title('Date de publication')
-                        ->value(false),
+                        ->value(false)
+                        ->required(),
 
                     Switcher::make('emission.is_put_forward')
                         ->sendTrueOrFalse()
@@ -225,13 +226,10 @@ class EmissionEditScreen extends Screen
             $emission->tags()->sync($tags->get()->pluck('id')->toArray());
         }
 
-
         $emission->attachment()->sync(
             $request->input('media', [])
         );
-//        $emission->attachment->first()->duration = (int)$request->get('duration');
 
-//        $emission->attachment->first()->save();
         $emission->saveOrFail();
         Alert::info('L\'emission a bien été crée');
         return redirect()->route('platform.emissions.list');

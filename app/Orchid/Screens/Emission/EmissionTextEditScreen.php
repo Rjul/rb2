@@ -132,7 +132,8 @@ class EmissionTextEditScreen extends Screen
                     DateTimer::make('emission.active_at')
                         ->enableTime(false)
                         ->title('Date de publication')
-                        ->value(false),
+                        ->value(false)
+                        ->required(),
 
                     Switcher::make('emission.is_put_forward')
                         ->sendTrueOrFalse()

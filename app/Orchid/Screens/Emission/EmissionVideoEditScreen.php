@@ -134,7 +134,8 @@ class EmissionVideoEditScreen extends Screen
                     DateTimer::make('emission.active_at')
                         ->enableTime(false)
                         ->title('Date de publication')
-                        ->value(false),
+                        ->value(false)
+                        ->required(),
 
                     Switcher::make('emission.is_put_forward')
                         ->sendTrueOrFalse()
@@ -172,9 +173,6 @@ class EmissionVideoEditScreen extends Screen
                     Cropper::make('emission.image')
                         ->height(533)
                         ->width(800)
-//                        @Todo Qualité retour papa!
-//                        ->maxCanvas()
-//                        ->minCanvas()
                         ->targetUrl()
                         ->storage('emission_image')
                         ->required(),

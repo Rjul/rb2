@@ -1,14 +1,22 @@
 footer {
-    min-height: 197px;
+    //min-height: 197px;
 }
 .footer_wrapper {
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  //align-items: center;
   height: 100%;
 }
 .footer_wrapper > img {
   height: 176px;
+  @include media-breakpoint-down(sm) {
+
+    position: absolute;
+    &.rotate_180 {
+      right: 0;
+    }
+    height: 5rem;
+  }
 }
 .rotate_180 {
   transform: rotateY(180deg);

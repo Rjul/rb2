@@ -79,13 +79,13 @@ class PlatformProvider extends OrchidServiceProvider
                         ->pluck('count')->first();
                 }),
 
-
-            Menu::make('Contacts')
-                ->icon('layers')
-                ->route('platform.tag.list')
-                ->badge(function () {
-                    return 1;
-                })->divider(),
+                // @Todo add contact feature
+//            Menu::make('Contacts')
+//                ->icon('layers')
+//                ->route('platform.tag.list')
+//                ->badge(function () {
+//                    return 1;
+//                })->divider(),
 
             Menu::make(__('Users'))
                 ->icon('user')
