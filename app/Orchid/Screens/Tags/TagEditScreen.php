@@ -108,6 +108,7 @@ class TagEditScreen extends Screen
 
                 Quill::make('tag.description')
                     ->title('Description')
+                    ->height('80vh')
                     ->placeholder('Brief description')
                     ->required(),
 

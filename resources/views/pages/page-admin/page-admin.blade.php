@@ -27,9 +27,9 @@
                         <li class="breadcrumb-item"><a href="{{ route("homepage") }}">Accueil</a></li>
                     </ul>
                 </div>
-                <div class="col-12 col-xl-7 col-xxl-8">
-                    {!! $pageAdmin->content !!}
-                </div>
+                <section class="article__administrable_content mb-3">
+                    <p class="card-text">{!! $pageAdmin->content !!}</p>
+                </section>
             </div>
         </div>
     </article>

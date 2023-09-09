@@ -165,7 +165,7 @@ class EmissionTextEditScreen extends Screen
                 Layout::rows([
                     Quill::make('emission.description')
                         ->title('Description')
-                        ->height('450px')
+                        ->height('80vh')
                         ->placeholder('Description du programme')
                         ->required(),
                 ]),

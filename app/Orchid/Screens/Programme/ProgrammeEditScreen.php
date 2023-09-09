@@ -116,6 +116,7 @@ class ProgrammeEditScreen extends Screen
 
                 Quill::make('programme.description')
                     ->title('Description')
+                    ->height('80vh')
                     ->placeholder('Description du programme')
                     ->required(),
 

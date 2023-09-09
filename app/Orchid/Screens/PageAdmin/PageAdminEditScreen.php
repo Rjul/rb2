@@ -117,6 +117,7 @@ class PageAdminEditScreen extends Screen
                 Quill::make('pageAdmin.content')
                     ->title('Contenu')
                     ->placeholder('Contenu de la page')
+                    ->height('80vh')
                     ->required(),
 
             ])

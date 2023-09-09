@@ -116,6 +116,7 @@ class GroupProgrammeEditScreen extends Screen
 
                 Quill::make('programme.description')
                     ->title('Description')
+                    ->height('80vh')
                     ->placeholder('Description du groupe de programme')
                     ->required(),
 
