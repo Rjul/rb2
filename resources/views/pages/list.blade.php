@@ -6,7 +6,7 @@
             <x-search-engine></x-search-engine>
             <div class="section col py-3">
                 @if ($programme || $query || $tag)
-                <section class="m-3">
+                <section class="m-3 mt-5">
                     @if ($programme)
                         <h2>Découvrez notre programme <strong>{{  $programme->name }}</strong></h2>
                     <span>{{  $programme->description }}</span>

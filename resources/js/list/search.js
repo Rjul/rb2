@@ -9,15 +9,17 @@ const initSearch = () => {
       e.preventDefault();
       const sidebarElm = document.getElementById('search-aside');
       console.log(openBtnSidebarElm.dataset.open);
-      if (openBtnSidebarElm.dataset.open == 'true') {
+      if (openBtnSidebarElm.dataset.open == 'false') {
         console.log('open');
+        openBtnSidebarElm.classList.remove('position-fixed');
         sidebarElm.classList.remove('d-none');
-        openBtnSidebarElm.dataset.open = false;
+        openBtnSidebarElm.dataset.open = true;
         changeBtnType('open');
       }
       else {
         sidebarElm.classList.add('d-none');
-        openBtnSidebarElm.dataset.open = true;
+        openBtnSidebarElm.classList.add('position-fixed');
+        openBtnSidebarElm.dataset.open = false;
         changeBtnType('closed');
       }
 
