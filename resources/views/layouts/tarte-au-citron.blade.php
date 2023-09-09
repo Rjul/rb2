@@ -1,4 +1,4 @@
-<script src="tarteaucitronjs/tarteaucitron.js" ></script>
+<script src="/tarteaucitronjs/tarteaucitron.js" ></script>
 <script type="text/javascript">
     // const initTAC = function () {
     document.addEventListener('DOMContentLoaded', function () {

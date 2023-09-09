@@ -18,7 +18,7 @@ document.addEventListener('orchid:quill', (event) => {
       imageCompressor: {
         quality: 0.9,
         maxWidth: 1000, // default
-        maxHeight: 1000, // default
+        maxHeight: 700, // default
         imageType: 'image/jpeg'
       },
     };
