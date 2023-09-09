@@ -9,7 +9,7 @@
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse h-100 position-relative" id="navbarNav">
+            <div class="collapse navbar-collapse h-100 " id="navbarNav">
                 <ul class="navbar-nav d-flex w-100">
                     @foreach ($groupProgrammes as $category)
                         <x-link-dropdown :category="$category"/>

@@ -2,44 +2,44 @@
     background: #7791CC24 0% 0% no-repeat padding-box
 }
 
-    .header_search {
-        flex-shrink: 0;
-        margin-left: 40px;
-        @include media-breakpoint-down(lg) {
-          position: absolute;
-          bottom: 5px;
-          right: 5px;
-        }
-        .input-box {
-            border-radius: 0;
-            display: flex;
-            align-items: center;
-        }
-        .input-box i {
-            color:#000000;
-        }
+.header_search {
+    flex-shrink: 0;
+    margin-left: 40px;
+    @include media-breakpoint-down(lg) {
+      position: absolute;
+      bottom: 5px;
+      right: 5px;
+    }
+    .input-box {
+        border-radius: 0;
+        display: flex;
+        align-items: center;
+    }
+    .input-box i {
+        color:#000000;
+    }
 
-        .form-control-search {
-            height: 27px;
-            border: none;
+    .form-control-search {
+        height: 27px;
+        border: none;
+        background: none;
+        text-align: center;
+        color: #000;
+        font-size: 2rem;
+        &:focus {
             background: none;
-            text-align: center;
-            color: #000;
-            font-size: 2rem;
-            &:focus {
-                background: none;
-                border-bottom: 1px solid $primary;
-            }
-            @include media-breakpoint-up(xl) {
-                min-width: 341px;
-            }
+            border-bottom: 1px solid $primary;
         }
-        .form-control:focus {
-            background-color: #eeeeee69;
-            box-shadow: none;
-            border-color: #eee;
+        @include media-breakpoint-up(xl) {
+            min-width: 341px;
         }
     }
+    .form-control:focus {
+        background-color: #eeeeee69;
+        box-shadow: none;
+        border-color: #eee;
+    }
+}
 
 
 //=======================================================
