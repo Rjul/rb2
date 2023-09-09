@@ -4,7 +4,7 @@ namespace App\Orchid\Screens\GroupProgramme;
 
 use App\Models\GroupProgramme;
 use App\Models\Programme;
-use App\Orchid\Layouts\GroupProgramme\GroupProgrammesListLayout;
+use App\Orchid\Layouts\GroupProgramme\PageAdminListLayout;
 use App\Orchid\Layouts\Programme\ProgrammesListLayout;
 use Orchid\Platform\Models\User;
 use Orchid\Screen\Action;
@@ -81,7 +81,7 @@ class GroupProgrammeListScreen extends Screen
     public function layout(): array
     {
         return [
-            GroupProgrammesListLayout::class
+            PageAdminListLayout::class
         ];
     }
 }

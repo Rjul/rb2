@@ -55,9 +55,11 @@ class PlatformProvider extends OrchidServiceProvider
                         ->icon('handbag')
                         ->permission('platform.group.programme')
                         ->route('platform.group.programme.list'),
+
                     Menu::make('Programmes')
                         ->icon('briefcase')
                         ->route('platform.programme.list'),
+
                     Menu::make('Annonces')
                         ->icon('layers')
                         ->route('platform.annonces.list')
@@ -66,7 +68,13 @@ class PlatformProvider extends OrchidServiceProvider
                         }),
                     Menu::make('Tags')
                         ->icon('list')
-                        ->route('platform.tag.list')
+                        ->permission('platform.annonces')
+                        ->route('platform.tag.list'),
+
+                    Menu::make('Pages')
+                        ->icon('list')
+                        ->permission('platform.page-admin')
+                        ->route('platform.page-admin.list')
                 ])->divider(),
 
             Menu::make('Commentaires')
@@ -132,7 +140,11 @@ class PlatformProvider extends OrchidServiceProvider
                     ->addPermission('platform.systems.users', __('Users')),
                 ItemPermission::group(__('Contenue'))
                     ->addPermission('platform.group.programme', __('Groupe de programmes'))
-                    ->addPermission('platform.programmes', __('Tous Programmes')),
+                    ->addPermission('platform.programmes', __('Tous Programmes'))
+                    ->addPermission('platform.annonces', __('Annonces'))
+                    ->addPermission('platform.page-admin', __('Pages administrables'))
+                ,
+
                 $programmesRoles,
             ];
         }

@@ -1,13 +1,11 @@
 <?php
 
-namespace App\Orchid\Screens\Comment;
+namespace App\Orchid\Screens\PageAdmin;
 
-use App\Models\Comment;
 use App\Models\GroupProgramme;
+use App\Models\PageAdmin;
 use App\Models\Programme;
-use App\Orchid\Actions\ApprovedAction;
-use App\Orchid\Layouts\Comment\CommentListLayout;
-use App\Orchid\Layouts\GroupProgramme\PageAdminListLayout;
+use App\Orchid\Layouts\PageAdmin\PageAdminListLayout;
 use App\Orchid\Layouts\Programme\ProgrammesListLayout;
 use Orchid\Platform\Models\User;
 use Orchid\Screen\Action;
@@ -32,7 +30,7 @@ use Orchid\Screen\Screen;
 use Orchid\Support\Facades\Layout;
 use Spatie\Tags\Tag;
 
-class CommentListScreen extends Screen
+class PageAdminListScreen extends Screen
 {
     /**
      * Query data.
@@ -42,29 +40,16 @@ class CommentListScreen extends Screen
     public function query(): array
     {
         return [
-            'comments' => Comment::filters()->defaultSort('approved', 'ASC')->paginate()
+            'pageAdmin' => PageAdmin::paginate()
         ];
     }
-
-    /**
-     * Get the actions available for the resource.
-     *
-     * @return array
-     */
-    public function actions(): array
-    {
-        return [
-            ApprovedAction::class,
-        ];
-    }
-
 
     /**
      * The name is displayed on the user's screen and in the headers
      */
     public function name(): ?string
     {
-        return 'Commentaires';
+        return 'Page Admininistrable';
     }
 
     /**
@@ -72,7 +57,7 @@ class CommentListScreen extends Screen
      */
     public function description(): ?string
     {
-        return "Gestion des commentaires";
+        return "Gestion des pages administrables";
     }
 
     /**
@@ -83,6 +68,9 @@ class CommentListScreen extends Screen
     public function commandBar(): array
     {
         return [
+            Link::make('Nouvelle page')
+                ->icon('pencil')
+                ->route('platform.page-admin.edit')
         ];
     }
 
@@ -94,7 +82,7 @@ class CommentListScreen extends Screen
     public function layout(): array
     {
         return [
-            CommentListLayout::class
+            PageAdminListLayout::class
         ];
     }
 }

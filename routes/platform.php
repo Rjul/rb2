@@ -124,6 +124,15 @@ Route::screen('programme/{programme?}', ProgrammeEditScreen::class)
 Route::screen('programmes', ProgrammeListScreen::class)
     ->name('platform.programme.list');
 
+//=======================================================
+// Page Admin                                          |
+//=======================================================
+Route::screen('page-admin/{pageAdmin?}', \App\Orchid\Screens\PageAdmin\PageAdminEditScreen::class)
+    ->name('platform.page-admin.edit');
+
+Route::screen('pages-admin', \App\Orchid\Screens\PageAdmin\PageAdminListScreen::class)
+    ->name('platform.page-admin.list');
+
 
 //=======================================================
 // Group Programme                                      |
