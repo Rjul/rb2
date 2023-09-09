@@ -1,8 +1,6 @@
 
-<script src="{{ Vite::asset('node_modules/tarteaucitronjs/tarteaucitron.js') }}" ></script>
-
 <script type="text/javascript">
-    document.addEventListener('DOMContentLoaded', function () {
+    const initTAC = function () {
         tarteaucitron.init({
             "privacyUrl": "", /* Privacy policy url */
             "bodyPosition": "bottom", /* or top to bring it as first element for accessibility */
@@ -51,7 +49,11 @@
         // tarteaucitron.user.gtagCrossdomain = ['example.com', 'example2.com'];
         tarteaucitron.user.gtagMore = function () { /* add here your optionnal gtag() */ };
         (tarteaucitron.job = tarteaucitron.job || []).push('gtag');
-    })
+    }
 
 </script>
+
+
+<script src="{{ Vite::asset('node_modules/tarteaucitronjs/tarteaucitron.js') }}" onload="initTAC()" ></script>
+
 
