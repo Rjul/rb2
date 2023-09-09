@@ -1,4 +1,4 @@
-<div class="header_search position-relative">
+<div class="header_search ">
     <div class="input-box">
         <button id="btn__search-suggestion" class="btn btn-outline-info" data-bs-toggle="modal" data-bs-target="#exampleModal">
             <i class="fa fa-search">

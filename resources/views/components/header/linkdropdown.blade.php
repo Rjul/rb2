@@ -1,5 +1,5 @@
 <li class="nav-item">
-    <a class="nav-link dropdown-toggle p-2 m-5" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    <a class="nav-link dropdown-toggle p-2 m-3 m-xl-5" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
         {{ $category->name }}
     </a>
     <div class="dropdown-menu mt-0" aria-labelledby="navbarDropdown" style="

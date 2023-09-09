@@ -5,6 +5,11 @@
     .header_search {
         flex-shrink: 0;
         margin-left: 40px;
+        @include media-breakpoint-down(lg) {
+          position: absolute;
+          bottom: 5px;
+          right: 5px;
+        }
         .input-box {
             border-radius: 0;
             display: flex;

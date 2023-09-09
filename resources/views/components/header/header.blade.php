@@ -3,13 +3,13 @@
         <div class="container-fluid h-100">
             <a class="navbar-brand" href="{{ route('homepage') }}">
                 <h1 class="mb-0">
-                    <img class="header_logo-rb" width="164" srcset="/imgs/logo.png" alt="Radiobastides @todo seo"/>
+                    <img class="header_logo-rb" width="164" srcset="/imgs/logo.png" alt="Radiobastides logo"/>
                 </h1>
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse h-100" id="navbarNav">
+            <div class="collapse navbar-collapse h-100 position-relative" id="navbarNav">
                 <ul class="navbar-nav d-flex w-100">
                     @foreach ($groupProgrammes as $category)
                         <x-link-dropdown :category="$category"/>
