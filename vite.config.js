@@ -9,6 +9,7 @@ export default defineConfig({
     resolve: {
         alias: {
             '~bootstrap': path.resolve(__dirname, 'node_modules/bootstrap'),
+
         }
     },
     plugins: [
@@ -18,7 +19,10 @@ export default defineConfig({
                 'resources/js/detann.js',
                 'resources/js/admin/admin.js',
                 'resources/js/home/home.js',
-                'resources/js/list/search.js',],
+                'resources/js/list/search.js',
+                'node_modules/tarteaucitronjs/tarteaucitron.js',
+
+            ],
             refresh: true,
         }),
     ],

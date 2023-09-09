@@ -50,4 +50,4 @@ Route::get('/informations-generales', function() {
 
 require __DIR__.'/auth.php';
 
-Route::get('/{pageAdmin:path}', [\App\Http\Controllers\PageAdminController::class, 'index']);
+Route::get('/{pageAdmin:path}', [\App\Http\Controllers\PageAdminController::class, 'index'])->name('page-admin');

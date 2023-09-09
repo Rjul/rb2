@@ -25,6 +25,7 @@
         "bootstrap": "^5.2.3",
         "bootstrap-icons": "^1.9.1",
         "lazysizes": "^5.3.2",
+        "tarteaucitronjs": "^1.14.0",
         "video.js": "^8.3.0",
         "vite-plugin-commonjs": "^0.5.2"
     }

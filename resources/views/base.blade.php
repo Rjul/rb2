@@ -11,6 +11,8 @@
         @vite(['resources/js/main.js'])
         @stack('scripts')
         @stack('styles')
+
+        @include('layouts.tarte-au-citron')
     </head>
     <body class="body">
         <x-header ></x-header>

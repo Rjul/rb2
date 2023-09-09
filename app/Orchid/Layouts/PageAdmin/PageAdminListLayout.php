@@ -33,6 +33,10 @@ class PageAdminListLayout extends Table
                 })
                 ,
             TD::make('path', 'url')
+                ->render(function (PageAdmin $pageAdmin) {
+                    return Link::make($pageAdmin->path)
+                        ->route('page-admin', $pageAdmin);
+                })
                 ->sort(),
         ];
     }
