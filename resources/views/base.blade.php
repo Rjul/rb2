@@ -29,9 +29,9 @@
                     </div>
                     <div class="col-12 col-md-6 col-xl-4 text-center m-auto p-3">
                         <h6><b style="color: #45a362">Mentions légales</b></h6>
-                        <span><a class="modal-trigger" href="#mdlfott01" style="color: white; border-bottom: 2px solid #3b995c;">L'association</a></span> <br>
-                        <span><a class="modal-trigger" href="#mdlfott02" style="color: white; border-bottom: 2px solid #3b995c;">La responsabilité légale</a></span> <br>
-                        <span><a class="modal-trigger" href="#mdlfott03" style="color: white; border-bottom: 2px solid #3b995c;">Protection des données</a> </span>
+                        <span><a class="modal-trigger" href="/l-association" style="color: white; border-bottom: 2px solid #3b995c;">L'association</a></span> <br>
+                        <span><a class="modal-trigger" href="/responsabilité-legale" style="color: white; border-bottom: 2px solid #3b995c;">La responsabilité légale</a></span> <br>
+                        <span><a class="modal-trigger" href="/protection-des-donnees" style="color: white; border-bottom: 2px solid #3b995c;">Protection des données</a> </span>
                     </div>
                     <div class="offset-md-3 col-12 col-md-6 col-xl-4 text-center m-auto p-3">
                         <h6><b style="color: #45a362">Abonnez-vous</b></h6>

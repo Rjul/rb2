@@ -1,8 +1,8 @@
 <div class="modal fade" id="exampleModal" tabindex="99" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-xl">
-        <div class="modal-content mw-100">
-            <div class="position-relative modal-header w-100">
-                <div class="m-3 w-100 d-flex align-items-center justify-content-between">
+    <div class="modal-dialog modal-xl ">
+        <div class="modal-content mw-100 position-relative">
+            <div class="modal-header mx-3">
+                <div class="mx-3 pt-4 d-flex align-items-center justify-content-between">
                     <label class="modal-title" id="exampleModalLabel">Recherche</label>
                     <input id="input-suggestion" type="text" class="w-100 form-control-search form-control m-3" value="{{ request('query') }}">
                     <button class="m-3 btn btn-primary pe-auto"><i id="search-btn" class="fa fa-search ">
@@ -12,8 +12,8 @@
                         </i>
                     </button>
                 </div>
-                <button type="button" class="btn-close p-3 suggestion__close-btn" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
+            <button type="button" class="btn-close top-0 suggestion__close-btn" data-bs-dismiss="modal" aria-label="Close"></button>
             <div class="modal-body">
                 <div id="place-suggestion" class="p-3">
 {{--                    Insert suggestion here with resources/js/header/suggestion.js --}}
