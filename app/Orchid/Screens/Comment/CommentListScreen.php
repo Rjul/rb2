@@ -7,7 +7,7 @@ use App\Models\GroupProgramme;
 use App\Models\Programme;
 use App\Orchid\Actions\ApprovedAction;
 use App\Orchid\Layouts\Comment\CommentListLayout;
-use App\Orchid\Layouts\GroupProgramme\PageAdminListLayout;
+use App\Orchid\Layouts\GroupProgramme\GroupProgrammesListLayout;
 use App\Orchid\Layouts\Programme\ProgrammesListLayout;
 use Orchid\Platform\Models\User;
 use Orchid\Screen\Action;
