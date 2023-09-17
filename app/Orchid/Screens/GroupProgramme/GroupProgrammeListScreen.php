@@ -81,7 +81,7 @@ class GroupProgrammeListScreen extends Screen
     public function layout(): array
     {
         return [
-            PageAdminListLayout::class
+            GroupProgrammesListLayout::class
         ];
     }
 }
