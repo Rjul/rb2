@@ -78,6 +78,11 @@
                     <form method="post" action="{{ route('register') }}">
                         @csrf
                         <div class="mb-3 mt-4">
+                            <label for="exampleInputEmail1" class="form-label">Nom</label>
+                            <input name="name" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                            <x-input-error :messages="$errors->get('name')" class="mt-2" />
+                        </div>
+                        <div class="mb-3 mt-4">
                             <label for="exampleInputEmail1" class="form-label">Email</label>
                             <input type="email" name="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
                             <x-input-error :messages="$errors->get('email')" class="mt-2" />
