@@ -46,7 +46,7 @@ class TagsListScreen extends Screen
      */
     public function name(): ?string
     {
-        return 'Mots clefs / Tags';
+        return 'Mots clefs';
     }
 
     /**

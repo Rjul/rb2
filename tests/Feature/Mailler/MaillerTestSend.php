@@ -8,7 +8,7 @@ use PHPUnit\Framework\TestCase;
 class MaillerTestSend extends TestCase
 {
 
-    public function up_database_testing()
+    public function mailling_test()
     {
         Mail::fake();
 
