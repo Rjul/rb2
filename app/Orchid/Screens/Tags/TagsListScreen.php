@@ -46,7 +46,7 @@ class TagsListScreen extends Screen
      */
     public function name(): ?string
     {
-        return 'Mots clefs';
+        return 'Thèmes';
     }
 
     /**
@@ -54,7 +54,7 @@ class TagsListScreen extends Screen
      */
     public function description(): ?string
     {
-        return "Gestion des mots clefs";
+        return "Gestion des Thèmes";
     }
 
     /**
@@ -65,7 +65,7 @@ class TagsListScreen extends Screen
     public function commandBar(): array
     {
         return [
-            Link::make('Nouveau mot clef')
+            Link::make('Nouveau Thèmes')
                 ->icon('pencil')
                 ->route('platform.tag.edit')
         ];

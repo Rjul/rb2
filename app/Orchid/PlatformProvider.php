@@ -66,7 +66,7 @@ class PlatformProvider extends OrchidServiceProvider
                         ->badge(function () {
                             return count(WebsiteNew::getActive());
                         }),
-                    Menu::make('Mots clefs')
+                    Menu::make('Thèmes')
                         ->icon('list')
                         ->permission('platform.annonces')
                         ->route('platform.tag.list'),

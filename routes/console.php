@@ -2,6 +2,7 @@
 
 use FFMpeg\FFProbe;
 use Illuminate\Foundation\Inspiring;
+use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Artisan;
 
 /*
@@ -65,6 +66,8 @@ Artisan::command('migrate:old_db', function () {
 
     $old = \App\Models\OldModels\Emision::all();
 
+    $count = 0;
+    $numberFolder = 0;
     foreach ($old as $emision) {
         $new = new \App\Models\Emision();
         $new->id = $emision->id;
@@ -73,18 +76,37 @@ Artisan::command('migrate:old_db', function () {
         $new->description = $emision->varDescripcion;
 
         // download image and create attachment and store absolute path
-        if (file_exists('/storage/app/public/img/emisiones'.$emision->varImagen)) {
-
-            \Illuminate\Support\Facades\Storage::disk('emission_image')
-                ->put(
-                    'old_image/'.$emision->varImagen,
-                    file_get_contents('/storage/app/public/img/emisiones'.$emision->varImagen)
-                );
-
-            $file = new UploadedFile($path, $originalName);
-
-            $attachment = (new File($file))->load();
+        if ($count > 200) {
+            $numberFolder++;
+            $count = 0;
         }
+         if (file_exists('https://www.radiobastides.fr'.$emision->varImagen)) {
+            // download
+            $path = storage_path('app/public/emission/images/old/'.$numberFolder.'/'.basename($emision->varImagen));
+            file_put_contents($path, file_get_contents('https://www.radiobastides.fr'.$emision->varImagen));
+
+            $new->attachment()->create([
+                'name' => basename($emision->varImagen),
+                'path' => $path,
+                'group' => 'emision',
+                'duration' => 0,
+                'sort' => 0,
+            ])->save();
+        }
+
+         if (file_exists('https://www.radiobastides.fr'.$emision->varAudio)) {
+             // download
+             $path = storage_path('app/public/emission/audios/old/' . $numberFolder . '/' . basename($emision->varAudio));
+             file_put_contents($path, file_get_contents('https://www.radiobastides.fr' . $emision->varAudio));
+
+             $new->attachment()->create([
+                 'name' => basename($emision->varAudio),
+                 'path' => $path,
+                 'group' => 'emision',
+                 'duration' => 0,
+                 'sort' => 0,
+             ])->save();
+         }
 
 
         $new->image = $emision->varImagen;

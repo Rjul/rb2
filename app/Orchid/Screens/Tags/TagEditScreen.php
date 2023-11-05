@@ -52,7 +52,7 @@ class TagEditScreen extends Screen
      */
     public function name(): ?string
     {
-        return $this->tag->exists ? 'Mots clef / listes Editions' : 'Nouveau mots clef / listes';
+        return $this->tag->exists ? 'Thèmes / listes Editions' : 'Nouveau Thèmes / listes';
     }
 
     /**
@@ -62,7 +62,7 @@ class TagEditScreen extends Screen
      */
     public function description(): ?string
     {
-        return 'Configuration des tags du site et des listes qui en résulte';
+        return 'Configuration des thèmes du site et des listes qui en résulte';
     }
 
     /**
@@ -73,7 +73,7 @@ class TagEditScreen extends Screen
     public function commandBar(): iterable
     {
         return [
-            Button::make('Nouveau tag')
+            Button::make('Nouveau Thèmes')
                 ->icon('pencil')
                 ->method('createOrUpdate')
                 ->canSee(!$this->tag->exists),
@@ -102,7 +102,7 @@ class TagEditScreen extends Screen
         return [
             Layout::rows([
                 Input::make('tag.name')
-                    ->title('Mot clef')
+                    ->title('Thèmes')
                     ->help('Nom affiché.')
                     ->required(),
 
@@ -130,7 +130,7 @@ class TagEditScreen extends Screen
     {
         $tag->fill($request->get('tag'))->save();
 
-        Alert::info('You have successfully created a tag.');
+        Alert::info('You have successfully created a Thèmes.');
 
         return redirect()->route('platform.tag.list');
     }

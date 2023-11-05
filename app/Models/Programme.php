@@ -73,6 +73,7 @@ class Programme extends Model
      * @var array
      */
     protected $fillable = [
+        'id',
         'height',
         'group_programme_id',
         'user_id',

@@ -17,6 +17,7 @@ class GroupProgramme extends Model
      * @var array
      */
     protected $fillable = [
+        'id',
         'name',
         'description',
         'image',

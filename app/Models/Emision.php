@@ -137,6 +137,7 @@ class Emision extends Model
      * @var array
      */
     protected $fillable = [
+        'id',
         'programme_id',
         'user_id',
         'name',

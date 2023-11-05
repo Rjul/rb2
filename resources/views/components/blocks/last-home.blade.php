@@ -1,3 +1,4 @@
+@if (!$lastHomeAudio->empty())
 <div class="relative d-flex flex-row mt-3 section-lasthome flex-wrap">
     <div>
         @if($type == "audio")
@@ -18,3 +19,4 @@
     @endforeach
     </div>
 </div>
+@endif

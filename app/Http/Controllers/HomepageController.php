@@ -12,9 +12,9 @@ use function Termwind\render;
 class HomepageController extends Controller
 {
     public function index() {
-        event(new Registered(Auth::user()));
-
-        new Mail();
+//        event(new Registered(Auth::user()));
+//
+//        new Mail();
         return view('homepage');
     }
 }
