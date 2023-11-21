@@ -31,62 +31,63 @@ class DatabaseSeeder extends Seeder
              'email_verified_at' => (new \DateTime('now'))->getTimestamp(),
              'permissions' => ["platform.index"=> true, "platform.programmes"=> true, "platform.systems.roles"=> true, "platform.systems.users"=> true, "platform.group.programme"=> true, "platform.systems.attachment"=> true],
          ]);
-         Attachment::factory()->createMany([
-            [
-                'name' => '0c18a1f269e38d3a98e9bb31a87bf4b7c6bade47',
-                'original_name' => "Shaka Ponk - Im Picky [OFFICIAL VIDEOCLIP].mp4",
-                "mime" => "video/mp4",
-                "extension" => "mp4",
-                "size" => "3942353",
-                "path" => "2023/07/08/",
-                "hash" => "cb9ca73f827b93d0f726e0a834638cce5a3bf786",
-                "disk" => "emission_video",
-                "user_id" => 1,
-                "group" => "video",
-                "sort" => 0
-            ],[
-                'name' => 'bf444c3183abb9e9282524a4ce5eb06e927d90e5',
-                'original_name' => "GAZO-DIE.mp3",
-                "mime" => "audio/mpeg",
-                "extension" => "mp3",
-                "size" => "5593317",
-                "path" => "2022/12/27/",
-                "hash" => "c87817f520f1d1192a83bd627d0fb0d42892bdc3",
-                "disk" => "emission_audio",
-                "user_id" => 1,
-                "group" => "audio",
-                "sort" => 0
-            ],
-         ]);
-         GroupProgramme::factory()->createMany([
-             [
-                 'name' => 'Chroniques',
-                 'description' => fake('fr_FR')->realText(200),
-                 'image' => 'https://picsum.photos/800/533',
-                 'active' => 1,
-                 'height' => 1,
-             ],[
-                 'name' => 'Magasines',
-                 'description' => fake('fr_FR')->realText(200),
-                 'image' => 'https://picsum.photos/800/533',
-                 'active' => 1,
-                 'height' => 2,
-             ],[
-                 'name' => 'Culture',
-                 'description' => fake('fr_FR')->realText(200),
-                 'image' => 'https://picsum.photos/800/533',
-                 'active' => 1,
-                 'height' => 3,
-             ],[
-                 'name' => 'Musical',
-                 'description' => fake('fr_FR')->realText(200),
-                 'image' => 'https://picsum.photos/800/533',
-                 'active' => 1,
-                 'height' => 4,
-             ]
-         ]);
 
         if ($this->command->confirm('Install tests data?')) {
+
+             Attachment::factory()->createMany([
+                [
+                    'name' => '0c18a1f269e38d3a98e9bb31a87bf4b7c6bade47',
+                    'original_name' => "Shaka Ponk - Im Picky [OFFICIAL VIDEOCLIP].mp4",
+                    "mime" => "video/mp4",
+                    "extension" => "mp4",
+                    "size" => "3942353",
+                    "path" => "2023/07/08/",
+                    "hash" => "cb9ca73f827b93d0f726e0a834638cce5a3bf786",
+                    "disk" => "emission_video",
+                    "user_id" => 1,
+                    "group" => "video",
+                    "sort" => 0
+                ],[
+                    'name' => 'bf444c3183abb9e9282524a4ce5eb06e927d90e5',
+                    'original_name' => "GAZO-DIE.mp3",
+                    "mime" => "audio/mpeg",
+                    "extension" => "mp3",
+                    "size" => "5593317",
+                    "path" => "2022/12/27/",
+                    "hash" => "c87817f520f1d1192a83bd627d0fb0d42892bdc3",
+                    "disk" => "emission_audio",
+                    "user_id" => 1,
+                    "group" => "audio",
+                    "sort" => 0
+                ],
+             ]);
+             GroupProgramme::factory()->createMany([
+                 [
+                     'name' => 'Chroniques',
+                     'description' => fake('fr_FR')->realText(200),
+                     'image' => 'https://picsum.photos/800/533',
+                     'active' => 1,
+                     'height' => 1,
+                 ],[
+                     'name' => 'Magasines',
+                     'description' => fake('fr_FR')->realText(200),
+                     'image' => 'https://picsum.photos/800/533',
+                     'active' => 1,
+                     'height' => 2,
+                 ],[
+                     'name' => 'Culture',
+                     'description' => fake('fr_FR')->realText(200),
+                     'image' => 'https://picsum.photos/800/533',
+                     'active' => 1,
+                     'height' => 3,
+                 ],[
+                     'name' => 'Musical',
+                     'description' => fake('fr_FR')->realText(200),
+                     'image' => 'https://picsum.photos/800/533',
+                     'active' => 1,
+                     'height' => 4,
+                 ]
+             ]);
 
             User::factory(100)->create();
             Tag::factory(20 )->create();
