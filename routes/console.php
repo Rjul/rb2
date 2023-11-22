@@ -27,6 +27,9 @@ Artisan::command('migrate:old_db', function () {
     $old = \App\Models\OldModels\User::all();
 
     foreach ($old as $user) {
+        if (\App\Models\User::find($user->id)) {
+            continue;
+        }
         $new = new \App\Models\User();
         $new->id = $user->id;
         $new->name = $user->name;
@@ -40,6 +43,9 @@ Artisan::command('migrate:old_db', function () {
     $old = \App\Models\OldModels\GroupProgramas::all();
 
     foreach ($old as $groupPrograma) {
+        if (\App\Models\GroupProgramme::find($groupPrograma->idGrupo)) {
+            continue;
+        }
         $new = new \App\Models\GroupProgramme();
         $new->id = $groupPrograma->idGrupo;
         $new->name = $groupPrograma->varNombreGrupo;
@@ -53,7 +59,9 @@ Artisan::command('migrate:old_db', function () {
     $old = \App\Models\OldModels\Programas::all();
 
     foreach ($old as $programa) {
-
+        if (\App\Models\Programme::find($programa->idPrograma)) {
+            continue;
+        }
         $new = new \App\Models\Programme();
         $new->id = $programa->idPrograma;
         $new->group_programme_id = $programa->idGrupo;
@@ -69,12 +77,15 @@ Artisan::command('migrate:old_db', function () {
     $count = 0;
     $numberFolder = 0;
     foreach ($old as $emision) {
+        if (\App\Models\Emision::find($emision->id)) {
+            continue;
+        }
         $new = new \App\Models\Emision();
         $new->id = $emision->id;
         $new->programme_id = $emision->idPrograma;
         $new->name = $emision->varTitle;
         $new->description = $emision->varDescripcion;
-
+        $new->save;
         // download image and create attachment and store absolute path
         if ($count > 200) {
             $numberFolder++;
@@ -85,14 +96,18 @@ Artisan::command('migrate:old_db', function () {
             $path = storage_path('app/public/emission/images/old/'.$numberFolder.'/'.basename($emision->varImagen));
             file_put_contents($path, file_get_contents('https://www.radiobastides.fr'.$emision->varImagen));
 
-            $new->attachment()->create([
+            $attachement = new UploadedFile($path, basename($emision->varImagen), null, null, true);
+            $new->attachment()->syncWithoutDetaching([
                 'name' => basename($emision->varImagen),
                 'path' => $path,
                 'group' => 'emision',
                 'duration' => 0,
                 'sort' => 0,
-            ])->save();
+            ]);
+            $new->save();
+            die('file found');
         }
+         die('file not found');
 
          if (file_exists('https://www.radiobastides.fr'.$emision->varAudio)) {
              // download
