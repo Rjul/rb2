@@ -71,6 +71,9 @@ class SearchController extends Controller
         if ($request->has('duration')) {
             $emisions = $this->searchByDuration($emisions, $request);
         }
+        $emisions->orderBy('active_at', 'desc')
+            ->where('active_at', '<', now())
+            ->where('active', true);
         return $emisions;
     }
 

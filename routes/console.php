@@ -82,11 +82,16 @@ Artisan::command('migrate:old_db', function () {
     $old = \App\Models\OldModels\Emision::all();
 
     $count = 0;
-    $numberFolder = 0;
+    $numberFolder = 6;
     foreach ($old as $emision) {
-        if (\App\Models\Emision::find($emision->id)) {
+        if (\App\Models\Emision::find($emision->id) || $emision->idPrograma == null ||
+            empty($emision->varUrlAudio) ) {
             continue;
         }
+        sleep(0.5);
+        dump($emision->datFechaEmision);
+
+        $count++;
         $new = new \App\Models\Emision();
         $new->id = $emision->id;
         $new->programme_id = $emision->idPrograma;
@@ -105,9 +110,6 @@ Artisan::command('migrate:old_db', function () {
             $numberFolder++;
             $count = 0;
         }
-        dump(file_exists('https://www.radiobastides.fr/storage/audio/'.$emision->varUrlAudio));
-        dump('https://www.radiobastides.fr/storage/audio/'.$emision->varUrlAudio);
-
 
         $path = storage_path('app/public/emission/audio/old/' . $numberFolder . '/');
 
@@ -115,11 +117,15 @@ Artisan::command('migrate:old_db', function () {
             // Create the directory if it doesn't exist
             mkdir($path, 0755, true);
         }
+        $audio = file_get_contents('https://www.radiobastides.fr/storage/audio/' . $emision->varUrlAudio);
+        if ($audio == false) {
+            continue;
+        }
         if (
             file_put_contents(
                 $path . $emision->varUrlAudio,
-                file_get_contents('https://www.radiobastides.fr/storage/audio/' . $emision->varUrlAudio
-                )
+                $audio
+
             ) !== false
         ) {
             //   file_put_contents(/var/www/html/storage/app/public/emission/audios/old/0/4.mp3): Failed to open stream: No such file or directory

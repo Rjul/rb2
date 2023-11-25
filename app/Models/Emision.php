@@ -39,7 +39,9 @@ class Emision extends Model
         return self::join('programmes', 'emisions.programme_id', '=', 'programmes.id', 'inner')
             ->select('emisions.*')
             ->where('media_type', '=', $type)
-            ->orderBy('emisions.active_at', 'DESC')
+            ->orderBy('active_at', 'desc')
+            ->where('active_at', '<', now())
+            ->where('active', true)
             ->orderBy('programmes.height')
             ->limit($limite)
             ->get();
