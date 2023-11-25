@@ -41,7 +41,7 @@ class Emision extends Model
             ->where('media_type', '=', $type)
             ->orderBy('active_at', 'desc')
             ->where('active_at', '<', now())
-            ->where('active', true)
+            ->where('active', "=", true)
             ->orderBy('programmes.height')
             ->limit($limite)
             ->get();
