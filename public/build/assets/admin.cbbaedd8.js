@@ -1,0 +1,1 @@
+import"./bootstrap.esm.351c57eb.js";let a=document.getElementsByName("emission[duration]")[0];a&&a.addEventListener("change",e=>{let t=e.target.value.split(".");t[1]>59&&t[1]<89?(t[0]++,t[1]=0,e.target.value=t.concat()):t[1]>88&&(t[1]=59,e.target.value=t.concat())});
