@@ -144,7 +144,7 @@ Route::screen('group/programmes', \App\Orchid\Screens\GroupProgramme\GroupProgra
     ->name('platform.group.programme.list');
 
 //=======================================================
-// Group Programme                                      |
+// Emission                                     |
 //=======================================================
 Route::screen('emission/audio/{emission?}', \App\Orchid\Screens\Emission\EmissionEditScreen::class)
     ->name('platform.emission.edit');
