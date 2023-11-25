@@ -10,7 +10,7 @@
     <div style="background-color: #001C41">
         <div class="container" id="homepage-programme-collapse">
 
-            <span class="home-prog_big-title">Au programme</span>
+            <span class="home-prog_big-title">À la une</span>
             <div class="row">
                 <div class="col-12 col-xl-6">
                     <div class="row m-3">
