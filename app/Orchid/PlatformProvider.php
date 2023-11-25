@@ -68,7 +68,7 @@ class PlatformProvider extends OrchidServiceProvider
                         }),
                     Menu::make('Thèmes')
                         ->icon('list')
-                        ->permission('platform.annonces')
+                        ->permission('platform.themes')
                         ->route('platform.tag.list'),
 
                     Menu::make('Pages')
@@ -142,6 +142,7 @@ class PlatformProvider extends OrchidServiceProvider
                     ->addPermission('platform.group.programme', __('Groupe de programmes'))
                     ->addPermission('platform.programmes', __('Tous Programmes'))
                     ->addPermission('platform.annonces', __('Annonces'))
+                    ->addPermission('platform.themes', __('Themes'))
                     ->addPermission('platform.page-admin', __('Pages administrables'))
                 ,
 

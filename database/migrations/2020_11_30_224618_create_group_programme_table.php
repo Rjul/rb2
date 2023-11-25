@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->text('description');
-            $table->string('image');
+            $table->string('image')->nullable();
             $table->boolean('active');
             $table->integer('height');
             $table->softDeletes();

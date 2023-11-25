@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('programmes', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('group_programme_id');
-            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('user_id')->nullable();
             $table->foreign('group_programme_id')
                 ->references('id')
                 ->on('group_programmes');
@@ -25,7 +25,7 @@ return new class extends Migration
                 ->on('users');
             $table->string('name');
             $table->text('description');
-            $table->string('image');
+            $table->string('image')->nullable();
             $table->boolean('active');
             $table->softDeletes();
             $table->timestamps();

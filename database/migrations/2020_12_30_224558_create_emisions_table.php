@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('emisions', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('programme_id');
-            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('user_id')->nullable();
             $table->foreign('programme_id')
                 ->references('id')
                 ->on('programmes');
