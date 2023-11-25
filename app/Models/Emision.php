@@ -51,6 +51,7 @@ class Emision extends Model
         return self::join('programmes', 'emisions.programme_id', '=', 'programmes.id', 'inner')
             ->select('emisions.*')
             ->where('is_put_forward', true)
+            ->where('active_at', '<', now())
             ->orderBy('emisions.active_at', 'DESC')
             ->orderBy('programmes.height')
             ->limit($limite)
