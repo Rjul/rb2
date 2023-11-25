@@ -44,7 +44,7 @@ class GoogleConnectionController extends Controller
 
             if ($finduser) {
                 Auth::login($finduser);
-                return redirect()->intended('homepage');
+                return redirect()->intended();
             }
             else {
 
