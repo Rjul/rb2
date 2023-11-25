@@ -22,7 +22,7 @@
     </nav>
 </header>
 @if(!empty($websiteNews))
-<div id="header_annonce" class="text-container">
+<div id="header_annonce" class="container text-container">
         <span class="target">
             @foreach($websiteNews as $websiteNew)
                 <span># {{ $websiteNew->content }}</span>

@@ -52,9 +52,10 @@
     font-size: 1.8rem;
     color: #708090;
     white-space: nowrap;
-    overflow: visible;
+    overflow: hidden;
     position: relative;
     width: calc(100vw - 60px);
+    min-height: 2rem;
     span {
         display: inline-block;
     }
