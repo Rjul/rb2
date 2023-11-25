@@ -21,6 +21,22 @@ Route::get('/programme-{programme:slug}',
     [\App\Http\Controllers\ListController::class, 'index' ]
 )->name('list-programme');
 
+Route::get('/emisiones/{emision:id}',
+    function (\App\Models\Emision $emision) {
+        return redirect()->route('view-emision', ['programme' => $emision->programme , 'emision' => $emision ], 301);
+    }
+)->name('redirect-emision');
+
+Route::get('/programas',
+    function (\Illuminate\Support\Facades\Request $request) {
+        $programme = \App\Models\Programme::find(request("id"));
+        if ($programme == null) {
+            return redirect()->route('list-search', [], 301);
+        }
+        return redirect()->route('list-programme', ['programme' => $programme ], 301);
+    }
+)->name('redirect-emision');
+
 Route::get('/programme-{programme:slug}/emission-{emision:slug}',
     [\App\Http\Controllers\DetannController::class, 'index' ])
 ->where('emision:id', '[0-9]*')
