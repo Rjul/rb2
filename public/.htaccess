@@ -10,8 +10,8 @@
     RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
 
     ### re-direct to www
-    RewriteCond https://radiobastides.fr [NC]
-    RewriteRule ^(.*)$ https://www.radiobastides.fr/$1 [R=302,L]
+    RewriteCond "%{HTTP_HOST}"   "!^www\.radiobastides\.fr" [NC]
+    RewriteRule "^/?(.*)"        "https://www.radiobastides.fr/$1" [L,R,NE]
 
 
     # Redirect Trailing Slashes If Not A Folder...
