@@ -16,21 +16,19 @@
     "src": "resources/fonts/berlin_sans_fb_regular.woff"
   },
   "resources/js/main.js": {
-    "file": "assets/main.1133d2d5.js",
+    "file": "assets/main.50c81552.js",
     "src": "resources/js/main.js",
     "isEntry": true,
     "imports": [
-      "_bootstrap.esm.351c57eb.js",
-      "_main.ac931441.js"
+      "_main.7c228414.js"
     ]
   },
   "resources/js/detann.js": {
-    "file": "assets/detann.fbcdd8a4.js",
+    "file": "assets/detann.f3e9d198.js",
     "src": "resources/js/detann.js",
     "isEntry": true,
     "imports": [
-      "_bootstrap.esm.351c57eb.js",
-      "_main.ac931441.js"
+      "_main.7c228414.js"
     ],
     "css": [
       "assets/detann.f009cd86.css"
@@ -43,14 +41,11 @@
     ]
   },
   "resources/js/admin/admin.js": {
-    "file": "assets/admin.cbbaedd8.js",
+    "file": "assets/admin.8b69f6a0.js",
     "src": "resources/js/admin/admin.js",
     "isEntry": true,
-    "imports": [
-      "_bootstrap.esm.351c57eb.js"
-    ],
     "css": [
-      "assets/admin.96e0519d.css"
+      "assets/admin.2501fabe.css"
     ]
   },
   "resources/js/home/home.js": {
@@ -71,11 +66,8 @@
     "src": "node_modules/tarteaucitronjs/tarteaucitron.js",
     "isEntry": true
   },
-  "_bootstrap.esm.351c57eb.js": {
-    "file": "assets/bootstrap.esm.351c57eb.js"
-  },
-  "_main.ac931441.js": {
-    "file": "assets/main.ac931441.js",
+  "_main.7c228414.js": {
+    "file": "assets/main.7c228414.js",
     "css": [
       "assets/main.fadd5af5.css"
     ],
@@ -90,13 +82,13 @@
     "file": "assets/home.508a958c.css",
     "src": "resources/js/home/home.css"
   },
+  "resources/js/admin/admin.css": {
+    "file": "assets/admin.2501fabe.css",
+    "src": "resources/js/admin/admin.css"
+  },
   "resources/js/detann.css": {
     "file": "assets/detann.f009cd86.css",
     "src": "resources/js/detann.css"
-  },
-  "resources/js/admin/admin.css": {
-    "file": "assets/admin.96e0519d.css",
-    "src": "resources/js/admin/admin.css"
   },
   "main.css": {
     "file": "assets/main.fadd5af5.css",
