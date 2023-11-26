@@ -78,7 +78,7 @@
                                                         {{ in_array($tagSearch->id, request('tags_id', [])) ? 'checked' :
                                                             ($tagSearch->slug === request('tag', new \App\Models\Tag() ) ?? false  ? 'checked' : '') }}
                                                     >
-                                                    <div class="">{{ $tagSearch->name }}</div>
+                                                    <div class="text-black-50">{{ $tagSearch->name }}</div>
                                                 </label>
                                             </div>
                                         @endforeach
