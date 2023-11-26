@@ -63,6 +63,7 @@ class Programme extends Model
             };
             return $builder;
         }
+        $builder->where('id', 9999);
 
         return $builder;
     }

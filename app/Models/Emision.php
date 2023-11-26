@@ -82,6 +82,7 @@ class Emision extends Model
             };
             return $builder;
         }
+        $builder->where('programme_id', 999);
 
         return $builder;
     }
