@@ -11,7 +11,7 @@
 
     ### re-direct to www
     RewriteCond "%{HTTP_HOST}"   "!^www\.radiobastides\.fr" [NC]
-    RewriteRule "^/?(.*)"        "https://www.radiobastides.fr/$1" [L,R,NE]
+    RewriteRule "^/?(.*)"        "https://www.radiobastides.fr/$1" [L,R=301,NE]
 
 
     # Redirect Trailing Slashes If Not A Folder...
