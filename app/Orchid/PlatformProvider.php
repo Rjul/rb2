@@ -63,6 +63,7 @@ class PlatformProvider extends OrchidServiceProvider
                     Menu::make('Annonces')
                         ->icon('layers')
                         ->route('platform.annonces.list')
+                        ->permission('platform.annonces')
                         ->badge(function () {
                             return count(WebsiteNew::getActive());
                         }),
@@ -81,6 +82,7 @@ class PlatformProvider extends OrchidServiceProvider
                 ->title('Formulaires')
                 ->icon('layers')
                 ->route('platform.comments.list')
+                ->permission('platform.commentaire')
                 ->badge(function () {
                     return Comment::query()->selectRaw('COUNT(id) as count')
                         ->where('approved', 0)->get()
@@ -144,6 +146,7 @@ class PlatformProvider extends OrchidServiceProvider
                     ->addPermission('platform.annonces', __('Annonces'))
                     ->addPermission('platform.themes', __('Themes'))
                     ->addPermission('platform.page-admin', __('Pages administrables'))
+                    ->addPermission('platform.commentaire', __('Commentaires'))
                 ,
 
                 $programmesRoles,
