@@ -9,7 +9,7 @@
                              class="item-card_img item-card_img--small lazyload img-fluid">
                     </div>
                     @if ($emision->media_type == 'audio' or $emision->media_type == 'video')
-                        <div class="item-card_content_length--small mt-4">{{ $emision->duration }}</div>
+                        <div class="item-card_content_length--small mt-4">{!! str_contains($emision->duration, '.') || is_null($emision->duration) ? str_replace('.', ':', $emision->duration ) : $emision->duration . ':00'  !!}</div>
                     @endif
 
                 </div>

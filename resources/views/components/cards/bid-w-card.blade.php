@@ -17,7 +17,9 @@
                                 <p class="item-card_content-txt--big">{{ Str::words(strip_tags(Str::limit($emision->description, 200))) }}</p>
 {{--                                <p class="item-card_content-txt--big">Lorem ipsum dolor sit amet, consectetuer adipi elit, sed diam nonummy nibh euismod tincidunt ut laoreet Lorem ipsum dolor sit amet, consectetuer adipi elit, sed diam nonummy nibh euismod tincidunt ut laoreet Lorem ipsum dolor sit amet, consectetuer adipi elit, sed diam nonummy nibh euismod tincidunt ut laoreet Lorem ipsum dolor sit amet, consectetuer adipi elit, sed diam nonummy nibh euismod tincidunt ut laoreet Lorem ipsum dolor sit amet, consectetuer adipi elit, sed diam nonummy nibh euismod tincidunt ut laoreet Lorem ipsum dolor sit amet, consectetuer adipi elit, sed diam nonummy nibh euismod tincidunt ut laoreet</p>--}}
                                 @if ($emision->media_type == 'audio' or $emision->media_type == 'video')
-                                    <div class="item-card_content_length--big">{{ $emision->duration }}</div>
+                                    <div class="item-card_content_length--big">
+                                        {!! str_contains($emision->duration, '.') || is_null($emision->duration) ? str_replace('.', ':', $emision->duration ) : $emision->duration . ':00'  !!}
+                                    </div>
                                 @endif
                             </div>
                         </div>
