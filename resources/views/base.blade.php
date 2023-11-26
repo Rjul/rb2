@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>RadioBastides - @yield('title')</title>
+        <title>RadioBastides - @stack('title')</title>
 
         @stack('metadata')
         {{-- Scripts --}}

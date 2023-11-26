@@ -12,9 +12,10 @@
 @push('styles')
 @endpush
 
-@section('title', $emision->name)
+@push('title', $emision->name)
 
 @push('metadata')
+    <meta name="description" content="{{ $emision->programme->name }} {{ $emision->name }} - {{ $emision->description }}" />
     <meta property="og:title" content="Radiobastides - {{ $emision->programme->name }} {{ $emision->name }}" />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="{{ route('view-emision', [ 'programme' => $emision->programme, 'emision' => $emision ]) }}" />
