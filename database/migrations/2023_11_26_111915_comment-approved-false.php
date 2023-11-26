@@ -14,8 +14,10 @@ return new class extends Migration
     public function up()
     {
         Schema::table('comments', function (Blueprint $table) {
-            $table->dropColumn("approved");
-            $table->boolean("approved")->default(false);
+
+            // change default value of approved column
+            $table->boolean('approved')->default(false)->change();
+
         });
     }
 
