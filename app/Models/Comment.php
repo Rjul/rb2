@@ -11,8 +11,15 @@ class Comment extends \Laravelista\Comments\Comment
 {
     use HasFactory, Filterable, SortableTrait;
 
-
     protected $allowedFilters = [
         'comment', 'approved', 'guest_name', 'guest_email'
     ];
+
+    public function __construct(array $attributes = [])
+    {
+        if (!array_key_exists('approved', $attributes)) {
+            $attributes['approved'] = false;
+        }
+        parent::__construct($attributes);
+    }
 }
