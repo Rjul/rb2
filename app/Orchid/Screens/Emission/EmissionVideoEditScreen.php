@@ -122,7 +122,7 @@ class EmissionVideoEditScreen extends Screen
                     Relation::make('emission.tags')
                         ->fromModel(Tag::class, 'name')
                         ->multiple()
-                        ->title('Choisir les tags associées')
+                        ->title('Choisir les thèmes associées')
                         ->required(),
                 ]),
                 Layout::rows([
@@ -153,6 +153,7 @@ class EmissionVideoEditScreen extends Screen
                         ->groups('video')
                         ->media()
                         ->acceptedFiles(env('FORMAT_VIDEO_ACCEPT'))
+                        ->required()
                     ,
 
                     Input::make('emission.duration')

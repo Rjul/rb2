@@ -120,7 +120,7 @@ class EmissionTextEditScreen extends Screen
                     Relation::make('emission.tags')
                         ->fromModel(Tag::class, 'name')
                         ->multiple()
-                        ->title('Choisir les tags associées')
+                        ->title('Choisir les thèmes associées')
                         ->required(),
                 ]),
                 Layout::rows([

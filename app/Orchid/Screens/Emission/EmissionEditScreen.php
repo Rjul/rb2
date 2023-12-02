@@ -122,7 +122,7 @@ class EmissionEditScreen extends Screen
                     Relation::make('emission.tags')
                         ->fromModel(Tag::class, 'name')
                         ->multiple()
-                        ->title('Choisir les tags associées')
+                        ->title('Choisir les thèmes associées')
                         ->required(),
                 ]),
                 Layout::rows([
@@ -153,6 +153,7 @@ class EmissionEditScreen extends Screen
                         ->groups('audio')
                         ->media()
                         ->acceptedFiles(env('FORMAT_AUDIO_ACCEPT'))
+                        ->required()
                     ,
 //                    Upload::make('media')
 //                        ->storage('emission_audio')
