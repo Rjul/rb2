@@ -69,6 +69,7 @@ class EmissionsListLayout extends Table
             TD::make('name', 'Lien vers l\'émission')
                 ->render(function (Emission $emission) {
                     return Link::make('Lien')
+                        ->target('_blank')
                         ->route('view-emision', [$emission->programme, $emission]);
                 }),
         ];
