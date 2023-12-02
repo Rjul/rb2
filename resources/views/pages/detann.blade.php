@@ -20,7 +20,7 @@
     <meta property="og:type" content="website" />
     <meta property="og:url" content="{{ route('view-emision', [ 'programme' => $emision->programme, 'emision' => $emision ]) }}" />
     <meta property="og:image" content="{{ $emision->image }}" />
-    <meta property="og:description" content="{{ $emision->description }}" />
+    <meta property="og:description" content="{{ Str::words(strip_tags($emision->description)) }}" />
     <meta property="og:site_name" content="RadioBastides" />
     <meta property="og:locale" content="fr_FR" />
 
