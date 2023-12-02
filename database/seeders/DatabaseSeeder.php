@@ -66,25 +66,25 @@ class DatabaseSeeder extends Seeder
                      'name' => 'Chroniques',
                      'description' => fake('fr_FR')->realText(200),
                      'image' => 'https://picsum.photos/800/533',
-                     'active' => 1,
+                     'is_active' => 1,
                      'height' => 1,
                  ],[
                      'name' => 'Magasines',
                      'description' => fake('fr_FR')->realText(200),
                      'image' => 'https://picsum.photos/800/533',
-                     'active' => 1,
+                     'is_active' => 1,
                      'height' => 2,
                  ],[
                      'name' => 'Culture',
                      'description' => fake('fr_FR')->realText(200),
                      'image' => 'https://picsum.photos/800/533',
-                     'active' => 1,
+                     'is_active' => 1,
                      'height' => 3,
                  ],[
                      'name' => 'Musical',
                      'description' => fake('fr_FR')->realText(200),
                      'image' => 'https://picsum.photos/800/533',
-                     'active' => 1,
+                     'is_active' => 1,
                      'height' => 4,
                  ]
              ]);

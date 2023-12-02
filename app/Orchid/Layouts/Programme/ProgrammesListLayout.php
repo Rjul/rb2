@@ -33,8 +33,7 @@ class ProgrammesListLayout extends Table
     protected $allowedFilters = [
         'programme.name',
         'programme.group_programme_id',
-        'programme.active',
-        'programme.active'
+        'programme.is_active'
 
     ];
 
@@ -56,11 +55,11 @@ class ProgrammesListLayout extends Table
                     return Link::make($programme->group_programme->name)
                         ->route('platform.group.programme.edit', $programme->group_programme->id);
             }),
-            TD::make('active', 'Active')
+            TD::make('is_active', 'Active')
                 ->sort()
-                ->filter(Switcher::make('active')->sendTrueOrFalse())
+                ->filter(Switcher::make('is_active')->sendTrueOrFalse())
                 ->render(function (Programme $programme) {
-                    return $programme->active ? 'Oui' : 'Non';
+                    return $programme->is_active ? 'Oui' : 'Non';
                 }),
             TD::make('is_archived', 'Archivé')
                 ->sort()

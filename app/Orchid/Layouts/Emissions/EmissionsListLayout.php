@@ -52,14 +52,14 @@ class EmissionsListLayout extends Table
                 ->render(function (Emission $emission) {
                     return strtoupper($emission->media_type);
                 }),
-            TD::make('active', 'Active')
+            TD::make('is_active', 'Active')
                 ->sort()
-                ->filter(Select::make('active')->options([
+                ->filter(Select::make('is_active')->options([
                     true => 'Oui' ,
                     false => 'Non'
                 ]))
                 ->render(function (Emission $emission) {
-                    return $emission->active ? 'Oui' : 'Non';
+                    return $emission->is_active ? 'Oui' : 'Non';
                 }),
             TD::make('active_at', 'Date de publication')
                 ->sort()

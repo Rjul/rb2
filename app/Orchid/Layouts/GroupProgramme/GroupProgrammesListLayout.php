@@ -30,10 +30,10 @@ class GroupProgrammesListLayout extends Table
                     return Link::make($programme->name)
                         ->route('platform.group.programme.edit', $programme);
                 }),
-            TD::make('tag.active', 'Active')
+            TD::make('tag.is_active', 'Active')
                 ->sort()
                 ->render(function (GroupProgramme $programme) {
-                    return $programme->active ? 'Oui' : 'Non';
+                    return $programme->is_active ? 'Oui' : 'Non';
             }),
         ];
     }

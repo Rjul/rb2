@@ -36,7 +36,7 @@ class Programme extends Model
 
     static public function allActiveEmisions()
     {
-        return self::query()->where('active', true);
+        return self::query()->where('is_active', true);
     }
 
     public function scopeWithAuthPermissions(Builder $builder): Builder
@@ -81,7 +81,7 @@ class Programme extends Model
         'name',
         'description',
         'image',
-        'active',
+        'is_active',
         'is_archived'
     ];
 
@@ -124,7 +124,7 @@ class Programme extends Model
         'name',
         'description',
         'image',
-        'active',
+        'is_active',
         'is_archived'
     ];
 
@@ -138,7 +138,7 @@ class Programme extends Model
         'group_programme_id',
         'user_id',
         'name',
-        'active',
+        'is_active',
         'is_archived',
         'updated_at',
         'created_at',

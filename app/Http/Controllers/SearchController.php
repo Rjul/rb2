@@ -73,7 +73,7 @@ class SearchController extends Controller
         }
         $emisions->orderBy('active_at', 'desc')
             ->where('active_at', '<', now())
-//            ->where('active', "=", true)
+            ->where('emisions.is_active', "=", true)
         ;
         return $emisions;
     }

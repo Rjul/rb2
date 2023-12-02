@@ -41,7 +41,7 @@ class Emision extends Model
             ->where('media_type', '=', $type)
             ->orderBy('active_at', 'desc')
             ->where('active_at', '<', now())
-/*            ->where('active', "=", true)*/
+            ->where('emisions.is_active', true)
             ->orderBy('programmes.height')
             ->limit($limite)
             ->get();
@@ -52,6 +52,7 @@ class Emision extends Model
             ->select('emisions.*')
             ->where('is_put_forward', true)
             ->where('active_at', '<', now())
+            ->where('emisions.is_active', "=", true)
             ->orderBy('emisions.active_at', 'DESC')
             ->orderBy('programmes.height')
             ->limit($limite)
@@ -150,7 +151,7 @@ class Emision extends Model
         'media_type',
         'is_put_forward',
         'image',
-        'active',
+        'is_active',
         'active_at'
     ];
 
@@ -195,7 +196,7 @@ class Emision extends Model
         'media_type',
         'is_put_forward',
         'image',
-        'active',
+        'is_active',
         'active_at'
     ];
 
@@ -212,7 +213,7 @@ class Emision extends Model
         'media_type',
         'is_put_forward',
         'image',
-        'active',
+        'is_active',
         'active_at',
         'programme.name'
     ];

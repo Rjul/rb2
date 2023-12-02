@@ -21,7 +21,7 @@ class GroupProgramme extends Model
         'name',
         'description',
         'image',
-        'active',
+        'is_active',
         'height'
     ];
 
@@ -59,7 +59,7 @@ class GroupProgramme extends Model
     protected $allowedFilters = [
         'id',
         'name',
-        'active',
+        'is_active',
         'created_at',
         'height'
     ];
@@ -72,7 +72,7 @@ class GroupProgramme extends Model
     protected $allowedSorts = [
         'id',
         'name',
-        'active',
+        'is_active',
         'created_at',
         'height'
     ];
@@ -83,7 +83,7 @@ class GroupProgramme extends Model
      */
     public static function getActive() {
         return self::query()
-            ->where('active', '=', 1)
+            ->where('is_active', '=', 1)
             ->get();
     }
 
@@ -93,7 +93,7 @@ class GroupProgramme extends Model
      */
     public static function getActiveOrderByHeight() {
         return self::query()
-            ->where('active', '=', 1)
+            ->where('is_active', '=', 1)
             ->orderBy('height', 'ASC')
             ->get();
     }

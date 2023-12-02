@@ -124,7 +124,7 @@ class EmissionTextEditScreen extends Screen
                         ->required(),
                 ]),
                 Layout::rows([
-                    Switcher::make('emission.active')
+                    Switcher::make('emission.is_active')
                         ->sendTrueOrFalse()
                         ->title('Programme visible')
                         ->value(true),
