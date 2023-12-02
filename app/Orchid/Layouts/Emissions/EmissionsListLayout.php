@@ -66,6 +66,11 @@ class EmissionsListLayout extends Table
                 ->render(function (Emission $emission) {
                     return Carbon::createFromFormat('Y-m-d H:i:s', $emission->active_at)->locale('fr_FR')->toFormattedDateString();
                 }),
+            TD::make('name', 'Lien vers l\'émission')
+                ->render(function (Emission $emission) {
+                    return Link::make('Lien')
+                        ->route('view-emision', [$emission->programme, $emission]);
+                }),
         ];
     }
 }
