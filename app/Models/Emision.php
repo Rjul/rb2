@@ -59,6 +59,18 @@ class Emision extends Model
             ->get();
     }
 
+    public static function getLast(int $limite = 7)
+    {
+        return self::join('programmes', 'emisions.programme_id', '=', 'programmes.id', 'inner')
+            ->select('emisions.*')
+            ->orderBy('active_at', 'desc')
+            ->where('active_at', '<', now())
+            ->where('emisions.is_active', true)
+            ->orderBy('programmes.height')
+            ->limit($limite)
+            ->get();
+    }
+
     public function scopeWithAuthPermissions(Builder $builder): Builder
     {
         $programmes_id = [];
