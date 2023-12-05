@@ -113,12 +113,16 @@ class EmissionTextEditScreen extends Screen
                         ->placeholder('Titre de l\'emission')
                         ->required(),
                     Relation::make('emission.programme_id')
-                        ->fromModel(Programme::class, 'name')
+                        ->fromModel(Programme::class, 'name', 'name')
                         ->applyScope('WithAuthPermissions')
+                        ->chunk(1000)
+                        ->searchColumns('name')
                         ->title('Choisir le programme')
                         ->required(),
                     Relation::make('emission.tags')
                         ->fromModel(Tag::class, 'name')
+                        ->chunk(1000)
+                        ->searchColumns('name->fr')
                         ->multiple()
                         ->title('Choisir les thèmes associées')
                         ->required(),

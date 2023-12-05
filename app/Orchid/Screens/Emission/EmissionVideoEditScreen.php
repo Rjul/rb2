@@ -117,11 +117,15 @@ class EmissionVideoEditScreen extends Screen
                     Relation::make('emission.programme_id')
                         ->fromModel(Programme::class, 'name')
                         ->applyScope('WithAuthPermissions')
+                        ->chunk(1000)
+                        ->searchColumns('name')
                         ->title('Choisir le programme')
                         ->required(),
                     Relation::make('emission.tags')
                         ->fromModel(Tag::class, 'name')
                         ->multiple()
+                        ->chunk(1000)
+                        ->searchColumns('name->fr')
                         ->title('Choisir les thèmes associées')
                         ->required(),
                 ]),
