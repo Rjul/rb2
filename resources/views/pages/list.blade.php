@@ -3,7 +3,7 @@
     @if ($programme || $query || $tag)
         <section class="m-3 mt-5">
             @if ($programme)
-                <meta name="description" content="Découvrez notre programme {{  $programme->name }} - {{ Str::words(strip_tags(str_replace('>', '> ', Str::limit($emision->description, 150)))) }}">
+                <meta name="description" content="Découvrez notre programme {{  $programme->name }} - {{ Str::words(strip_tags(str_replace('>', '> ', Str::limit($programme->description, 150)))) }}">
             @elseif($query)
                 <meta name="description" content="Découvrez nos articles et émissions correspondant à votre recherche {{ $query }}">
             @elseif($tag)
