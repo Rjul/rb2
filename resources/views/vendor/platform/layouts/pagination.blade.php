@@ -20,7 +20,7 @@
 
             @if($paginator instanceof \Illuminate\Contracts\Pagination\LengthAwarePaginator)
                 <small class="text-muted d-block">
-                    {{ __('Displayed records: :from-:to of :total',[
+                    {{ __('Displayed records: :from - :to of :total',[
                         'from' => ($paginator->currentPage() -1 ) * $paginator->perPage() + 1,
                         'to' => ($paginator->currentPage() -1 ) * $paginator->perPage() + count($paginator->items()),
                         'total' => $paginator->total(),
