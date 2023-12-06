@@ -31,15 +31,21 @@
     <section class="section" >
         <x-home-tags></x-home-tags>
     </section>
-    <section class="section section-default">
+    <section class="section">
         <div class="container">
+            <section class="section-default">
+                <x-last-home type="audio"></x-last-home>
 
-            <x-last-home type="audio"></x-last-home>
+            </section>
+            <section class="section-default">
+                <x-last-home type="text"></x-last-home>
 
-            <x-last-home type="text"></x-last-home>
+            </section>
+            <section class="section-default">
+                <x-last-home type="video"></x-last-home>
 
+            </section>
 
-            <x-last-home type="video"></x-last-home>
         </div>
 
     </section>

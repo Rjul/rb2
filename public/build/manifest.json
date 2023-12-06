@@ -1,19 +1,19 @@
 {
-  "resources/fonts/corbel.woff2": {
-    "file": "assets/corbel.718f204d.woff2",
-    "src": "resources/fonts/corbel.woff2"
-  },
   "resources/fonts/berlin_sans_fb_regular.woff2": {
     "file": "assets/berlin_sans_fb_regular.1b9c4b5d.woff2",
     "src": "resources/fonts/berlin_sans_fb_regular.woff2"
   },
-  "resources/fonts/corbel.woff": {
-    "file": "assets/corbel.ed87beb9.woff",
-    "src": "resources/fonts/corbel.woff"
+  "resources/fonts/corbel.woff2": {
+    "file": "assets/corbel.718f204d.woff2",
+    "src": "resources/fonts/corbel.woff2"
   },
   "resources/fonts/berlin_sans_fb_regular.woff": {
     "file": "assets/berlin_sans_fb_regular.fdde5dec.woff",
     "src": "resources/fonts/berlin_sans_fb_regular.woff"
+  },
+  "resources/fonts/corbel.woff": {
+    "file": "assets/corbel.ed87beb9.woff",
+    "src": "resources/fonts/corbel.woff"
   },
   "resources/js/main.js": {
     "file": "assets/main.50c81552.js",
@@ -31,7 +31,7 @@
       "_main.7c228414.js"
     ],
     "css": [
-      "assets/detann.ea6805cd.css"
+      "assets/detann.eaca0f1e.css"
     ],
     "assets": [
       "assets/corbel.718f204d.woff2",
@@ -69,7 +69,7 @@
   "_main.7c228414.js": {
     "file": "assets/main.7c228414.js",
     "css": [
-      "assets/main.20884f71.css"
+      "assets/main.d5251384.css"
     ],
     "assets": [
       "assets/corbel.718f204d.woff2",
@@ -78,20 +78,20 @@
       "assets/berlin_sans_fb_regular.fdde5dec.woff"
     ]
   },
-  "resources/js/home/home.css": {
-    "file": "assets/home.508a958c.css",
-    "src": "resources/js/home/home.css"
-  },
   "resources/js/admin/admin.css": {
     "file": "assets/admin.2501fabe.css",
     "src": "resources/js/admin/admin.css"
   },
-  "resources/js/detann.css": {
-    "file": "assets/detann.ea6805cd.css",
-    "src": "resources/js/detann.css"
+  "resources/js/home/home.css": {
+    "file": "assets/home.508a958c.css",
+    "src": "resources/js/home/home.css"
   },
   "main.css": {
-    "file": "assets/main.20884f71.css",
+    "file": "assets/main.d5251384.css",
     "src": "main.css"
+  },
+  "resources/js/detann.css": {
+    "file": "assets/detann.eaca0f1e.css",
+    "src": "resources/js/detann.css"
   }
 }
