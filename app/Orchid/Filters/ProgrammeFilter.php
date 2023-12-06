@@ -38,9 +38,10 @@ class ProgrammeFilter extends Filter
      */
     public function run(Builder $builder): Builder
     {
-        return $builder->join('programmes', 'emisions.programme_id', '=', 'programmes.id', 'inner')
-        ->select('emisions.*')
-        ->where('programmes.name', 'LIKE', '%'.$this->request->get('filter')['programme'].'%');
+        return $builder
+            ->whereHas('programme', function ($query) {
+                $query->where('name', 'LIKE', '%'.$this->request->get('filter')['programme'].'%');
+            });
     }
 
     /**

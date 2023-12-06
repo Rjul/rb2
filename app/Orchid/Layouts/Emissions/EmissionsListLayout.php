@@ -45,6 +45,7 @@ class EmissionsListLayout extends Table
             TD::make('media_type', 'Type de média')
                 ->sort()
                 ->filter(Select::make('media_type')->options([
+                    null => 'Choisir',
                     'TEXT' => 'Texte' ,
                     'AUDIO' => 'Audio',
                     'VIDEO' => 'Video'
@@ -55,6 +56,7 @@ class EmissionsListLayout extends Table
             TD::make('is_active', 'Active')
                 ->sort()
                 ->filter(Select::make('is_active')->options([
+                    null => 'Choisir',
                     true => 'Oui' ,
                     false => 'Non'
                 ]))
