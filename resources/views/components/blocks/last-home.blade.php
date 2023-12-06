@@ -1,4 +1,16 @@
 @if (!$lastHomeAudio->isEmpty())
+
+@if($type == "audio")
+    <div class="home_separator-title">
+        <h2 class="home_big-title">Nos dernières émissions à écouter.</h2>
+    </div>@elseif($type == "text")
+    <div class="home_separator-title">
+        <h2 class="home_big-title">Nos derniers articles à lire.</h2>
+    </div>
+@elseif($type == "video")
+    <div class="home_separator-title">
+        <h2 class="home_big-title">Nos dernières émissions vidéo.</h2>
+    </div>@endif
 <div class="relative d-flex flex-row mt-3 section-lasthome flex-wrap">
     <div>
         @if($type == "audio")

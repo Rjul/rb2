@@ -33,13 +33,12 @@
     </section>
     <section class="section section-default">
         <div class="container">
-            <div class="home_separator-title">
-                <h2 class="home_big-title">Nos dernières émissions par type</h2>
-            </div>
 
             <x-last-home type="audio"></x-last-home>
 
             <x-last-home type="text"></x-last-home>
+
+
             <x-last-home type="video"></x-last-home>
         </div>
 
