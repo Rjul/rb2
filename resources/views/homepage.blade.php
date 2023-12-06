@@ -18,14 +18,10 @@
             <x-home-lastest-emissions></x-home-lastest-emissions>
 
             <div class="w-100 mt-5 center d-flex justify-content-center">
-                <a class="mt-5 btn btn-primary font-berlin  m-auto" href="{{ route('list-search') }}">Voir toute nos émissions</a>
+                <a class="mt-5 btn btn-secondary font-berlin m-auto" href="{{ route('list-search') }}">
+                    Voir toute nos émissions
+                </a>
             </div>
-
-{{--                <x-last-home type="audio"></x-last-home>--}}
-
-{{--                <x-last-home type="text"></x-last-home>--}}
-
-{{--                <x-last-home type="video"></x-last-home>--}}
 
         </div>
     </section>
@@ -34,6 +30,19 @@
     </section>
     <section class="section" >
         <x-home-tags></x-home-tags>
+    </section>
+    <section class="section section-default pt-5">
+        <div class="container">
+            <div class="home_separator-title">
+                <h2 class="home_big-title">Nos dernières émissions par type</h2>
+            </div>
+
+            <x-last-home type="audio"></x-last-home>
+
+            <x-last-home type="text"></x-last-home>
+            <x-last-home type="video"></x-last-home>
+        </div>
+
     </section>
 @endpush
 
