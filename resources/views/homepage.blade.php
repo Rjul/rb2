@@ -31,7 +31,7 @@
     <section class="section" >
         <x-home-tags></x-home-tags>
     </section>
-    <section class="section section-default pt-5">
+    <section class="section section-default">
         <div class="container">
             <div class="home_separator-title">
                 <h2 class="home_big-title">Nos dernières émissions par type</h2>
