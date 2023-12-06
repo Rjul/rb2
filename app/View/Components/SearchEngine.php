@@ -25,7 +25,7 @@ class SearchEngine extends Component
     public function __construct()
     {
         $this->programmesSearch = Programme::allActiveEmisions()->get();
-        $this->tagsSearch = \App\Models\Tag::all();
+        $this->tagsSearch = \App\Models\Tag::orderedByName()->get();
         $this->types = [
             'Audio' => Emision::TYPE_AUDIO,
             'Video' => Emision::TYPE_VIDEO,

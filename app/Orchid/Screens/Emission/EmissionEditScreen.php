@@ -123,9 +123,9 @@ class EmissionEditScreen extends Screen
                         ->required(),
                     Relation::make('emission.tags')
                         ->fromModel(Tag::class, 'name')
+                        ->applyScope('OrderedByName')
                         ->multiple()
                         ->chunk(1000)
-                        ->searchColumns('name->fr')
                         ->title('Choisir les thèmes associées')
                         ->required(),
                 ]),
