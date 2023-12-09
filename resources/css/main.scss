@@ -27,3 +27,14 @@ audio {
     background-color: $card-bg;
 }
 
+.home_big-title {
+  font-family: "berlin";
+  font-size: 3.9rem;
+  line-height: 1;
+  font-weight: 900;
+  text-orientation: mixed;
+}
+.home_separator-title {
+  filter: invert(0.3);
+}
+

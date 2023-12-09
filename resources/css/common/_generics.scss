@@ -61,6 +61,9 @@ h1 {
   @include media-breakpoint-up(lg) {
     padding: 70px 0;
   }
+  @include media-breakpoint-down(lg) {
+    padding: 40px 0px 20px 0px;
+  }
 }
 
 //utility

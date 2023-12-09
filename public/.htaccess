@@ -9,8 +9,9 @@
     RewriteCond %{HTTP:Authorization} .
     RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
 
-    ### re-direct to www
-    RewriteCond "%{HTTP_HOST}"   "!^www\.radiobastides\.fr" [NC]
+    ### Redirect to www for radiobastides.fr
+    RewriteCond %{HTTP_HOST} !^www\.radiobastides\.fr$ [NC]
+    RewriteCond %{HTTP_HOST} ^radiobastides\.fr$ [NC]
     RewriteRule "^/?(.*)"        "https://www.radiobastides.fr/$1" [L,R=301,NE]
 
 
