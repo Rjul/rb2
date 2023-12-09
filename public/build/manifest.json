@@ -31,7 +31,7 @@
       "_main.7c228414.js"
     ],
     "css": [
-      "assets/detann.eaca0f1e.css"
+      "assets/detann.736adbdd.css"
     ],
     "assets": [
       "assets/corbel.718f204d.woff2",
@@ -69,7 +69,7 @@
   "_main.7c228414.js": {
     "file": "assets/main.7c228414.js",
     "css": [
-      "assets/main.d5251384.css"
+      "assets/main.20cc7723.css"
     ],
     "assets": [
       "assets/corbel.718f204d.woff2",
@@ -87,11 +87,11 @@
     "src": "resources/js/home/home.css"
   },
   "resources/js/detann.css": {
-    "file": "assets/detann.eaca0f1e.css",
+    "file": "assets/detann.736adbdd.css",
     "src": "resources/js/detann.css"
   },
   "main.css": {
-    "file": "assets/main.d5251384.css",
+    "file": "assets/main.20cc7723.css",
     "src": "main.css"
   }
 }

@@ -30,7 +30,4 @@ class Tag extends \Spatie\Tags\Tag
         return $builder->reorder('name');
     }
 
-
-
-
 }
