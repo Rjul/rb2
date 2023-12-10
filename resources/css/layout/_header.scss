@@ -47,21 +47,22 @@
 //=======================================================
 
 .text-container {
-    padding: 3px 10px;
-    min-width: 0;
-    font-size: 1.8rem;
-    color: #708090;
-    white-space: nowrap;
-    overflow: hidden;
-    position: relative;
-    width: calc(100vw - 60px);
-    min-height: 2rem;
+  padding: 0px 10px;
+  min-width: 0;
+  font-size: 1.8rem;
+  color: #708090;
+  white-space: nowrap;
+  overflow: hidden;
+  position: relative;
+  width: calc(100vw - 60px);
+  min-height: 2.4rem;
+  line-height: 2rem;
     span {
         display: inline-block;
     }
     .animate {
         position: relative;
-        animation: leftright 15s infinite linear;
+        animation: leftright 35s infinite linear;
     }
 }
 @keyframes leftright {
