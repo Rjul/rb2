@@ -113,7 +113,7 @@ class EmissionTextEditScreen extends Screen
                         ->placeholder('Titre de l\'emission')
                         ->required(),
                     Relation::make('emission.programme_id')
-                        ->fromModel(Programme::class, 'name', 'name')
+                        ->fromModel(Programme::class, 'name')
                         ->applyScope('WithAuthPermissions')
                         ->chunk(1000)
                         ->searchColumns('name')
