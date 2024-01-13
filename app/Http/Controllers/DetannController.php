@@ -13,7 +13,11 @@ class DetannController extends Controller
         $suggestionEmisions = Emision::where('programme_id', $programme->id)
             ->where('id', '!=', $emision->id)
             ->orderBy('id', 'desc')
+            ->orderBy('active_at', 'desc')
+            ->where('active_at', '<', now())
+            ->where('emisions.is_active', "=", true)
             ->limit(6)->get();
+
         return view('pages.detann', compact('programme', 'emision', 'suggestionEmisions'));
     }
 }

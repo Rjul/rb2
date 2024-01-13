@@ -19,7 +19,7 @@
 
             <div class="w-100 mt-5 center d-flex justify-content-center">
                 <a class="mt-5 btn btn-secondary font-berlin m-auto" href="{{ route('list-search') }}">
-                    Voir toute nos émissions
+                    Voir toutes nos émissions
                 </a>
             </div>
 
