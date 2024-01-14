@@ -40,7 +40,11 @@ class EmissionListScreen extends Screen
     public function query(): array
     {
         return [
-            'emissions' => Emission::filters([ProgrammeFilter::class])->withAuthPermissions()->defaultSort('active_at', 'DESC')->paginate()
+            'emissions' => Emission::query()
+                ->withAuthPermissions()
+                ->filters([ProgrammeFilter::class])
+                ->defaultSort('active_at', 'DESC')
+                ->paginate()
         ];
     }
 
