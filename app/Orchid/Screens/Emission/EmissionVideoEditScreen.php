@@ -224,6 +224,8 @@ class EmissionVideoEditScreen extends Screen
         }
 
         $emission->saveOrFail();
+        $emission->generateSlug();
+        $emission->save();
         Alert::info('L\'emission a bien été crée');
         return redirect()->route('platform.emissions.list');
     }
