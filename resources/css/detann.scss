@@ -46,12 +46,13 @@
   height: 8rem;
   fill: #000;
 }
-.article__administrable_content {
-  img, iframe {
+.article__administrable_content img {
     width: 100%;
     height: auto;
     max-width: 450px
-  }
+}
+
+.article__administrable_content {
   iframe {
     height: calc((100vw * 0.5625) - 400px);
     @media screen and (max-width: 768px) {
