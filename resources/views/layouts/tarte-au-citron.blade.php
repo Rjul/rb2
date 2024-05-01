@@ -46,10 +46,9 @@
             "mandatoryCta": true /* Show the disabled accept button when mandatory on */
         });
 
-        tarteaucitron.user.gtagUa = 'G-S2PNWJT6CK';
-        // tarteaucitron.user.gtagCrossdomain = ['example.com', 'example2.com'];
-        tarteaucitron.user.gtagMore = function () { /* add here your optionnal gtag() */ };
-        (tarteaucitron.job = tarteaucitron.job || []).push('gtag');
+        tarteaucitron.user.multiplegtagUa = ['G-S2PNWJT6CK', 'GTM-TPVQC5K8'];
+        (tarteaucitron.job = tarteaucitron.job || []).push('multiplegtag');
+
     });
 
 </script>
