@@ -29,7 +29,7 @@ class RssService
             return false;
         }
 
-        $content = view('rss/base', ['programme' => $programme]);
+        $content = view('rss/base', ['programme' => $programme])->render();
 
          return file_put_contents( base_path().'/public/rss/'.$programme->slug.'.xml', $content);
     }

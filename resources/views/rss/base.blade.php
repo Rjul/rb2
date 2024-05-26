@@ -7,7 +7,7 @@
         </itunes:owner>
         <itunes:author>{{ $programme->user->name }}</itunes:author>
         <description>{{ $programme->description }}</description>
-        <itunes:image href="{{ base_path() }}/{{ $programme->image }}"/>
+        <itunes:image href="{{ \Illuminate\Support\Facades\URL::full() }}{{ $programme->image }}"/>
         <language>fr</language>
         <link>{{ route('list-programme', $programme) }}</link>
         @include('rss/items')
