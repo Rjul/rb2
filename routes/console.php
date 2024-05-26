@@ -20,6 +20,10 @@ Artisan::command('inspire', function () {
     $this->comment(Inspiring::quote());
 })->purpose('Display an inspiring quote');
 
+Artisan::command('app:rss:generate', function () {
+    (new \App\Utilities\RssService())->generateAll();
+});
+
 Artisan::command('migrate:old_db', function () {
     $this->comment("Migrate old database");
 

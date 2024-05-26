@@ -1,0 +1,14 @@
+@foreach($programme->emisions as $emision)<item>
+    <title>{{ $emision->name }}</title>
+    <description>{{ Str::words(strip_tags(str_replace('>', '> ', Str::limit($emision->description, 200)))) }}</description>
+    <itunes:explicit>no</itunes:explicit>
+    <pubDate>Tue, 14 Mar 2017 12:00:00 GMT</pubDate>
+    <enclosure url="{{ $emision->attachment->first()->url !== null ? base_path() . $emision->attachment->first()->url :
+       base_path(). '/storage/public/emission/audio/' . $emision->attachment->first()->path . '/' . $emision->attachment->first()->name }}"
+        type="{{ $emision->attachment->first()->mime ? $emision->attachment->first()->mime : "audio/mpeg" }}"
+        length="{{ $emision->attachment->first()->size ? $emision->attachment->first()->size : filesize($emision->attachment->first()->url !== null ? $emision->attachment->first()->url :
+        '/storage/public/emission/audio/' . $emision->attachment->first()->path . $emision->attachment->first()->name) }}"></enclosure>
+    @if(!is_null($emision->duration))<itunes:duration>{!! str_contains($emision->duration, '.') || is_null($emision->duration) ? str_replace('.', ':', $emision->duration ) : $emision->duration . ':00'  !!}</itunes:duration>@endif
+    <guid>{{ route('view-emision', [ 'programme' => $emision->programme, 'emision' => $emision ]) }}</guid>
+</item>
+@endforeach

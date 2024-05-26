@@ -34,6 +34,11 @@ class Programme extends Model
         return $this->hasMany(Emision::class);
     }
 
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
     static public function allActiveEmisions()
     {
         return self::query()->where('is_active', true);
