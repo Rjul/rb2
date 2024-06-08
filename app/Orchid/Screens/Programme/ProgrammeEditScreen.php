@@ -154,7 +154,7 @@ class ProgrammeEditScreen extends Screen
 
                         Switcher::make('programme.has_rss')
                             ->sendTrueOrFalse()
-                            ->title('Activé le flux RSS')
+                            ->title('Activer le flux RSS')
                             ->value(false),
                     ])
                 ]
