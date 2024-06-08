@@ -78,13 +78,13 @@
       "assets/berlin_sans_fb_regular.fdde5dec.woff"
     ]
   },
-  "resources/js/admin/admin.css": {
-    "file": "assets/admin.2501fabe.css",
-    "src": "resources/js/admin/admin.css"
-  },
   "resources/js/home/home.css": {
     "file": "assets/home.508a958c.css",
     "src": "resources/js/home/home.css"
+  },
+  "resources/js/admin/admin.css": {
+    "file": "assets/admin.2501fabe.css",
+    "src": "resources/js/admin/admin.css"
   },
   "main.css": {
     "file": "assets/main.b2dc6a4e.css",
