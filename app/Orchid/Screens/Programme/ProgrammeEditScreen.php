@@ -147,8 +147,8 @@ class ProgrammeEditScreen extends Screen
                             ->required(),
 
                         Cropper::make('programme.image')
-                            ->height(800)
-                            ->width(533)
+                            ->height(533)
+                            ->width(800)
                             ->targetUrl()
                             ->required(),
 
