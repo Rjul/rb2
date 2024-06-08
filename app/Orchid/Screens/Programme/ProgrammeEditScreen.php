@@ -134,7 +134,7 @@ class ProgrammeEditScreen extends Screen
 
                         Switcher::make('programme.is_archived')
                             ->sendTrueOrFalse()
-                            ->title('Archivé programme')
+                            ->title('Archiver programme')
                             ->value(false),
 
                     ])
