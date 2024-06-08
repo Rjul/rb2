@@ -21,3 +21,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::get('/recherche/suggestion',
     [\App\Http\Controllers\SearchController::class, 'suggestion' ]
 )->name('api-list-search');
+
+Route::get('rss/programme-{programme:id}',
+    [\App\Http\Controllers\RssController::class, 'show']
+)->name('api-rss-programme');

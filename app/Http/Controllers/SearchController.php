@@ -41,11 +41,15 @@ class SearchController extends Controller
             debugbar()->disable();
         }
 
-        return  view('components.header.suggestion', [
+        return view('components.header.suggestion', [
             'query'             => $request->get('query'),
             'groups_programme'  => $groupsProgramme->limit(4)->get(),
             'programmes'         => $programmes->limit(10)->get(),
-            'emisions'          => $emisions->limit(3)->get(),
+            'emisions'          => $emisions
+                ->orderBy('emisions.active_at', 'desc')
+                ->where('emisions.active_at', '<', now())
+                ->limit(3)
+                ->get(),
             'tags'              => $tags->limit(10)->get(),
         ]);
     }
@@ -92,7 +96,8 @@ class SearchController extends Controller
         collect($query)->each(function ($value) use ($model) {
             $model
                 ->where('name', 'LIKE' , '%'.$value.'%')
-                ->orWhere('description', 'LIKE' , '%'.$value.'%');
+                ->orWhere('description', 'LIKE' , '%'.$value.'%')
+            ;
         });
         return $model;
     }

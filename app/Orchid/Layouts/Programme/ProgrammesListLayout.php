@@ -71,7 +71,7 @@ class ProgrammesListLayout extends Table
                 ->sort()
                 ->filter(Switcher::make('has_rss')->sendTrueOrFalse())
                 ->render(function (Programme $programme) {
-                    return $programme->has_rss ? '<a href="/rss/'.$programme->slug.'.xml">Oui</a>' : 'Non';
+                    return $programme->has_rss ? '<a href="'. route('api-rss-programme', $programme) .'">Oui</a>' : 'Non';
                 }),
         ];
     }

@@ -16,7 +16,7 @@
                 <div class="col-sm-6 col-12 ">
                     <div class="item-card_content-wrapper">
                         <h3 class="item-card_content-title--xl">{{ $emision->name }}</h3>
-                        <p class="item-card_content-txt--xl">{{ Str::words(strip_tags(str_replace('>', '> ', Str::limit($emision->description, 200)))) }}</p>
+                        <p class="item-card_content-txt--xl">{{ Str::words(strip_tags(str_replace(['>', '&nbsp;'], ['> ', ' '], Str::limit($emision->description, 200)))) }}</p>
                     </div>
                 </div>
 

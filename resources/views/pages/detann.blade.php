@@ -15,12 +15,12 @@
 @push('title', $emision->name)
 
 @push('metadata')
-    <meta name="description" content="{{ $emision->programme->name }} {{ $emision->name }} - {{ Str::words(strip_tags(str_replace('>', '> ', Str::limit($emision->description, 150)))) }}" />
+    <meta name="description" content="{{ $emision->programme->name }} {{ $emision->name }} - {{ Str::words(strip_tags(str_replace(['>', '&nbsp;'], ['> ', ' '], Str::limit($emision->description, 150)))) }}" />
     <meta property="og:title" content="Radiobastides - {{ $emision->programme->name }} {{ $emision->name }}" />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="{{ route('view-emision', [ 'programme' => $emision->programme, 'emision' => $emision ]) }}" />
     <meta property="og:image" content="{{ $emision->image }}" />
-    <meta property="og:description" content="{{ Str::words(strip_tags(str_replace('>', '> ', Str::limit($emision->description, 150)))) }}" />
+    <meta property="og:description" content="{{ Str::words(strip_tags(str_replace(['>', '&nbsp;'], ['> ', ' '], Str::limit($emision->description, 150)))) }}" />
     <meta property="og:site_name" content="RadioBastides" />
     <meta property="og:locale" content="fr_FR" />
 

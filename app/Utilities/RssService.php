@@ -25,7 +25,7 @@ class RssService
         return $isFullSuccess;
     }
 
-    private function generateForProgramme(Programme $programme): bool
+    public function generateForProgramme(Programme $programme): bool
     {
         if (!$this->isProcessable($programme)) {
             return false;
@@ -34,6 +34,16 @@ class RssService
         $content = view('rss/base', ['programme' => $programme])->render();
 
          return file_put_contents( base_path().'/public/rss/'.$programme->slug.'.xml', $content);
+    }
+
+    public function hasRssContentForProgramme(Programme $programme)
+    {
+        return file_exists(base_path().'/public/rss/'.$programme->slug.'.xml');
+    }
+
+    public function getRssContentForProgramme(Programme $programme)
+    {
+        return file_get_contents( base_path().'/public/rss/'.$programme->slug.'.xml');
     }
 
     private function isProcessable(Programme $programme)

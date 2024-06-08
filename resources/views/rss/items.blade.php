@@ -1,7 +1,7 @@
 @foreach($programme->emisions as $emision)@if($emision->media_type == 'audio' && $emision->active_at < now() && $emision->attachment->first())
         <item>
             <title>{{ $emision->name }}</title>
-            <description>{!! Str::words(strip_tags(str_replace('>', '> ', Str::limit($emision->description, 200)))) !!}</description>
+            <description>{!! Str::words(strip_tags(str_replace(['>', '&nbsp;'], ['> ', ' '], Str::limit($emision->description, 200)))) !!}</description>
             <itunes:explicit>no</itunes:explicit>
             <pubDate>{{ $emision->active_at }}</pubDate>
             <enclosure url="{{ $emision->attachment->first()->url !== null ? \Illuminate\Support\Facades\URL::full() . $emision->attachment->first()->url :
