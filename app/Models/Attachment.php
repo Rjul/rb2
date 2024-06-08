@@ -21,6 +21,9 @@ class Attachment extends \Orchid\Attachment\Models\Attachment
         'duration'
     ];
 
+    /**
+     * @return void
+     */
     public static function boot()
     {
         parent::boot();

@@ -67,6 +67,12 @@ class ProgrammesListLayout extends Table
                 ->render(function (Programme $programme) {
                     return $programme->is_archived ? 'Oui' : 'Non';
                 }),
+            TD::make('has_rss', 'Flux RSS')
+                ->sort()
+                ->filter(Switcher::make('has_rss')->sendTrueOrFalse())
+                ->render(function (Programme $programme) {
+                    return $programme->has_rss ? '<a href="/rss/'.$programme->slug.'.xml">Oui</a>' : 'Non';
+                }),
         ];
     }
 }

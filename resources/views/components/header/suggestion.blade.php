@@ -1,6 +1,6 @@
 <div id="suggestion--container" class="suggestion--container row">
     <div class="suggestion-container-visible p-3 row overflow-auto">
-    @if(!$tags->isEmpty() && !$programmes->isEmpty() && !$groups_programme->isEmpty())
+    @if(!$tags->isEmpty() || !$programmes->isEmpty() || !$groups_programme->isEmpty())
         <div class="suggestion__tag-container col-md-4 col-12">
             @if(!$tags->isEmpty())
                 <h2 class="mt-3 mb-2 font-bold">Nos thémes</h2>

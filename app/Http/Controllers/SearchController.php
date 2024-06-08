@@ -37,7 +37,6 @@ class SearchController extends Controller
             abort(400);
         }
 
-        // @Todo debug off development only remove before pass prod
         if (env('APP_ENV') === 'local') {
             debugbar()->disable();
         }

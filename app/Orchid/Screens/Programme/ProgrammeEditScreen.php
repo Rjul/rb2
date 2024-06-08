@@ -102,53 +102,63 @@ class ProgrammeEditScreen extends Screen
     public function layout(): iterable
     {
         return [
-            Layout::rows([
-                Input::make('programme.name')
-                    ->title('Titre')
-                    ->placeholder('Titre du programme')
-                    ->required(),
+            Layout::tabs([
+                'GENERAL' => [
+                    Layout::rows([
+                        Input::make('programme.name')
+                            ->title('Titre')
+                            ->placeholder('Titre du programme')
+                            ->required(),
 
-                Input::make('programme.height')
-                    ->placeholder('Priorité de triage')
-                    ->required()
-                    ->type('number')
-                    ->step(1),
+                        Input::make('programme.height')
+                            ->placeholder('Priorité de triage')
+                            ->required()
+                            ->type('number')
+                            ->step(1),
 
-                Quill::make('programme.description')
-                    ->title('Description')
-                    ->height('80vh')
-                    ->placeholder('Description du programme')
-                    ->required(),
+                        Quill::make('programme.description')
+                            ->title('Description')
+                            ->height('80vh')
+                            ->placeholder('Description du programme')
+                            ->required(),
 
-                Relation::make('programme.group_programme_id')
-                    ->fromModel(GroupProgramme::class, 'name')
-                    ->title('Choisir le groupe du programme')
-                    ->required(),
+                        Relation::make('programme.group_programme_id')
+                            ->fromModel(GroupProgramme::class, 'name')
+                            ->title('Choisir le groupe du programme')
+                            ->required(),
 
-                Relation::make('programme.user_id')
-                    ->fromModel(\App\Models\User::class, 'name')
-                    ->title('Choisir l\'administrateur du programme')
-                    ->required(),
+                        Switcher::make('programme.active')
+                            ->sendTrueOrFalse()
+                            ->title('Programme visible')
+                            ->value(true),
 
-                Cropper::make('programme.image')
-                    ->height(800)
-                    ->width(533)
-                    ->targetUrl()
-                    ->required(),
+                        Switcher::make('programme.is_archived')
+                            ->sendTrueOrFalse()
+                            ->title('Archivé programme')
+                            ->value(false),
 
-                Switcher::make('programme.active')
-                    ->sendTrueOrFalse()
-                    ->title('Programme visible')
-                    ->value(true),
+                    ])
+                ],
+                'RSS' => [
+                    Layout::rows([
+                        Relation::make('programme.user_id')
+                            ->fromModel(\App\Models\User::class, 'name')
+                            ->title('Choisir l\'administrateur du programme')
+                            ->required(),
 
-                Switcher::make('programme.is_archived')
-                    ->sendTrueOrFalse()
-                    ->title('Archivé programme')
-                    ->value(false),
+                        Cropper::make('programme.image')
+                            ->height(800)
+                            ->width(533)
+                            ->targetUrl()
+                            ->required(),
 
-
+                        Switcher::make('programme.has_rss')
+                            ->sendTrueOrFalse()
+                            ->title('Activé le flux RSS')
+                            ->value(false),
+                    ])
+                ]
             ])
-
         ];
     }
 

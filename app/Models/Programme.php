@@ -87,7 +87,8 @@ class Programme extends Model
         'description',
         'image',
         'is_active',
-        'is_archived'
+        'is_archived',
+        'has_rss'
     ];
 
 
@@ -130,7 +131,8 @@ class Programme extends Model
         'description',
         'image',
         'is_active',
-        'is_archived'
+        'is_archived',
+        'has_rss'
     ];
 
     /**
@@ -148,5 +150,6 @@ class Programme extends Model
         'updated_at',
         'created_at',
         'height',
+        'has_rss'
     ];
 }

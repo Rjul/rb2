@@ -6,7 +6,7 @@
             <itunes:email>{{ $programme->user->email }}</itunes:email>
         </itunes:owner>
         <itunes:author>{{ $programme->user->name }}</itunes:author>
-        <description>{{ $programme->description }}</description>
+        <description>{!! Str::words(strip_tags(str_replace('>', '> ', Str::limit($programme->description, 300)))) !!}</description>
         <itunes:image href="{{ \Illuminate\Support\Facades\URL::full() }}{{ $programme->image }}"/>
         <language>fr</language>
         <link>{{ route('list-programme', $programme) }}</link>

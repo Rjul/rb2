@@ -10,7 +10,9 @@ class RssService
 
     public function generateAll(): bool
     {
-        $programmes = Programme::with('emisions')->get();
+        $programmes = Programme::with('emisions')
+            ->where('has_rss', true)
+            ->get();
         $isFullSuccess = true;
         foreach ($programmes as $programme) {
             try {
