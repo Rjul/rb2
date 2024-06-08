@@ -18,7 +18,9 @@
             <x-home-lastest-emissions></x-home-lastest-emissions>
 
             <div class="w-100 mt-5 center d-flex justify-content-center">
-                <a class="mt-5 btn btn-secondary font-berlin m-auto" href="{{ route('list-search') }}">
+                <a class="mt-5 btn btn-secondary font-berlin m-auto shadow shadow-lg" href="{{ route('list-search') }}"
+                    style="box-shadow: 0 1rem 3rem rgb(0 0 0) !important;"
+                >
                     Voir toutes nos émissions
                 </a>
             </div>

@@ -14,6 +14,7 @@ const initSearch = () => {
         openBtnSidebarElm.classList.remove('position-fixed');
         sidebarElm.classList.remove('d-none');
         openBtnSidebarElm.dataset.open = true;
+        scrollTo(0,0);
         changeBtnType('open');
       }
       else {

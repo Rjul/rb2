@@ -1,5 +1,7 @@
 <div class="col-auto col-md-4 col-xl-3 px-sm-2 px-0">
-    <button id="searchEngineButton" data-open="false" class="btn btn-secondary btn--small position-fixed top-10 right-0 d-md-none" type="button">
+    <button id="searchEngineButton" data-open="false" class="btn btn--small position-fixed top-10 right-0 border border-3 shadow shadow-sm text-black d-md-none" type="button"
+        style="background-color: rgb(255 255 255 / 86%); border-color: rgb(58 175 13 / 61%) !important;"
+    >
         <div id="show-opened">
             <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
                 <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
@@ -68,11 +70,12 @@
                                     <div class="d-flex flex-wrap">
                                         @foreach($tagsSearch as $tagSearch)
                                             <div class="position-relative m-1 ">
-                                                <label id="label-tag-{{ $tagSearch->id }}" class="label-search-facet-elms flex-center h-100 form-check fs-4 label btn btn-primary btn--small
-                                                {{ in_array($tagSearch->id, request('tags_id', [])) ? ' active border border-success border-3' :
-                                                        ($tagSearch->slug === request('tag', new \App\Models\Tag() ) ?? false  ? ' active border border-success' : '') }}
+                                                <label id="label-tag-{{ $tagSearch->id }}" class="label-search-facet-elms flex-center h-100 form-check fs-4 label btn btn--small border border-2 rounded-4
+                                                {{ in_array($tagSearch->id, request('tags_id', [])) ? ' active  opacity-75 ' :
+                                                        ($tagSearch->slug === request('tag', new \App\Models\Tag() ) ?? false  ? ' active opacity-50' : '') }}
                                                 " for="tag-{{ $tagSearch->id }}"
-                                                       style="background-color: {{ $tagSearch->color }}"
+                                                       style="border-color: {{ $tagSearch->color }} !important; {{ in_array($tagSearch->id, request('tags_id', [])) ? ' background-color: ' . $tagSearch->color :
+                                                        ($tagSearch->slug === request('tag', new \App\Models\Tag() ) ?? false  ? ' background-color:' . $tagSearch->color : '') }}"
                                                 >
                                                     <input class="position-absolute check-box__elm-search-engin left right d-none" type="checkbox" name="tags_id[]" value="{{ $tagSearch->id }}" id="tag-{{ $tagSearch->id }}"
                                                         {{ in_array($tagSearch->id, request('tags_id', [])) ? 'checked' :
@@ -100,9 +103,9 @@
                                     <div class="d-flex flex-wrap">
                                         @foreach($programmesSearch as $programmeSearch)
                                             <div class="position-relative m-1 ">
-                                                <label id="label-programme-{{ $programmeSearch->id }}" class="label-search-facet-elms h-100 form-check fs-6 label btn  btn-primary btn--small
-                                                {{ in_array($programmeSearch->id, request('programmes_id', [])) ? 'active btn-secondary' :
-                                                        ($programmeSearch->id === request('programme', new \App\Models\Programme() )->id ?? false  ? 'active btn-secondary' : '') }}
+                                                <label id="label-programme-{{ $programmeSearch->id }}" class="label-search-facet-elms h-100 form-check fs-6 label btn btn--small border border-2 shadow-sm shadow
+                                                {{ in_array($programmeSearch->id, request('programmes_id', [])) ? ' active btn-secondary text-white' :
+                                                        ($programmeSearch->id === request('programme', new \App\Models\Programme() )->id ?? false  ? 'active btn-secondary text-white' : 'text-black') }}
                                                 " for="programme-{{ $programmeSearch->id }}"
                                                 >
                                                     <input class="position-absolute check-box__elm-search-engin left right d-none" type="checkbox" name="programmes_id[]" value="{{ $programmeSearch->id }}" id="programme-{{ $programmeSearch->id }}"
@@ -128,8 +131,8 @@
                                 <div class="d-flex flex-wrap">
                                     @foreach($durations as $key => $duration)
                                         <div class="position-relative m-1 ">
-                                            <label id="label-tag-{{ $duration }}" class="label-search-facet-elms flex-center h-100 form-check fs-4 label btn btn-primary btn--small
-                                                {{ in_array($duration, request('duration', [])) ? ' active border border-success border-3' : '' }}
+                                            <label id="label-tag-{{ $duration }}" class="label-search-facet-elms flex-center h-100 form-check fs-4 label btn btn--small border border-2 shadow-sm shadow
+                                                {{ in_array($duration, request('duration', [])) ? ' active btn-secondary text-white' : 'text-black' }}
                                                 " for="duration-{{ $duration }}"
                                             >
                                                 <input class="position-absolute check-box__elm-search-engin check-box__elm-duration-search-engin left right d-none" type="checkbox" name="duration[]" value="{{ $duration }}" id="duration-{{ $duration }}"

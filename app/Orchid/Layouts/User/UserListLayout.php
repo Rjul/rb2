@@ -30,7 +30,7 @@ class UserListLayout extends Table
             TD::make('name', __('Name'))
                 ->sort()
                 ->cantHide()
-                ->filter(Input::make())
+                ->filter()
                 ->render(function (User $user) {
                     return new Persona($user->presenter());
                 }),
@@ -38,7 +38,7 @@ class UserListLayout extends Table
             TD::make('email', __('Email'))
                 ->sort()
                 ->cantHide()
-                ->filter(Input::make())
+                ->filter()
                 ->render(function (User $user) {
                     return ModalToggle::make($user->email)
                         ->modal('asyncEditUserModal')
