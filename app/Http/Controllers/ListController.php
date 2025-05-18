@@ -20,7 +20,10 @@ class ListController extends Controller
         $emisions = Emision::query()->with(['programme']);
         $emisions->orderBy('active_at', 'desc')
             ->where('active_at', '<', now())
-            ->where('emisions.is_active', "=", true);
+            ->where('emisions.is_active', "=", true)
+            ->whereHas('programme', function (Builder $query) {
+                $query->where('is_active', "=", true);
+            });
 ;
 
         if (!is_null($programme)) {

@@ -10,6 +10,12 @@ class DetannController extends Controller
 {
     public function index(Programme $programme, Emision $emision)
     {
+        // where programme is active and emiision is active or redirect to the home page
+        if (!$programme->is_active || !$emision->is_active) {
+            return redirect()->route('homepage');
+        }
+
+        
         $suggestionEmisions = Emision::where('programme_id', $programme->id)
             ->where('id', '!=', $emision->id)
             ->orderBy('id', 'desc')

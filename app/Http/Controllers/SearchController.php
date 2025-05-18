@@ -75,6 +75,9 @@ class SearchController extends Controller
             $emisions = $this->searchByDuration($emisions, $request);
         }
         $emisions->orderBy('active_at', 'desc')
+            ->whereHas('programme', function (Builder $query) {
+                $query->where('is_active', "=", true);
+            })
             ->where('active_at', '<', now())
             ->where('emisions.is_active', "=", true)
         ;
