@@ -127,7 +127,7 @@ class ProgrammeEditScreen extends Screen
                             ->title('Choisir le groupe du programme')
                             ->required(),
 
-                        Switcher::make('programme.active')
+                        Switcher::make('programme.is_active')
                             ->sendTrueOrFalse()
                             ->title('Programme visible')
                             ->value(true),
