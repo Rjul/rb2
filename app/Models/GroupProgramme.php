@@ -114,4 +114,9 @@ class GroupProgramme extends Model
         return $this->hasMany(Programme::class)->orderBy('height', 'ASC');
     }
 
+    public function programmesOrderByHeightAndActive()
+    {
+        return $this->hasMany(Programme::class)->orderBy('height', 'ASC')->where('is_active', '=', 1);
+    }
+
 }
