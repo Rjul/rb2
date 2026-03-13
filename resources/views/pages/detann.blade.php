@@ -18,7 +18,7 @@
     <meta name="description" content="{{ $emision->programme->name }} {{ $emision->name }} - {{ Str::words(strip_tags(str_replace(['>', '&nbsp;'], ['> ', ' '], Str::limit($emision->description, 150)))) }}" />
     <meta property="og:title" content="Radiobastides - {{ $emision->programme->name }} {{ $emision->name }}" />
     <meta property="og:type" content="website" />
-    <meta property="og:url" content="{{ route('view-emision', [ 'programme' => $emision->programme, 'emision' => $emision ]) }}" />
+    <meta property="og:url" content="{{ request()->url() }}" />
     <meta property="og:image" content="{{ $emision->image }}" />
     <meta property="og:description" content="{{ Str::words(strip_tags(str_replace(['>', '&nbsp;'], ['> ', ' '], Str::limit($emision->description, 150)))) }}" />
     <meta property="og:site_name" content="RadioBastides" />
@@ -74,15 +74,18 @@
                     {{ $emision->active_at }}
 
                     @php
-                        $shareUrl = route('view-emision', ['programme' => $emision->programme, 'emision' => $emision]);
+                        $shareUrl = request()->fullUrl();
+                        if (Str::startsWith($shareUrl, 'http://')) {
+                            $shareUrl = preg_replace('/^http:\/\//i', 'https://', $shareUrl);
+                        }
                         $facebookShareUrl = 'https://www.facebook.com/sharer/sharer.php?u=' . urlencode($shareUrl);
                     @endphp
                     <div class="m-3">
                         <a
                             class="btn btn-primary"
                             href="{{ $facebookShareUrl }}"
-                            target="_blank"
                             rel="noopener noreferrer"
+                            data-turbo="false"
                             aria-label="Partager cette émission sur Facebook"
                         >
                             Partager sur Facebook
