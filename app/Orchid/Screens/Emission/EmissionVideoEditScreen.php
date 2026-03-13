@@ -47,9 +47,9 @@ class EmissionVideoEditScreen extends Screen
     public function query(Emission $emission): iterable
     {
         return [
-            'emission'  => $emission,
-            'media'     => $emission->attachment('video')->get(),
-//            'duration'  => $emission->attachment('audio')->get()->first()->duration
+            'emission' => $emission,
+            'media' => $emission->attachment('video')->get(),
+            //            'duration'  => $emission->attachment('audio')->get()->first()->duration
         ];
     }
 
@@ -167,11 +167,11 @@ class EmissionVideoEditScreen extends Screen
                         ->step(.01)
                         ->required()
                         ->title('Temps pour consulter en minutes')
-                        ->pattern( '^[0-9]{1,3}(.[0-5])?([0-9])?$'),
+                        ->pattern('^[0-9]{1,3}(.[0-5])?([0-9])?$'),
 
                     Input::make('emission.media_type')
-                                    ->hidden(true)
-                                    ->value('video'),
+                        ->hidden(true)
+                        ->value('video'),
 
                 ]),
                 Layout::rows([

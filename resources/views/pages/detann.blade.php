@@ -73,20 +73,20 @@
                     </section>
                     {{ $emision->active_at }}
 
-                    <div id="fb-root m-3">
-                        <script>(function(d, s, id) {
-                                var js, fjs = d.getElementsByTagName(s)[0];
-                                if (d.getElementById(id)) return;
-                                js = d.createElement(s); js.id = id;
-                                js.src = "https://connect.facebook.net/fr_FR/sdk.js#xfbml=1&version=v10.0";
-                                fjs.parentNode.insertBefore(js, fjs);
-                            }(document, 'script', 'facebook-jssdk'));</script>
-
-                        <!-- Your share button code -->
-                        <div class="fb-share-button"
-                             data-href="https://radiobastides.fr{{ $_SERVER['REQUEST_URI'] }}"
-                             data-layout="button_count">
-                        </div>
+                    @php
+                        $shareUrl = route('view-emision', ['programme' => $emision->programme, 'emision' => $emision]);
+                        $facebookShareUrl = 'https://www.facebook.com/sharer/sharer.php?u=' . urlencode($shareUrl);
+                    @endphp
+                    <div class="m-3">
+                        <a
+                            class="btn btn-primary"
+                            href="{{ $facebookShareUrl }}"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            aria-label="Partager cette émission sur Facebook"
+                        >
+                            Partager sur Facebook
+                        </a>
                     </div>
 
                     <x-follow-navigation :emision="$emision" />

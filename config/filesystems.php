@@ -32,7 +32,7 @@ return [
         'local' => [
             'driver' => 'local',
             'root' => storage_path('app'),
-            'url' => env('APP_URL').'/storage',
+            'url' => env('APP_URL') . '/storage',
             'visibility' => 'public',
             'throw' => false,
         ],
@@ -40,7 +40,7 @@ return [
         'public' => [
             'driver' => 'local',
             'root' => storage_path('app/public'),
-                'url' => env('APP_URL').'/storage/public',
+            'url' => env('APP_URL') . '/storage/public',
             'visibility' => 'public',
             'throw' => false,
         ],
@@ -48,7 +48,7 @@ return [
         'emission_image' => [
             'driver' => 'local',
             'root' => storage_path('app/public/emission/images'),
-            'url' => env('APP_URL').'/storage/public/emission/images',
+            'url' => env('APP_URL') . '/storage/public/emission/images',
             'visibility' => 'public',
             'throw' => false,
         ],
@@ -56,7 +56,7 @@ return [
         'emission_audio' => [
             'driver' => 'local',
             'root' => storage_path('app/public/emission/audio'),
-            'url' => env('APP_URL').'/storage/public/emission/audio',
+            'url' => env('APP_URL') . '/storage/public/emission/audio',
             'visibility' => 'public',
             'throw' => false,
         ],
@@ -73,7 +73,8 @@ return [
             'public' => true,
             'visibility' => 'public',
             'directory_visibility' => 'public',
-            'timeout' => 30,
+            'passive' => true,
+            'timeout' => 5,
             'useAgent' => true,
             'throw' => true,
         ],
