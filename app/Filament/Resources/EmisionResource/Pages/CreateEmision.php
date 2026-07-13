@@ -3,10 +3,30 @@
 namespace App\Filament\Resources\EmisionResource\Pages;
 
 use App\Filament\Resources\EmisionResource;
-use Filament\Actions;
+use App\Filament\Support\EmisionMedia;
 use Filament\Resources\Pages\CreateRecord;
+use Illuminate\Support\Facades\Auth;
 
 class CreateEmision extends CreateRecord
 {
     protected static string $resource = EmisionResource::class;
+
+    protected ?string $mediaPath = null;
+
+    protected function mutateFormDataBeforeCreate(array $data): array
+    {
+        // Le fichier média n'est pas une colonne : on l'extrait pour créer l'Attachment après.
+        $this->mediaPath = $data['media_upload'] ?? null;
+        unset($data['media_upload']);
+
+        // Reprend le comportement Orchid : l'auteur = utilisateur courant.
+        $data['user_id'] ??= Auth::id();
+
+        return $data;
+    }
+
+    protected function afterCreate(): void
+    {
+        EmisionMedia::sync($this->record, $this->mediaPath);
+    }
 }

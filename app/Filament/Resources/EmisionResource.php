@@ -35,7 +35,7 @@ class EmisionResource extends Resource
                         Emision::TYPE_AUDIO => 'Audio',
                         Emision::TYPE_VIDEO => 'Vidéo',
                     ])
-                    ->default(Emision::TYPE_TEXT)
+                    ->default(Emision::TYPE_AUDIO)
                     ->required()->live(),
 
                 Forms\Components\Select::make('programme_id')
@@ -62,9 +62,14 @@ class EmisionResource extends Resource
                 Forms\Components\Toggle::make('is_active')->label('Visible')->default(true),
                 Forms\Components\Toggle::make('is_put_forward')->label('Mettre à la une')->default(false),
 
-                Forms\Components\Placeholder::make('media_notice')
-                    ->label('Fichier média')
-                    ->content('Pendant la coexistence, l’upload du fichier audio/vidéo se fait dans l’admin Orchid (système d’Attachment). La migration du média est prévue ultérieurement.')
+                Forms\Components\FileUpload::make('media_upload')
+                    ->label(fn (Get $get) => $get('media_type') === Emision::TYPE_VIDEO ? 'Fichier vidéo' : 'Fichier audio')
+                    ->disk(fn (Get $get) => \App\Filament\Support\EmisionMedia::disk($get('media_type') ?? Emision::TYPE_AUDIO))
+                    ->visibility('public')
+                    ->directory(date('Y/m'))
+                    ->acceptedFileTypes(fn (Get $get) => $get('media_type') === Emision::TYPE_VIDEO ? ['video/mp4', 'video/*'] : ['audio/mpeg', 'audio/*'])
+                    ->maxSize(512000)
+                    ->helperText("Fichier enregistré comme média de l'émission (audio local, vidéo sur le FTP).")
                     ->columnSpanFull()
                     ->visible(fn (Get $get) => in_array($get('media_type'), [Emision::TYPE_AUDIO, Emision::TYPE_VIDEO])),
             ]),

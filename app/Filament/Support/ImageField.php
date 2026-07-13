@@ -25,27 +25,6 @@ class ImageField
             ->imageResizeMode('cover')
             ->imageResizeTargetWidth((string) $width)
             ->imageResizeTargetHeight((string) $height)
-            ->helperText("Format attendu : {$width}×{$height} px (recadrage imposé).")
-            ->formatStateUsing(fn ($state) => static::urlToPath($state));
-    }
-
-    /**
-     * Reconvertit l'URL (renvoyée par l'accessor) en chemin relatif au disque
-     * pour que l'aperçu de FileUpload retrouve le fichier.
-     */
-    public static function urlToPath($state)
-    {
-        if (blank($state)) {
-            return $state;
-        }
-
-        $base = Storage::disk('emission_image')->url('');
-
-        if (str_starts_with($state, $base)) {
-            return ltrim(substr($state, strlen($base)), '/');
-        }
-
-        // URL absolue d'un autre disque (héritée d'Orchid) : pas d'aperçu, mais pas d'erreur.
-        return str_starts_with($state, 'http') ? null : $state;
+            ->helperText("Format attendu : {$width}×{$height} px (recadrage imposé).");
     }
 }
