@@ -16,8 +16,8 @@ class CreateEmision extends CreateRecord
     protected function mutateFormDataBeforeCreate(array $data): array
     {
         // Le fichier média n'est pas une colonne : on l'extrait pour créer l'Attachment après.
-        $this->mediaPath = $data['media_upload'] ?? null;
-        unset($data['media_upload']);
+        $this->mediaPath = $data['audio_upload'] ?? $data['video_upload'] ?? null;
+        unset($data['audio_upload'], $data['video_upload']);
 
         // Reprend le comportement Orchid : l'auteur = utilisateur courant.
         $data['user_id'] ??= Auth::id();

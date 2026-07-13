@@ -62,16 +62,23 @@ class EmisionResource extends Resource
                 Forms\Components\Toggle::make('is_active')->label('Visible')->default(true),
                 Forms\Components\Toggle::make('is_put_forward')->label('Mettre à la une')->default(false),
 
-                Forms\Components\FileUpload::make('media_upload')
-                    ->label(fn (Get $get) => $get('media_type') === Emision::TYPE_VIDEO ? 'Fichier vidéo' : 'Fichier audio')
-                    ->disk(fn (Get $get) => \App\Filament\Support\EmisionMedia::disk($get('media_type') ?? Emision::TYPE_AUDIO))
-                    ->visibility('public')
-                    ->directory(date('Y/m'))
-                    ->acceptedFileTypes(fn (Get $get) => $get('media_type') === Emision::TYPE_VIDEO ? ['video/mp4', 'video/*'] : ['audio/mpeg', 'audio/*'])
+                Forms\Components\FileUpload::make('audio_upload')
+                    ->label('Fichier audio')
+                    ->disk('emission_audio')->visibility('public')->directory(date('Y/m'))
+                    ->acceptedFileTypes(['audio/mpeg', 'audio/mp3', 'audio/wav', 'audio/ogg', 'audio/aac', 'audio/*'])
                     ->maxSize(512000)
-                    ->helperText("Fichier enregistré comme média de l'émission (audio local, vidéo sur le FTP).")
+                    ->helperText("Fichier audio de l'émission.")
                     ->columnSpanFull()
-                    ->visible(fn (Get $get) => in_array($get('media_type'), [Emision::TYPE_AUDIO, Emision::TYPE_VIDEO])),
+                    ->visible(fn (Get $get) => $get('media_type') === Emision::TYPE_AUDIO),
+
+                Forms\Components\FileUpload::make('video_upload')
+                    ->label('Fichier vidéo')
+                    ->disk('emission_video')->visibility('public')->directory(date('Y/m'))
+                    ->acceptedFileTypes(['video/mp4', 'video/quicktime', 'video/webm', 'video/*'])
+                    ->maxSize(2048000)
+                    ->helperText('Fichier vidéo (stocké sur le FTP).')
+                    ->columnSpanFull()
+                    ->visible(fn (Get $get) => $get('media_type') === Emision::TYPE_VIDEO),
             ]),
 
             \App\Filament\Support\ImageField::make(800, 533, 'images')

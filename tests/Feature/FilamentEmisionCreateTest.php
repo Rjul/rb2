@@ -43,7 +43,7 @@ class FilamentEmisionCreateTest extends TestCase
                 'is_active' => true,
                 'is_put_forward' => false,
                 'image' => [UploadedFile::fake()->image('cover.jpg', 800, 533)],
-                'media_upload' => [UploadedFile::fake()->create('episode.mp3', 200, 'audio/mpeg')],
+                'audio_upload' => [UploadedFile::fake()->create('episode.mp3', 200, 'audio/mpeg')],
                 'description' => '<p>Description de test</p>',
             ])
             ->call('create')
@@ -55,5 +55,41 @@ class FilamentEmisionCreateTest extends TestCase
         $this->assertNotNull($emision->getRawOriginal('image'), "L'image doit être enregistrée");
         $this->assertTrue($emision->tags()->count() >= 1, 'Le thème doit être attaché');
         $this->assertTrue($emision->attachment('audio')->count() >= 1, "Le fichier audio (Attachment) doit être attaché");
+    }
+
+    public function test_creation_emission_video_via_filament(): void
+    {
+        Storage::fake('emission_image');
+        Storage::fake('emission_video');
+
+        $admin = User::factory()->create(['permissions' => ['platform.index' => true]]);
+        $group = GroupProgramme::factory()->create(['is_active' => true]);
+        $programme = Programme::factory()->create([
+            'user_id' => $admin->id, 'group_programme_id' => $group->id, 'is_active' => true,
+        ]);
+
+        $this->actingAs($admin);
+
+        Livewire::test(CreateEmision::class)
+            ->fillForm([
+                'name' => 'Émission vidéo test',
+                'media_type' => Emision::TYPE_VIDEO,
+                'programme_id' => $programme->id,
+                'active_at' => now()->toDateString(),
+                'duration' => 30,
+                'is_active' => true,
+                'image' => [UploadedFile::fake()->image('cover.jpg', 800, 533)],
+                'video_upload' => [UploadedFile::fake()->create('episode.mp4', 500, 'video/mp4')],
+                'description' => '<p>Vidéo</p>',
+            ])
+            ->call('create')
+            ->assertHasNoFormErrors();
+
+        $emision = Emision::where('name', 'Émission vidéo test')->first();
+        $this->assertNotNull($emision);
+        $this->assertSame(Emision::TYPE_VIDEO, $emision->media_type);
+        $attachment = $emision->attachment('video')->first();
+        $this->assertNotNull($attachment, 'Le fichier vidéo (Attachment) doit être attaché');
+        $this->assertSame('emission_video', $attachment->disk);
     }
 }

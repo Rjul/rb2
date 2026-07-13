@@ -22,16 +22,22 @@ class EditEmision extends EditRecord
 
     protected function mutateFormDataBeforeFill(array $data): array
     {
-        // Préremplit le champ d'upload avec le média courant.
-        $data['media_upload'] = EmisionMedia::currentPath($this->record);
+        // Préremplit le bon champ d'upload avec le média courant.
+        $path = EmisionMedia::currentPath($this->record);
+
+        if ($this->record->media_type === \App\Models\Emision::TYPE_VIDEO) {
+            $data['video_upload'] = $path;
+        } else {
+            $data['audio_upload'] = $path;
+        }
 
         return $data;
     }
 
     protected function mutateFormDataBeforeSave(array $data): array
     {
-        $this->mediaPath = $data['media_upload'] ?? null;
-        unset($data['media_upload']);
+        $this->mediaPath = $data['audio_upload'] ?? $data['video_upload'] ?? null;
+        unset($data['audio_upload'], $data['video_upload']);
 
         return $data;
     }
