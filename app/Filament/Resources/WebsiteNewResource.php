@@ -3,88 +3,66 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\WebsiteNewResource\Pages;
-use App\Filament\Resources\WebsiteNewResource\RelationManagers;
 use App\Models\WebsiteNew;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class WebsiteNewResource extends Resource
 {
     protected static ?string $model = WebsiteNew::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-megaphone';
+    protected static ?string $navigationGroup = 'Site';
+    protected static ?string $navigationLabel = 'Annonces';
+    protected static ?string $modelLabel = 'annonce';
+    protected static ?string $pluralModelLabel = 'annonces';
 
     public static function form(Form $form): Form
     {
-        return $form
-            ->schema([
-                Forms\Components\TextInput::make('name')
-                    ->required()
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('content')
-                    ->required()
-                    ->maxLength(255),
-                Forms\Components\Toggle::make('active')
-                    ->required(),
-                Forms\Components\DateTimePicker::make('active_at')
-                    ->required(),
-                Forms\Components\DateTimePicker::make('end_at')
-                    ->required(),
-            ]);
+        return $form->schema([
+            Forms\Components\TextInput::make('name')
+                ->label('Titre')
+                ->required()
+                ->maxLength(255),
+            Forms\Components\Textarea::make('content')
+                ->label('Texte à afficher')
+                ->required()
+                ->rows(4)
+                ->columnSpanFull(),
+            Forms\Components\Toggle::make('active')
+                ->label('Annonce visible')
+                ->default(true),
+            Forms\Components\DateTimePicker::make('active_at')
+                ->label('Date de publication')
+                ->seconds(false),
+            Forms\Components\DateTimePicker::make('end_at')
+                ->label('Date de fin')
+                ->seconds(false),
+        ]);
     }
 
     public static function table(Table $table): Table
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('name')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('content')
-                    ->searchable(),
-                Tables\Columns\IconColumn::make('active')
-                    ->boolean(),
-                Tables\Columns\TextColumn::make('active_at')
-                    ->dateTime()
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('end_at')
-                    ->dateTime()
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('deleted_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('created_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('updated_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
+                Tables\Columns\TextColumn::make('name')->label('Nom')->searchable()->sortable(),
+                Tables\Columns\IconColumn::make('active')->label('Active')->boolean()->sortable(),
+                Tables\Columns\TextColumn::make('active_at')->label('Publication')->dateTime('d/m/Y H:i')->sortable(),
+                Tables\Columns\TextColumn::make('end_at')->label('Fin')->dateTime('d/m/Y H:i')->sortable(),
             ])
+            ->defaultSort('active_at', 'desc')
             ->filters([
-                //
+                Tables\Filters\TernaryFilter::make('active')->label('Active'),
             ])
-            ->actions([
-                Tables\Actions\EditAction::make(),
-            ])
+            ->actions([Tables\Actions\EditAction::make()])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
                 ]),
             ]);
-    }
-
-    public static function getRelations(): array
-    {
-        return [
-            //
-        ];
     }
 
     public static function getPages(): array

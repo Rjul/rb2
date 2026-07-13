@@ -53,6 +53,65 @@ class FilamentPanelSmokeTest extends TestCase
             'pages'        => ['page-admins'],
             'annonces'     => ['website-news'],
             'commentaires' => ['comments'],
+            'rôles'        => ['roles'],
+            'utilisateurs' => ['users'],
+        ];
+    }
+
+    /**
+     * @dataProvider createResources
+     */
+    public function test_page_creation_repond_200(string $slug): void
+    {
+        $admin = $this->admin();
+        $group = \App\Models\GroupProgramme::factory()->create(['is_active' => true]);
+        \App\Models\Programme::factory()->create([
+            'user_id' => $admin->id,
+            'group_programme_id' => $group->id,
+            'is_active' => true,
+        ]);
+
+        $this->actingAs($admin)->get("/gestion/{$slug}/create")->assertOk();
+    }
+
+    public function test_pages_edition_avec_donnees(): void
+    {
+        $admin = $this->admin();
+        $group = \App\Models\GroupProgramme::factory()->create(['is_active' => true]);
+        $programme = \App\Models\Programme::factory()->create([
+            'user_id' => $admin->id, 'group_programme_id' => $group->id, 'is_active' => true,
+        ]);
+        $tag = \App\Models\Tag::factory()->create();
+        $emision = \App\Models\Emision::factory()->create([
+            'user_id' => $admin->id, 'programme_id' => $programme->id,
+            'media_type' => \App\Models\Emision::TYPE_AUDIO, 'is_active' => true,
+        ]);
+        $emision->attachTags([$tag]);
+        $role = \App\Models\Role::create([
+            'name' => 'Éditeur', 'slug' => 'editeur',
+            'permissions' => ['platform.index' => true, 'platform.programmes' => true],
+        ]);
+
+        $this->actingAs($admin);
+        $this->get("/gestion/group-programmes/{$group->id}/edit")->assertOk();
+        $this->get("/gestion/programmes/{$programme->id}/edit")->assertOk();
+        $this->get("/gestion/tags/{$tag->id}/edit")->assertOk();
+        $this->get("/gestion/emisions/{$emision->id}/edit")->assertOk();
+        $this->get("/gestion/roles/{$role->id}/edit")->assertOk();
+        $this->get("/gestion/users/{$admin->id}/edit")->assertOk();
+    }
+
+    public static function createResources(): array
+    {
+        return [
+            'groupes'    => ['group-programmes'],
+            'programmes' => ['programmes'],
+            'émissions'  => ['emisions'],
+            'thèmes'     => ['tags'],
+            'pages'      => ['page-admins'],
+            'annonces'   => ['website-news'],
+            'rôles'      => ['roles'],
+            'utilisateurs' => ['users'],
         ];
     }
 }

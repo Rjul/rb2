@@ -3,114 +3,114 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\EmisionResource\Pages;
-use App\Filament\Resources\EmisionResource\RelationManagers;
 use App\Models\Emision;
 use Filament\Forms;
 use Filament\Forms\Form;
+use Filament\Forms\Get;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class EmisionResource extends Resource
 {
     protected static ?string $model = Emision::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-microphone';
+    protected static ?string $navigationGroup = 'Contenu';
+    protected static ?string $navigationLabel = 'Émissions';
+    protected static ?string $modelLabel = 'émission';
+    protected static ?string $pluralModelLabel = 'émissions';
 
     public static function form(Form $form): Form
     {
-        return $form
-            ->schema([
-                Forms\Components\TextInput::make('programme_id')
-                    ->required()
-                    ->numeric(),
-                Forms\Components\TextInput::make('user_id')
-                    ->numeric(),
+        return $form->schema([
+            Forms\Components\Section::make()->columns(2)->schema([
                 Forms\Components\TextInput::make('name')
-                    ->required()
-                    ->maxLength(255),
+                    ->label('Titre')->required()->maxLength(255)->columnSpanFull(),
+
+                Forms\Components\Select::make('media_type')
+                    ->label('Type de média')
+                    ->options([
+                        Emision::TYPE_TEXT => 'Article (texte)',
+                        Emision::TYPE_AUDIO => 'Audio',
+                        Emision::TYPE_VIDEO => 'Vidéo',
+                    ])
+                    ->default(Emision::TYPE_TEXT)
+                    ->required()->live(),
+
+                Forms\Components\Select::make('programme_id')
+                    ->label('Programme')
+                    ->relationship('programme', 'name')
+                    ->searchable()->preload()->required(),
+
+                Forms\Components\Select::make('tags')
+                    ->label('Thèmes associés')
+                    ->multiple()
+                    ->relationship('tags', 'name')
+                    ->getOptionLabelFromRecordUsing(fn ($record) => $record->name)
+                    ->preload(),
+
+                Forms\Components\DatePicker::make('active_at')
+                    ->label('Date de publication')->required(),
+
                 Forms\Components\TextInput::make('duration')
-                    ->maxLength(255),
-                Forms\Components\Textarea::make('description')
-                    ->required()
-                    ->columnSpanFull(),
-                Forms\Components\TextInput::make('media_type')
-                    ->required()
-                    ->maxLength(255),
-                Forms\Components\Toggle::make('is_put_forward')
-                    ->required(),
-                Forms\Components\Toggle::make('is_active')
-                    ->required(),
-                Forms\Components\DateTimePicker::make('active_at')
-                    ->required(),
-                Forms\Components\FileUpload::make('image')
-                    ->image()
-                    ->required(),
-                Forms\Components\TextInput::make('slug')
-                    ->required()
-                    ->maxLength(255),
-            ]);
+                    ->label('Durée / temps de consultation (min)')
+                    ->numeric()->minValue(0)->maxValue(120)->step(0.01)
+                    ->visible(fn (Get $get) => in_array($get('media_type'), [Emision::TYPE_AUDIO, Emision::TYPE_VIDEO]))
+                    ->required(fn (Get $get) => in_array($get('media_type'), [Emision::TYPE_AUDIO, Emision::TYPE_VIDEO])),
+
+                Forms\Components\Toggle::make('is_active')->label('Visible')->default(true),
+                Forms\Components\Toggle::make('is_put_forward')->label('Mettre à la une')->default(false),
+
+                Forms\Components\Placeholder::make('media_notice')
+                    ->label('Fichier média')
+                    ->content('Pendant la coexistence, l’upload du fichier audio/vidéo se fait dans l’admin Orchid (système d’Attachment). La migration du média est prévue ultérieurement.')
+                    ->columnSpanFull()
+                    ->visible(fn (Get $get) => in_array($get('media_type'), [Emision::TYPE_AUDIO, Emision::TYPE_VIDEO])),
+            ]),
+
+            Forms\Components\FileUpload::make('image')
+                ->label('Image')->image()->imageEditor()
+                ->disk('emission_image')->visibility('public')->directory('images')
+                ->required()->columnSpanFull(),
+
+            Forms\Components\RichEditor::make('description')
+                ->label('Description')->required()->columnSpanFull(),
+        ]);
     }
 
     public static function table(Table $table): Table
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('programme_id')
-                    ->numeric()
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('user_id')
-                    ->numeric()
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('name')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('duration')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('media_type')
-                    ->searchable(),
-                Tables\Columns\IconColumn::make('is_put_forward')
-                    ->boolean(),
-                Tables\Columns\TextColumn::make('deleted_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('created_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('updated_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\IconColumn::make('is_active')
-                    ->boolean(),
-                Tables\Columns\TextColumn::make('active_at')
-                    ->dateTime()
-                    ->sortable(),
-                Tables\Columns\ImageColumn::make('image'),
-                Tables\Columns\TextColumn::make('slug')
-                    ->searchable(),
+                Tables\Columns\TextColumn::make('name')->label('Titre')->searchable()->sortable()->limit(50),
+                Tables\Columns\TextColumn::make('programme.name')->label('Programme')->sortable(),
+                Tables\Columns\TextColumn::make('media_type')->label('Type')->badge()
+                    ->formatStateUsing(fn (string $state) => strtoupper($state))
+                    ->color(fn (string $state) => match ($state) {
+                        Emision::TYPE_AUDIO => 'info',
+                        Emision::TYPE_VIDEO => 'warning',
+                        default => 'gray',
+                    }),
+                Tables\Columns\IconColumn::make('is_active')->label('Active')->boolean()->sortable(),
+                Tables\Columns\TextColumn::make('active_at')->label('Publication')->date('d/m/Y')->sortable(),
             ])
+            ->defaultSort('active_at', 'desc')
             ->filters([
-                //
+                Tables\Filters\SelectFilter::make('programme')->relationship('programme', 'name')->label('Programme'),
+                Tables\Filters\SelectFilter::make('media_type')->label('Type')->options([
+                    Emision::TYPE_TEXT => 'Texte',
+                    Emision::TYPE_AUDIO => 'Audio',
+                    Emision::TYPE_VIDEO => 'Vidéo',
+                ]),
+                Tables\Filters\TernaryFilter::make('is_active')->label('Active'),
             ])
-            ->actions([
-                Tables\Actions\EditAction::make(),
-            ])
+            ->actions([Tables\Actions\EditAction::make()])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
                 ]),
             ]);
-    }
-
-    public static function getRelations(): array
-    {
-        return [
-            //
-        ];
     }
 
     public static function getPages(): array
