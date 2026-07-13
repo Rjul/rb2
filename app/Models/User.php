@@ -7,7 +7,7 @@ use Illuminate\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
-use Laravelista\Comments\Commenter;
+use App\Models\Concerns\Commenter;
 use Orchid\Access\RoleAccess;
 use Orchid\Access\UserAccess;
 use Orchid\Platform\Models\User as Authenticatable;

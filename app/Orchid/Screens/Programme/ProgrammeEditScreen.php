@@ -33,7 +33,7 @@ use Spatie\Tags\Tag;
 
 class ProgrammeEditScreen extends Screen
 {
-    public Programme $programme;
+    public ?Programme $programme = null;
 
     /**
      * Query data.

@@ -25,7 +25,7 @@ class ProgrammeFactory extends Factory
             'group_programme_id' => GroupProgramme::all()->random()->id,
             'description' => fake('fr_FR')->realText(200),
             'image' => fake()->imageUrl(800, 533),
-            'active' => fake()->boolean(95),
+            'is_active' => fake()->boolean(95),
             'is_archived' => fake()->boolean(5),
             'height' => fake()->numberBetween(1, 20),
         ];

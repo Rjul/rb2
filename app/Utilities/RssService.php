@@ -33,7 +33,12 @@ class RssService
 
         $content = view('rss/base', ['programme' => $programme])->render();
 
-         return file_put_contents( base_path().'/public/rss/'.$programme->slug.'.xml', $content);
+        $directory = base_path() . '/public/rss';
+        if (!is_dir($directory)) {
+            mkdir($directory, 0775, true);
+        }
+
+        return file_put_contents($directory . '/' . $programme->slug . '.xml', $content) !== false;
     }
 
     public function hasRssContentForProgramme(Programme $programme)

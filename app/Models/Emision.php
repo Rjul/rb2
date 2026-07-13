@@ -2,12 +2,15 @@
 
 namespace App\Models;
 
+use Orchid\Filters\Types\Like;
+use Orchid\Filters\Types\Where;
+
 use App\Models\Emision as Emission;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\Relations\MorphToMany;
-use Laravelista\Comments\Commentable;
+use App\Models\Concerns\Commentable;
 use Orchid\Attachment\Attachable;
 use Orchid\Filters\Filterable;
 use Orchid\Platform\Dashboard;
@@ -200,16 +203,16 @@ class Emision extends Model
      * @var array
      */
     protected $allowedFilters = [
-        'programme_id',
-        'programme.name',
-        'user_id',
-        'name',
-        'description',
-        'media_type',
-        'is_put_forward',
-        'image',
-        'is_active',
-        'active_at'
+        'programme_id'   => Where::class,
+        'programme.name' => Like::class,
+        'user_id'        => Where::class,
+        'name'           => Like::class,
+        'description'    => Like::class,
+        'media_type'     => Where::class,
+        'is_put_forward' => Where::class,
+        'image'          => Like::class,
+        'is_active'      => Where::class,
+        'active_at'      => Where::class,
     ];
 
     /**

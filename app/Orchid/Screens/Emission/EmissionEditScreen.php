@@ -37,7 +37,7 @@ use Orchid\Support\Facades\Layout;
 
 class EmissionEditScreen extends Screen
 {
-    public Emission $emission;
+    public ?Emission $emission = null;
 
     /**
      * Query data.

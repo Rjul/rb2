@@ -5,7 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Laravelista\Comments\Commentable;
+use App\Models\Concerns\Commentable;
+use Orchid\Filters\Types\Like;
+use Orchid\Filters\Types\Where;
 use Orchid\Attachment\Attachable;
 use Orchid\Filters\Filterable;
 use Orchid\Screen\AsSource;
@@ -124,15 +126,15 @@ class Programme extends Model
      * @var array
      */
     protected array $allowedFilters = [
-        'height',
-        'group_programme_id',
-        'user_id',
-        'name',
-        'description',
-        'image',
-        'is_active',
-        'is_archived',
-        'has_rss'
+        'height'             => Where::class,
+        'group_programme_id' => Where::class,
+        'user_id'            => Where::class,
+        'name'               => Like::class,
+        'description'        => Like::class,
+        'image'              => Like::class,
+        'is_active'          => Where::class,
+        'is_archived'        => Where::class,
+        'has_rss'            => Where::class,
     ];
 
     /**

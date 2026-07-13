@@ -60,6 +60,14 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+// Commentaires (public, réservé aux utilisateurs connectés)
+Route::middleware('auth')->group(function () {
+    Route::post('comments', [\App\Http\Controllers\WebCommentController::class, 'store'])->name('comments.store');
+    Route::delete('comments/{comment}', [\App\Http\Controllers\WebCommentController::class, 'destroy'])->name('comments.destroy');
+    Route::put('comments/{comment}', [\App\Http\Controllers\WebCommentController::class, 'update'])->name('comments.update');
+    Route::post('comments/{comment}', [\App\Http\Controllers\WebCommentController::class, 'reply'])->name('comments.reply');
+});
+
 Route::get('/informations-generales', function() {
    return view('pages.information');
 });

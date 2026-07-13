@@ -2,6 +2,9 @@
 
 namespace App\Models;
 
+use Orchid\Filters\Types\Like;
+use Orchid\Filters\Types\Where;
+
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Orchid\Attachment\Attachable;
@@ -60,11 +63,11 @@ class WebsiteNew extends Model
      * @var array
      */
     protected array $allowedFilters = [
-        'name',
-        'content',
-        'active',
-        'active_at',
-        'end_at',
+        'name'      => Like::class,
+        'content'   => Like::class,
+        'active'    => Where::class,
+        'active_at' => Where::class,
+        'end_at'    => Where::class,
     ];
 
     /**

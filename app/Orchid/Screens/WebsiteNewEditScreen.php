@@ -38,7 +38,7 @@ use Spatie\Tags\Tag;
 
 class WebsiteNewEditScreen extends Screen
 {
-    public WebsiteNew $websiteNews;
+    public ?WebsiteNew $websiteNews = null;
 
     /**
      * Query data.

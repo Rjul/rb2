@@ -31,7 +31,7 @@ use Spatie\Tags\Tag;
 
 class TagEditScreen extends Screen
 {
-    public Tag $tag;
+    public ?Tag $tag = null;
 
     /**
      * Query data.

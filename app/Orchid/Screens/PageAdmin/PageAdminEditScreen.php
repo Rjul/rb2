@@ -34,7 +34,7 @@ use Spatie\Tags\Tag;
 
 class PageAdminEditScreen extends Screen
 {
-    public PageAdmin $pageAdmin;
+    public ?PageAdmin $pageAdmin = null;
 
     /**
      * Query data.

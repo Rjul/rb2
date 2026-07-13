@@ -28,7 +28,8 @@ class EmisionFactory extends Factory
             'duration' => fake('fr_FR')->randomFloat(2, 1, 120),
             'is_put_forward' => fake('fr_FR')->boolean(4),
             'image' => "https://random.imagecdn.app/800/533?nocache=".fake()->randomNumber(6),
-            'active' => fake()->boolean(95),
+            'media_type' => \App\Models\Emision::TYPE_TEXT,
+            'is_active' => fake()->boolean(95),
             'active_at' => fake()->dateTimeAD(),
         ];
     }

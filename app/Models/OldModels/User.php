@@ -5,7 +5,7 @@ namespace App\Models\OldModels;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Laravelista\Comments\Commenter;
+use App\Models\Concerns\Commenter;
 
 class User extends Authenticatable
 {
