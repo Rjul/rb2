@@ -11,11 +11,21 @@ use App\Models\Concerns\Commenter;
 use Orchid\Access\RoleAccess;
 use Orchid\Access\UserAccess;
 use Orchid\Platform\Models\User as Authenticatable;
+use Filament\Models\Contracts\FilamentUser;
+use Filament\Panel;
 
-class User extends Authenticatable
+class User extends Authenticatable implements FilamentUser
 {
     use HasFactory, UserAccess;
     use Notifiable, Commenter, HasApiTokens;
+
+    /**
+     * Accès au panel Filament — réutilise les permissions Orchid existantes.
+     */
+    public function canAccessPanel(Panel $panel): bool
+    {
+        return $this->hasAccess('platform.index');
+    }
     /**
      * The attributes that are mass assignable.
      *
