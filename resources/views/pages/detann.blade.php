@@ -15,10 +15,15 @@
 @push('title', $emision->name)
 
 @push('metadata')
+    @php
+        $canonicalShareUrl = request()->fullUrl();
+        $canonicalShareUrl = preg_replace('/^http:\/\//i', 'https://', $canonicalShareUrl);
+        $canonicalShareUrl = preg_replace('/^https:\/\/www\.radiobastides\.fr/i', 'https://radiobastides.fr', $canonicalShareUrl);
+    @endphp
     <meta name="description" content="{{ $emision->programme->name }} {{ $emision->name }} - {{ Str::words(strip_tags(str_replace(['>', '&nbsp;'], ['> ', ' '], Str::limit($emision->description, 150)))) }}" />
     <meta property="og:title" content="Radiobastides - {{ $emision->programme->name }} {{ $emision->name }}" />
     <meta property="og:type" content="website" />
-    <meta property="og:url" content="{{ request()->url() }}" />
+    <meta property="og:url" content="{{ $canonicalShareUrl }}" />
     <meta property="og:image" content="{{ $emision->image }}" />
     <meta property="og:description" content="{{ Str::words(strip_tags(str_replace(['>', '&nbsp;'], ['> ', ' '], Str::limit($emision->description, 150)))) }}" />
     <meta property="og:site_name" content="RadioBastides" />
@@ -74,11 +79,7 @@
                     {{ $emision->active_at }}
 
                     @php
-                        $shareUrl = request()->fullUrl();
-                        if (Str::startsWith($shareUrl, 'http://')) {
-                            $shareUrl = preg_replace('/^http:\/\//i', 'https://', $shareUrl);
-                        }
-                        $facebookShareUrl = 'https://www.facebook.com/sharer/sharer.php?u=' . urlencode($shareUrl);
+                        $facebookShareUrl = 'https://www.facebook.com/sharer/sharer.php?u=' . urlencode($canonicalShareUrl);
                     @endphp
                     <div class="m-3">
                         <a
