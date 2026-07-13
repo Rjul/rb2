@@ -109,7 +109,7 @@ class DatabaseSeeder extends Seeder
             foreach($variableALaCon as $hehe) {
                 $attachment = Attachment::all()->random();
                 $type = $attachment->mime === 'audio/mpeg' ? 'audio' : 'video';
-                Emision::factory(10)
+                Emision::factory(1)
                     ->hasAttached(
                         Tag::all()->random(5) ,
                     )
@@ -123,7 +123,7 @@ class DatabaseSeeder extends Seeder
                 ];
             foreach($variableALaCon as $hehe) {
                 $type = 'text';
-                Emision::factory(10)
+                Emision::factory(1)
                     ->hasAttached(
                         Tag::all()->random(5) ,
                     )
