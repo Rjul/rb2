@@ -69,9 +69,7 @@ class EmisionResource extends Resource
                     ->visible(fn (Get $get) => in_array($get('media_type'), [Emision::TYPE_AUDIO, Emision::TYPE_VIDEO])),
             ]),
 
-            Forms\Components\FileUpload::make('image')
-                ->label('Image')->image()->imageEditor()
-                ->disk('emission_image')->visibility('public')->directory('images')
+            \App\Filament\Support\ImageField::make(800, 533, 'images')
                 ->required()->columnSpanFull(),
 
             Forms\Components\RichEditor::make('description')

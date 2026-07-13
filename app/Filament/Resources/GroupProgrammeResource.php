@@ -35,13 +35,7 @@ class GroupProgrammeResource extends Resource
                 ->label('Description')
                 ->required()
                 ->columnSpanFull(),
-            Forms\Components\FileUpload::make('image')
-                ->label('Image')
-                ->image()
-                ->imageEditor()
-                ->disk('emission_image')
-                ->visibility('public')
-                ->directory('groups'),
+            \App\Filament\Support\ImageField::make(533, 800, 'groups'),
             Forms\Components\Toggle::make('is_active')
                 ->label('Groupe visible')
                 ->default(true),

@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Concerns\Commentable;
+use App\Models\Concerns\HasResolvedImage;
 use Orchid\Filters\Types\Like;
 use Orchid\Filters\Types\Where;
 use Orchid\Attachment\Attachable;
@@ -20,7 +21,7 @@ use Spatie\Translatable\HasTranslations;
 class Programme extends Model
 {
     use HasFactory, Commentable, HasSlug;
-    use AsSource, Attachable, Filterable;
+    use AsSource, Attachable, Filterable, HasResolvedImage;
     /**
      * Get the group Programme for the blog post.
      */

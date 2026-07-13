@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Concerns\HasResolvedImage;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Sluggable\HasSlug;
@@ -10,7 +11,7 @@ use Spatie\Translatable\HasTranslations;
 
 class GroupProgramme extends Model
 {
-    use HasFactory, HasSlug;
+    use HasFactory, HasSlug, HasResolvedImage;
     /**
      * The attributes that are mass assignable.
      *

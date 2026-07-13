@@ -45,9 +45,7 @@ class ProgrammeResource extends Resource
                         ->label('Administrateur du programme')
                         ->relationship('user', 'name')
                         ->searchable()->preload(),
-                    Forms\Components\FileUpload::make('image')
-                        ->label('Image')->image()->imageEditor()
-                        ->disk('emission_image')->visibility('public')->directory('programmes'),
+                    \App\Filament\Support\ImageField::make(800, 533, 'programmes'),
                     Forms\Components\Toggle::make('has_rss')
                         ->label('Activer le flux RSS')->default(false),
                 ]),
