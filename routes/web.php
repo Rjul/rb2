@@ -72,6 +72,9 @@ Route::get('/informations-generales', function() {
    return view('pages.information');
 });
 
+// Nouveau front TALL (aperçu accueil) — Livewire full-page
+Route::get('/maquette/home', \App\Livewire\HomePage::class)->name('maquette.home');
+
 // Impersonation : revenir à son compte d'origine après « se connecter en tant que ».
 // Passe par AuthenticateSession (comme le panel) pour que le hash de mot de passe
 // suivi en session soit réaligné sur l'utilisateur restauré (sinon déconnexion).

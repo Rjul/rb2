@@ -1,20 +1,19 @@
 import { defineConfig } from 'vite';
 import laravel from 'laravel-vite-plugin';
-import basicSsl from '@vitejs/plugin-basic-ssl'
-import viteCommonjs from 'vite-plugin-commonjs' ;
-import requireTransform from 'vite-plugin-require-transform';
-const path = require('path')
+import tailwindcss from '@tailwindcss/vite';
+import { fileURLToPath } from 'node:url';
 
 export default defineConfig({
     resolve: {
         alias: {
-            '~bootstrap': path.resolve(__dirname, 'node_modules/bootstrap'),
-
-        }
+            // utilisé par le SCSS legacy (@import "~bootstrap/...")
+            '~bootstrap': fileURLToPath(new URL('node_modules/bootstrap', import.meta.url)),
+        },
     },
     plugins: [
         laravel({
             input: [
+                // --- Front legacy (Bootstrap / Turbo / Stimulus) : pages pas encore migrées ---
                 'resources/js/main.js',
                 'resources/js/detann.js',
                 'resources/js/admin/admin.js',
@@ -22,14 +21,12 @@ export default defineConfig({
                 'resources/js/list/search.js',
                 'node_modules/tarteaucitronjs/tarteaucitron.js',
 
+                // --- Nouveau front TALL (Tailwind + Livewire + Alpine) ---
+                'resources/css/tall.css',
+                'resources/js/tall.js',
             ],
             refresh: true,
         }),
+        tailwindcss(),
     ],
-
-    build: {
-        commonjsOptions: {
-            transformMixedEsModules: true
-        },
-    }
 });

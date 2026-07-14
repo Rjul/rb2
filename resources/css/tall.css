@@ -1,0 +1,37 @@
+@import "tailwindcss";
+
+/*
+| Design system Radio Bastides (front TALL).
+| Tokens de marque exposés à Tailwind v4 : génèrent les utilitaires
+| bg-navy, text-green, font-display, rounded-card, etc.
+*/
+@theme {
+    --color-navy: #001C41;
+    --color-navy-2: #0a2547;
+    --color-navy-3: #04162c;
+    --color-green: #1E6541;
+    --color-green-l: #6CB786;
+    --color-green-d: #0D2520;
+    --color-bg: #F5F9F9;
+    --color-ink: #14181d;
+    --color-muted: #5E6975;
+    --color-line: #E4EAEA;
+
+    /* Corbel = texte courant (font-sans par défaut), Berlin = titres (font-display) */
+    --font-sans: "corbel", "Segoe UI", sans-serif;
+    --font-display: "berlin", "Trebuchet MS", sans-serif;
+
+    --radius-card: 22px;
+}
+
+/* Polices de marque (fichiers dans resources/fonts, émis + hashés par Vite) */
+@font-face { font-family: "berlin"; font-weight: 400; font-display: swap; src: url("../fonts/berlin_sans_fb_regular.woff2") format("woff2"); }
+@font-face { font-family: "berlin"; font-weight: 700; font-display: swap; src: url("../fonts/berlin_sans_fb_bold.woff2") format("woff2"); }
+@font-face { font-family: "corbel"; font-weight: 400; font-display: swap; src: url("../fonts/corbel.woff2") format("woff2"); }
+@font-face { font-family: "corbel"; font-weight: 700; font-display: swap; src: url("../fonts/corbel_bold.woff2") format("woff2"); }
+
+@layer base {
+    body { @apply bg-bg text-ink font-sans antialiased; padding-bottom: 92px; }
+    h1, h2, h3, .font-display { font-family: var(--font-display); font-weight: 400; letter-spacing: 0.005em; }
+    [x-cloak] { display: none !important; }
+}

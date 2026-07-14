@@ -16,6 +16,7 @@
         "laravel/tinker": "^2.8",
         "league/flysystem-ftp": "^3.0",
         "league/flysystem-sftp-v3": "^3.0",
+        "livewire/livewire": "^3.0",
         "opcodesio/log-viewer": "^3.0",
         "orchid/platform": "^14.0",
         "spatie/laravel-sluggable": "^3.5",

@@ -18,6 +18,7 @@ use Orchid\Platform\Dashboard;
 use Orchid\Screen\AsSource;
 use Orchid\Attachment\Models\Attachment;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\Storage;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
 use Spatie\Tags\HasTags;
@@ -110,6 +111,33 @@ class Emision extends Model
     public function programme()
     {
         return $this->belongsTo(Programme::class);
+    }
+
+    /**
+     * URL streamable du fichier audio (disque local public `emission_audio`),
+     * ou null si l'émission n'est pas de type audio / sans pièce jointe.
+     * Utilise la relation `attachment` déjà chargée si possible (évite le N+1).
+     */
+    public function audioUrl(): ?string
+    {
+        if ($this->media_type !== self::TYPE_AUDIO) {
+            return null;
+        }
+
+        $attachment = $this->relationLoaded('attachment')
+            ? $this->getRelation('attachment')->firstWhere('group', 'audio')
+            : $this->attachment('audio')->first();
+
+        if (! $attachment) {
+            return null;
+        }
+
+        return rescue(
+            fn () => Storage::disk('emission_audio')
+                ->url(trim($attachment->path, '/') . '/' . $attachment->name . '.' . $attachment->extension),
+            null,
+            false
+        );
     }
 
     public function attachment(string $group = null, ?int $duration = null): MorphToMany

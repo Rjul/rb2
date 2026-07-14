@@ -5,13 +5,14 @@
         "build": "vite build"
     },
     "devDependencies": {
+        "@tailwindcss/vite": "^4.3.2",
         "axios": "^0.27",
-        "laravel-vite-plugin": "^0.6.0",
+        "laravel-vite-plugin": "^3.1.3",
         "lodash": "^4.17.19",
-        "postcss": "^8.1.14",
+        "postcss": "^8.5.19",
         "sass": "^1.55.0",
-        "vite": "^3.2.7",
-        "vite-plugin-require-transform": "^1.0.4"
+        "tailwindcss": "^4.3.2",
+        "vite": "^8.1.4"
     },
     "dependencies": {
         "@hotwired/stimulus": "^3.1.0",
@@ -19,15 +20,13 @@
         "@hotwired/turbo": "^7.2.2",
         "@popperjs/core": "^2.11.6",
         "@videojs/themes": "^1.0.1",
-        "@vitejs/plugin-basic-ssl": "^0.1.2",
         "@voerro/calamansi-js": "^1.0.0",
-        "alpinejs": "^3.12.0",
+        "alpinejs": "^3.15.12",
         "bootstrap": "^5.2.3",
         "bootstrap-icons": "^1.9.1",
         "lazysizes": "^5.3.2",
         "quill-image-resize": "^3.0.9",
         "tarteaucitronjs": "^1.14.0",
-        "video.js": "^8.3.0",
-        "vite-plugin-commonjs": "^0.5.2"
+        "video.js": "^8.3.0"
     }
 }
