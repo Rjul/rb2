@@ -4,14 +4,20 @@ namespace Tests\Feature;
 
 use App\Filament\Resources\CommentResource;
 use App\Filament\Resources\EmisionResource;
+use App\Filament\Resources\RoleResource\Pages\CreateRole;
+use App\Filament\Resources\RoleResource\Pages\EditRole;
 use App\Filament\Resources\TagResource;
 use App\Filament\Resources\UserResource;
+use App\Filament\Resources\UserResource\Pages\EditUser;
+use App\Filament\Support\PermissionField;
 use App\Models\Emision;
 use App\Models\GroupProgramme;
 use App\Models\Programme;
+use App\Models\Role;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Storage;
+use Livewire\Livewire;
 use Tests\TestCase;
 
 /**
@@ -94,6 +100,63 @@ class FilamentPermissionsTest extends TestCase
 
         $ids = EmisionResource::getEloquentQuery()->pluck('id')->all();
         $this->assertSame([$autorisee->id], $ids, 'Ne doit voir que les émissions du programme autorisé');
+    }
+
+    public function test_permissions_groupees_round_trip(): void
+    {
+        $admin = User::factory()->admin()->create();
+        $this->actingAs($admin);
+
+        // Prend la 1re permission réellement enregistrée (en test, seules les
+        // permissions natives d'Orchid le sont : les tables n'existent pas au boot).
+        $slug = null;
+        $groupKey = null;
+        foreach (PermissionField::groups() as $gk => $group) {
+            if (! empty($group['options'])) {
+                $groupKey = $gk;
+                $slug = array_key_first($group['options']);
+                break;
+            }
+        }
+        $this->assertNotNull($slug, 'Au moins une catégorie de permissions doit exister');
+        $field = PermissionField::transientKey($groupKey);
+
+        // Création : cocher la permission via sa catégorie → map {slug: true}.
+        Livewire::test(CreateRole::class)
+            ->fillForm(['name' => 'Rôle test', 'slug' => 'role-test', $field => [$slug]])
+            ->call('create')
+            ->assertHasNoFormErrors();
+
+        $role = Role::where('slug', 'role-test')->first();
+        $this->assertNotNull($role);
+        $this->assertTrue((bool) ($role->permissions[$slug] ?? false), 'La permission cochée doit être stockée en map {slug: true}');
+
+        // Édition : la case doit être re-cochée (hydratation depuis la map).
+        Livewire::test(EditRole::class, ['record' => $role->getKey()])
+            ->assertFormSet([$field => [$slug]]);
+    }
+
+    public function test_permissions_utilisateur_hydratees_a_l_edition(): void
+    {
+        $admin = User::factory()->admin()->create();
+        $this->actingAs($admin);
+
+        $slug = null;
+        $groupKey = null;
+        foreach (PermissionField::groups() as $gk => $group) {
+            if (! empty($group['options'])) {
+                $groupKey = $gk;
+                $slug = array_key_first($group['options']);
+                break;
+            }
+        }
+        $this->assertNotNull($slug);
+
+        // permissions est dans $hidden sur User : ce test garde l'hydratation via le record.
+        $cible = User::factory()->create(['permissions' => [$slug => true]]);
+
+        Livewire::test(EditUser::class, ['record' => $cible->getKey()])
+            ->assertFormSet([PermissionField::transientKey($groupKey) => [$slug]]);
     }
 
     public function test_super_admin_voit_toutes_les_emissions(): void

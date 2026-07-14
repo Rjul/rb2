@@ -40,7 +40,8 @@ class AdminPanelProvider extends PanelProvider
             ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\\Filament\\Widgets')
             ->widgets([
                 Widgets\AccountWidget::class,
-                Widgets\FilamentInfoWidget::class,
+                \App\Filament\Widgets\AdminStatsOverview::class,
+                \App\Filament\Widgets\EmisionsParMois::class,
             ])
             // Bandeau d'usurpation d'identité : visible tant qu'on est « connecté en tant que ».
             ->renderHook(

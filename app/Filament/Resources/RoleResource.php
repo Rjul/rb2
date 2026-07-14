@@ -45,10 +45,8 @@ class RoleResource extends Resource
                 ]),
 
             Forms\Components\Section::make('Permissions / Privilèges')
-                ->description('Privilèges nécessaires pour effectuer certaines tâches.')
-                ->schema([
-                    PermissionField::make('permissions'),
-                ]),
+                ->description('Privilèges nécessaires pour effectuer certaines tâches, regroupés par catégorie.')
+                ->schema(PermissionField::groupedSchema()),
         ]);
     }
 

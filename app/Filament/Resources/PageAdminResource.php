@@ -53,7 +53,10 @@ class PageAdminResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('name')->label('Nom')->searchable()->sortable(),
-                Tables\Columns\TextColumn::make('path')->label('URL')->searchable()->sortable(),
+                Tables\Columns\TextColumn::make('path')->label('URL')->searchable()->sortable()
+                    ->url(fn (PageAdmin $record) => filled($record->path) ? route('page-admin', ['pageAdmin' => $record->path]) : null)
+                    ->openUrlInNewTab()
+                    ->color('primary'),
             ])
             ->actions([Tables\Actions\EditAction::make()])
             ->bulkActions([

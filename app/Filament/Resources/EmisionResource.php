@@ -128,7 +128,16 @@ class EmisionResource extends Resource
                 ]),
                 Tables\Filters\TernaryFilter::make('is_active')->label('Active'),
             ])
-            ->actions([Tables\Actions\EditAction::make()])
+            ->actions([
+                Tables\Actions\Action::make('voir')
+                    ->label('Voir sur le site')
+                    ->icon('heroicon-o-arrow-top-right-on-square')
+                    ->color('gray')
+                    ->url(fn (Emision $record) => route('view-emision', ['programme' => $record->programme, 'emision' => $record]))
+                    ->openUrlInNewTab()
+                    ->visible(fn (Emision $record) => $record->programme !== null && filled($record->slug)),
+                Tables\Actions\EditAction::make(),
+            ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),

@@ -72,12 +72,16 @@ class ProgrammeResource extends Resource
                 Tables\Columns\TextColumn::make('group_programme.name')->label('Groupe')->sortable(),
                 Tables\Columns\IconColumn::make('is_active')->label('Active')->boolean()->sortable(),
                 Tables\Columns\IconColumn::make('is_archived')->label('Archivé')->boolean()->sortable(),
-                Tables\Columns\IconColumn::make('has_rss')->label('Flux RSS')->boolean()->sortable(),
+                Tables\Columns\IconColumn::make('has_rss')->label('Flux RSS')->boolean()->sortable()
+                    ->url(fn (Programme $record) => $record->has_rss ? route('api-rss-programme', ['programme' => $record->id]) : null)
+                    ->openUrlInNewTab(),
             ])
             ->defaultSort('id')
             ->filters([
                 Tables\Filters\SelectFilter::make('group_programme')->relationship('group_programme', 'name')->label('Groupe'),
                 Tables\Filters\TernaryFilter::make('is_active')->label('Active'),
+                Tables\Filters\TernaryFilter::make('is_archived')->label('Archivé'),
+                Tables\Filters\TernaryFilter::make('has_rss')->label('Flux RSS'),
             ])
             ->actions([Tables\Actions\EditAction::make()])
             ->bulkActions([

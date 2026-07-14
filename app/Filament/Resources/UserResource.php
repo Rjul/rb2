@@ -102,10 +102,8 @@ class UserResource extends Resource
                 ]),
 
             Forms\Components\Section::make('Permissions directes')
-                ->description("Permissions accordées à cet utilisateur en plus de celles de ses rôles.")
-                ->schema([
-                    PermissionField::make('permissions'),
-                ]),
+                ->description("Permissions accordées à cet utilisateur en plus de celles de ses rôles, regroupées par catégorie.")
+                ->schema(PermissionField::groupedSchema()),
         ]);
     }
 
@@ -120,6 +118,13 @@ class UserResource extends Resource
                 Tables\Columns\TextColumn::make('updated_at')->label('Modifié le')->dateTime('d/m/Y H:i')->sortable()->toggleable(),
             ])
             ->defaultSort('id', 'desc')
+            ->filters([
+                Tables\Filters\SelectFilter::make('roles')
+                    ->label('Rôle')
+                    ->relationship('roles', 'name')
+                    ->multiple()
+                    ->preload(),
+            ])
             ->actions([
                 static::configureImpersonateAction(Tables\Actions\Action::make('impersonate')),
                 Tables\Actions\EditAction::make(),
