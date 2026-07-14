@@ -2,10 +2,13 @@
 
 @php
     $items = $emissions->map(fn ($e) => [
+        'type'  => $e->media_type,
         'prog'  => $e->programme?->name,
         'title' => $e->name,
         'desc'  => \Illuminate\Support\Str::limit(strip_tags($e->description), 160),
         'dur'   => $e->duration ? (int) round($e->duration) . '′' : '',
+        'secs'  => $e->duration ? (int) round($e->duration * 60) : null,
+        'src'   => $e->audioUrl(),
         'img'   => $e->image ?: 'https://picsum.photos/seed/rb-une-' . $e->id . '/1600/900',
         'url'   => $e->programme ? route('view-emision', ['programme' => $e->programme, 'emision' => $e]) : '#',
     ])->values();
@@ -37,8 +40,9 @@
                     }
                 }
              }">
-        <div x-ref="bgA" class="absolute inset-0 bg-cover bg-center opacity-0 transition-opacity duration-700"></div>
-        <div x-ref="bgB" class="absolute inset-0 bg-cover bg-center opacity-0 transition-opacity duration-700"></div>
+        {{-- images source petites → blur + léger zoom pour un fond ambiant net (pas de pixellisation) --}}
+        <div x-ref="bgA" class="absolute inset-0 scale-110 bg-cover bg-center opacity-0 blur-[14px] transition-opacity duration-700"></div>
+        <div x-ref="bgB" class="absolute inset-0 scale-110 bg-cover bg-center opacity-0 blur-[14px] transition-opacity duration-700"></div>
         <div class="absolute inset-0" style="background:linear-gradient(90deg,rgba(2,16,34,.94) 0%,rgba(2,16,34,.72) 38%,rgba(2,16,34,.15) 75%),linear-gradient(0deg,rgba(2,16,34,.88) 0%,rgba(2,16,34,0) 40%)"></div>
 
         <div class="relative mx-auto flex min-h-[600px] max-w-[1200px] flex-col justify-between gap-11 px-6 py-16">
@@ -47,12 +51,22 @@
                 <h2 class="max-w-[17ch] font-display leading-none text-white text-[clamp(34px,4.6vw,58px)]" x-text="cur.title"></h2>
                 <p class="mt-4 max-w-[52ch] text-[17px] text-slate-300" x-text="cur.desc"></p>
                 <div class="mt-6 flex flex-wrap items-center gap-4">
-                    <button type="button" x-on:click="$dispatch('rb:play', { title: cur.title, prog: cur.prog, art: cur.img })"
+                    {{-- audio : écoute dans le lecteur persistant --}}
+                    <button type="button" x-show="cur.type === 'audio'"
+                            x-on:click="$dispatch('rb:play', { title: cur.title, prog: cur.prog, art: cur.img, src: cur.src, duration: cur.secs })"
                             class="inline-flex items-center gap-2.5 rounded-xl bg-green px-6 py-3.5 font-display text-[18px] text-white shadow-lg shadow-green/30 transition hover:bg-green-d">
                         <svg viewBox="0 0 24 24" fill="currentColor" class="h-[1.1em] w-[1.1em]"><path d="M8 5v14l11-7z"/></svg>
                         Écouter
                     </button>
-                    <a :href="cur.url"
+
+                    {{-- article / vidéo : le player sera sur la page dédiée → on l'ouvre --}}
+                    <a x-show="cur.type !== 'audio'" :href="cur.url"
+                       class="inline-flex items-center gap-2.5 rounded-xl bg-green px-6 py-3.5 font-display text-[18px] text-white shadow-lg shadow-green/30 transition hover:bg-green-d">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="h-[1.1em] w-[1.1em]"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+                        <span x-text="cur.type === 'video' ? 'Voir la vidéo' : 'Lire l’article'"></span>
+                    </a>
+
+                    <a x-show="cur.type === 'audio'" :href="cur.url"
                        class="inline-flex items-center rounded-xl border-[1.5px] border-white/40 bg-white/15 px-6 py-3.5 font-display text-[18px] text-white transition hover:bg-white/25">
                         Découvrir l'émission
                     </a>

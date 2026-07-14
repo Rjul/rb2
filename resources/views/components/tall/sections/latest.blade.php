@@ -1,20 +1,20 @@
 @props(['emissions'])
 
-@php $items = $emissions->values()->take(5); @endphp
+@php
+    $items = $emissions->values()->take(7);
+    // Bento gapless : grande maille 2×2, deux mailles larges, le reste en 1×1.
+    $spans = [0 => 'col-span-2 row-span-2', 1 => 'col-span-2', 4 => 'col-span-2'];
+@endphp
 
 @if ($items->isNotEmpty())
     <section id="latest" class="mx-auto max-w-[1200px] px-6 py-16">
         <x-tall.heading kicker="Le meilleur de la Bastide" title="Nos dernières émissions." />
 
-        <div class="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-[1.45fr_1fr_1fr]">
+        <div class="mt-8 grid auto-rows-[210px] grid-cols-2 gap-5 sm:grid-cols-4">
             @foreach ($items as $e)
-                @if ($loop->first)
-                    <div class="sm:col-span-2 lg:col-span-1 lg:row-span-2">
-                        <x-tall.emission-card :emision="$e" featured />
-                    </div>
-                @else
-                    <x-tall.emission-card :emision="$e" />
-                @endif
+                <div class="{{ $spans[$loop->index] ?? '' }}">
+                    <x-tall.emission-card :emision="$e" :featured="$loop->first" fill />
+                </div>
             @endforeach
         </div>
 

@@ -17,7 +17,7 @@
         @foreach ($tags as $tag)
             <div x-show="tab === {{ $tag->id }}" x-cloak class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
                 @forelse ($tag->emisionsLimites(6) as $emision)
-                    <x-tall.emission-card :emision="$emision" :queue="false" />
+                    <x-tall.emission-card :emision="$emision" />
                 @empty
                     <p class="text-muted">Aucune émission pour ce thème pour le moment.</p>
                 @endforelse

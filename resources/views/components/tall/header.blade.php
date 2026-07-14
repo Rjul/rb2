@@ -2,15 +2,8 @@
 
 <header x-data="{ open: false }" class="sticky top-0 z-40 border-b border-line bg-bg/95 backdrop-blur">
     <div class="mx-auto flex h-[76px] max-w-[1200px] items-center gap-7 px-6">
-        <a href="{{ route('homepage') }}" class="flex items-center gap-3 font-display text-[26px] text-navy">
-            <span class="flex h-[26px] items-end gap-[3px]" aria-hidden="true">
-                <span class="w-1 rounded bg-green" style="height:11px"></span>
-                <span class="w-1 rounded bg-green" style="height:20px"></span>
-                <span class="w-1 rounded bg-green" style="height:26px"></span>
-                <span class="w-1 rounded bg-green" style="height:15px"></span>
-                <span class="w-1 rounded bg-green" style="height:22px"></span>
-            </span>
-            Radio&nbsp;Bastides
+        <a href="{{ route('homepage') }}" class="flex items-center" aria-label="Radio Bastides — accueil">
+            <img src="/imgs/logo.png" alt="Radio Bastides" width="221" height="45" class="h-10 w-auto">
         </a>
 
         <nav class="ml-2 hidden gap-8 md:flex">
