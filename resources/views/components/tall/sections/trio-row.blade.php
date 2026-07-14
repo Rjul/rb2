@@ -6,7 +6,7 @@
         <div>
             <h2 class="font-display text-[30px] leading-tight text-navy">{{ $title }}</h2>
             <div class="mt-4 h-1 w-14 rounded bg-green-l"></div>
-            <div class="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            <div class="mt-6 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
                 @foreach ($emissions as $emision)
                     <x-tall.emission-card :emision="$emision" />
                 @endforeach

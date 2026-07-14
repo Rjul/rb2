@@ -7,7 +7,7 @@
 @endphp
 
 <section class="mx-auto max-w-[1200px] px-6 pb-8 pt-14">
-    <div class="grid items-center gap-12 lg:grid-cols-[1.02fr_1.1fr]">
+    <div class="grid grid-cols-1 items-center gap-12 lg:grid-cols-[1.02fr_1.1fr]">
         <div>
             <p class="mb-3 text-xs font-bold uppercase tracking-[0.15em] text-green">La radio associative de Villeneuve-sur-Lot</p>
             <h1 class="font-display leading-[1.02] text-navy text-[clamp(38px,5.4vw,60px)]">

@@ -1,5 +1,5 @@
 <footer class="mt-5 bg-navy py-14 text-slate-300">
-    <div class="mx-auto grid max-w-[1200px] gap-8 px-6 md:grid-cols-2 lg:grid-cols-[1.5fr_1fr_1fr_1fr]">
+    <div class="mx-auto grid max-w-[1200px] grid-cols-1 gap-8 px-6 md:grid-cols-2 lg:grid-cols-[1.5fr_1fr_1fr_1fr]">
         <div>
             <div class="mb-3 font-display text-2xl text-white">Radio Bastides</div>
             <p class="max-w-[34ch] text-sm leading-relaxed">
