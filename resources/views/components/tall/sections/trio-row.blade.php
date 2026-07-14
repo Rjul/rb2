@@ -1,7 +1,7 @@
 @props(['label', 'title', 'emissions'])
 
 @if ($emissions->isNotEmpty())
-    <div class="grid grid-cols-[auto_1fr] items-start gap-7 py-2 pb-12">
+    <div class="grid grid-cols-1 items-start gap-7 py-2 pb-12 md:grid-cols-[auto_1fr]">
         <div class="hidden rotate-180 font-display text-[38px] text-navy/15 [writing-mode:vertical-rl] md:block">{{ $label }}</div>
         <div>
             <h2 class="font-display text-[30px] leading-tight text-navy">{{ $title }}</h2>
