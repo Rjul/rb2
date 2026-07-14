@@ -3,6 +3,7 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\WebsiteNewResource\Pages;
+use App\Filament\Support\GatesAccessByPermission;
 use App\Models\WebsiteNew;
 use Filament\Forms;
 use Filament\Forms\Form;
@@ -12,6 +13,8 @@ use Filament\Tables\Table;
 
 class WebsiteNewResource extends Resource
 {
+    use GatesAccessByPermission;
+
     protected static ?string $model = WebsiteNew::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-megaphone';
@@ -19,6 +22,11 @@ class WebsiteNewResource extends Resource
     protected static ?string $navigationLabel = 'Annonces';
     protected static ?string $modelLabel = 'annonce';
     protected static ?string $pluralModelLabel = 'annonces';
+
+    protected static function permissionSlug(): ?string
+    {
+        return 'platform.annonces';
+    }
 
     public static function form(Form $form): Form
     {

@@ -3,6 +3,7 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\RoleResource\Pages;
+use App\Filament\Support\GatesAccessByPermission;
 use App\Filament\Support\PermissionField;
 use App\Models\Role;
 use Filament\Forms;
@@ -13,6 +14,8 @@ use Filament\Tables\Table;
 
 class RoleResource extends Resource
 {
+    use GatesAccessByPermission;
+
     protected static ?string $model = Role::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-lock-closed';
@@ -20,6 +23,11 @@ class RoleResource extends Resource
     protected static ?string $navigationLabel = 'Rôles';
     protected static ?string $modelLabel = 'rôle';
     protected static ?string $pluralModelLabel = 'rôles';
+
+    protected static function permissionSlug(): ?string
+    {
+        return 'platform.systems.roles';
+    }
 
     public static function form(Form $form): Form
     {

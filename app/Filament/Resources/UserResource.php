@@ -3,17 +3,23 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\UserResource\Pages;
+use App\Filament\Support\GatesAccessByPermission;
 use App\Filament\Support\PermissionField;
 use App\Models\User;
 use Filament\Forms;
 use Filament\Forms\Form;
+use Filament\Notifications\Notification;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Orchid\Access\Impersonation;
 
 class UserResource extends Resource
 {
+    use GatesAccessByPermission;
+
     protected static ?string $model = User::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-users';
@@ -21,6 +27,44 @@ class UserResource extends Resource
     protected static ?string $navigationLabel = 'Utilisateurs';
     protected static ?string $modelLabel = 'utilisateur';
     protected static ?string $pluralModelLabel = 'utilisateurs';
+
+    protected static function permissionSlug(): ?string
+    {
+        return 'platform.systems.users';
+    }
+
+    /**
+     * Configure l'action « Se connecter en tant que » (impersonation, comme Orchid).
+     * Partagée entre l'action de ligne (liste) et l'entête de la page d'édition.
+     * On redirige vers la gestion si l'utilisateur usurpé peut y accéder, sinon
+     * vers le site ; un bandeau « Revenir à mon compte » reste affiché dans le panel.
+     *
+     * @template T of \Filament\Actions\Action|\Filament\Tables\Actions\Action
+     * @param  T  $action
+     * @return T
+     */
+    public static function configureImpersonateAction($action)
+    {
+        return $action
+            ->label('Se connecter en tant que')
+            ->icon('heroicon-o-arrow-right-on-rectangle')
+            ->color('warning')
+            ->requiresConfirmation()
+            ->modalHeading('Usurper cette identité')
+            ->modalDescription("Vous naviguerez en tant que cet utilisateur. Vous pourrez revenir à votre compte via le bandeau « Revenir à mon compte » affiché dans la gestion.")
+            ->modalSubmitActionLabel('Se connecter')
+            ->visible(fn (User $record) => Auth::id() !== $record->id)
+            ->action(function (User $record) {
+                Impersonation::loginAs($record);
+
+                Notification::make()
+                    ->title("Vous usurpez maintenant l'identité de {$record->name}")
+                    ->warning()
+                    ->send();
+
+                return redirect($record->hasAccess('platform.index') ? '/gestion' : '/');
+            });
+    }
 
     public static function form(Form $form): Form
     {
@@ -76,7 +120,10 @@ class UserResource extends Resource
                 Tables\Columns\TextColumn::make('updated_at')->label('Modifié le')->dateTime('d/m/Y H:i')->sortable()->toggleable(),
             ])
             ->defaultSort('id', 'desc')
-            ->actions([Tables\Actions\EditAction::make()])
+            ->actions([
+                static::configureImpersonateAction(Tables\Actions\Action::make('impersonate')),
+                Tables\Actions\EditAction::make(),
+            ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),

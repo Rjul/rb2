@@ -3,6 +3,7 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\TagResource\Pages;
+use App\Filament\Support\GatesAccessByPermission;
 use App\Models\Tag;
 use Filament\Forms;
 use Filament\Forms\Form;
@@ -12,6 +13,8 @@ use Filament\Tables\Table;
 
 class TagResource extends Resource
 {
+    use GatesAccessByPermission;
+
     protected static ?string $model = Tag::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-tag';
@@ -19,6 +22,11 @@ class TagResource extends Resource
     protected static ?string $navigationLabel = 'Thèmes';
     protected static ?string $modelLabel = 'thème';
     protected static ?string $pluralModelLabel = 'thèmes';
+
+    protected static function permissionSlug(): ?string
+    {
+        return 'platform.themes';
+    }
 
     public static function form(Form $form): Form
     {

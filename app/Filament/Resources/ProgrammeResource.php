@@ -9,6 +9,7 @@ use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Builder;
 
 class ProgrammeResource extends Resource
 {
@@ -19,6 +20,16 @@ class ProgrammeResource extends Resource
     protected static ?string $navigationLabel = 'Programmes';
     protected static ?string $modelLabel = 'programme';
     protected static ?string $pluralModelLabel = 'programmes';
+
+    /**
+     * Restreint la liste aux programmes autorisés (comme Orchid) :
+     * `platform.programmes` = tout, sinon uniquement les `platform.emission.{id}`.
+     */
+    public static function getEloquentQuery(): Builder
+    {
+        return parent::getEloquentQuery()
+            ->where(fn (Builder $query) => $query->withAuthPermissions());
+    }
 
     public static function form(Form $form): Form
     {

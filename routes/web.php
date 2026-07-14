@@ -72,6 +72,18 @@ Route::get('/informations-generales', function() {
    return view('pages.information');
 });
 
+// Impersonation : revenir à son compte d'origine après « se connecter en tant que ».
+// Passe par AuthenticateSession (comme le panel) pour que le hash de mot de passe
+// suivi en session soit réaligné sur l'utilisateur restauré (sinon déconnexion).
+Route::middleware(['auth', \Filament\Http\Middleware\AuthenticateSession::class])
+    ->get('impersonation/leave', function () {
+        if (\Orchid\Access\Impersonation::isSwitch()) {
+            \Orchid\Access\Impersonation::logout();
+        }
+
+        return redirect('/gestion');
+    })->name('impersonation.leave');
+
 require __DIR__.'/auth.php';
 
 Route::get('/{pageAdmin:path}', [\App\Http\Controllers\PageAdminController::class, 'index'])->name('page-admin');

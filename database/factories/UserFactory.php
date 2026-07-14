@@ -37,4 +37,17 @@ class UserFactory extends Factory
             'email_verified_at' => null,
         ]);
     }
+
+    /**
+     * Super-administrateur : toutes les permissions du back-office.
+     * (les émissions/programmes sont tous couverts par `platform.programmes`)
+     *
+     * @return static
+     */
+    public function admin()
+    {
+        return $this->state(fn (array $attributes) => [
+            'permissions' => \App\Models\User::superAdminPermissions(),
+        ]);
+    }
 }

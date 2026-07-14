@@ -13,6 +13,7 @@ class EditUser extends EditRecord
     protected function getHeaderActions(): array
     {
         return [
+            UserResource::configureImpersonateAction(Actions\Action::make('impersonate')),
             Actions\DeleteAction::make(),
         ];
     }

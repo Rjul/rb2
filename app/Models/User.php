@@ -26,6 +26,29 @@ class User extends Authenticatable implements FilamentUser
     {
         return $this->hasAccess('platform.index');
     }
+
+    /**
+     * Jeu complet de permissions du back-office (super-administrateur).
+     * Source unique pour le seeder et la factory. `platform.programmes`
+     * couvre tous les programmes et toutes leurs émissions.
+     *
+     * @return array<string, bool>
+     */
+    public static function superAdminPermissions(): array
+    {
+        return [
+            'platform.index'              => true,
+            'platform.systems.roles'      => true,
+            'platform.systems.users'      => true,
+            'platform.systems.attachment' => true,
+            'platform.group.programme'    => true,
+            'platform.programmes'         => true,
+            'platform.annonces'           => true,
+            'platform.themes'             => true,
+            'platform.page-admin'         => true,
+            'platform.commentaire'        => true,
+        ];
+    }
     /**
      * The attributes that are mass assignable.
      *

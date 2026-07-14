@@ -3,6 +3,7 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\GroupProgrammeResource\Pages;
+use App\Filament\Support\GatesAccessByPermission;
 use App\Models\GroupProgramme;
 use Filament\Forms;
 use Filament\Forms\Form;
@@ -12,6 +13,8 @@ use Filament\Tables\Table;
 
 class GroupProgrammeResource extends Resource
 {
+    use GatesAccessByPermission;
+
     protected static ?string $model = GroupProgramme::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-folder';
@@ -19,6 +22,11 @@ class GroupProgrammeResource extends Resource
     protected static ?string $navigationLabel = 'Groupes de programme';
     protected static ?string $modelLabel = 'groupe de programme';
     protected static ?string $pluralModelLabel = 'groupes de programme';
+
+    protected static function permissionSlug(): ?string
+    {
+        return 'platform.group.programme';
+    }
 
     public static function form(Form $form): Form
     {

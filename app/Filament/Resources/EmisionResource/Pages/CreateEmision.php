@@ -27,6 +27,11 @@ class CreateEmision extends CreateRecord
 
     protected function afterCreate(): void
     {
+        // Régénère le slug maintenant que l'id existe (source = name + id, comme Orchid),
+        // pour garantir un slug unique même si deux émissions portent le même titre.
+        $this->record->generateSlug();
+        $this->record->save();
+
         EmisionMedia::sync($this->record, $this->mediaPath);
     }
 }

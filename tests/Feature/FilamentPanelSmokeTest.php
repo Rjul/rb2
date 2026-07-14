@@ -25,9 +25,7 @@ class FilamentPanelSmokeTest extends TestCase
 
     private function admin(): User
     {
-        return User::factory()->create([
-            'permissions' => ['platform.index' => true],
-        ]);
+        return User::factory()->admin()->create();
     }
 
     public function test_dashboard_repond_200(): void

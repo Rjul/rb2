@@ -10,6 +10,7 @@ use Filament\Forms\Get;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Builder;
 
 class EmisionResource extends Resource
 {
@@ -20,6 +21,18 @@ class EmisionResource extends Resource
     protected static ?string $navigationLabel = 'Émissions';
     protected static ?string $modelLabel = 'émission';
     protected static ?string $pluralModelLabel = 'émissions';
+
+    /**
+     * Restreint la liste aux émissions des programmes autorisés (comme Orchid).
+     * `platform.programmes` = tout ; sinon uniquement les `platform.emission.{id}`
+     * accordés (permissions directes ∪ rôles). Le groupe `where()` évite que les
+     * `orWhere` du scope ne cassent la recherche/les filtres de Filament.
+     */
+    public static function getEloquentQuery(): Builder
+    {
+        return parent::getEloquentQuery()
+            ->where(fn (Builder $query) => $query->withAuthPermissions());
+    }
 
     public static function form(Form $form): Form
     {
@@ -40,7 +53,7 @@ class EmisionResource extends Resource
 
                 Forms\Components\Select::make('programme_id')
                     ->label('Programme')
-                    ->relationship('programme', 'name')
+                    ->relationship('programme', 'name', fn (Builder $query) => $query->where(fn (Builder $q) => $q->withAuthPermissions()))
                     ->searchable()->preload()->required(),
 
                 Forms\Components\Select::make('tags')
@@ -48,7 +61,7 @@ class EmisionResource extends Resource
                     ->multiple()
                     ->relationship('tags', 'name')
                     ->getOptionLabelFromRecordUsing(fn ($record) => $record->name)
-                    ->preload(),
+                    ->preload()->required(),
 
                 Forms\Components\DatePicker::make('active_at')
                     ->label('Date de publication')->required(),
@@ -60,7 +73,7 @@ class EmisionResource extends Resource
                     ->required(fn (Get $get) => in_array($get('media_type'), [Emision::TYPE_AUDIO, Emision::TYPE_VIDEO])),
 
                 Forms\Components\Toggle::make('is_active')->label('Visible')->default(true),
-                Forms\Components\Toggle::make('is_put_forward')->label('Mettre à la une')->default(false),
+                Forms\Components\Toggle::make('is_put_forward')->label('Mettre à la une')->default(true),
 
                 Forms\Components\FileUpload::make('audio_upload')
                     ->label('Fichier audio')

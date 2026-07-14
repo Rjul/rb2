@@ -3,6 +3,7 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\CommentResource\Pages;
+use App\Filament\Support\GatesAccessByPermission;
 use App\Models\Comment;
 use Filament\Forms;
 use Filament\Forms\Form;
@@ -13,6 +14,8 @@ use Illuminate\Database\Eloquent\Builder;
 
 class CommentResource extends Resource
 {
+    use GatesAccessByPermission;
+
     protected static ?string $model = Comment::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-chat-bubble-left-right';
@@ -20,6 +23,11 @@ class CommentResource extends Resource
     protected static ?string $navigationLabel = 'Commentaires';
     protected static ?string $modelLabel = 'commentaire';
     protected static ?string $pluralModelLabel = 'commentaires';
+
+    protected static function permissionSlug(): ?string
+    {
+        return 'platform.commentaire';
+    }
 
     // Modération uniquement : pas de création manuelle.
     public static function canCreate(): bool

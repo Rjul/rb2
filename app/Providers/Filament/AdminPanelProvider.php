@@ -10,7 +10,9 @@ use Filament\Pages;
 use Filament\Panel;
 use Filament\PanelProvider;
 use Filament\Support\Colors\Color;
+use Filament\View\PanelsRenderHook;
 use Filament\Widgets;
+use Orchid\Access\Impersonation;
 use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
 use Illuminate\Cookie\Middleware\EncryptCookies;
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
@@ -40,6 +42,25 @@ class AdminPanelProvider extends PanelProvider
                 Widgets\AccountWidget::class,
                 Widgets\FilamentInfoWidget::class,
             ])
+            // Bandeau d'usurpation d'identité : visible tant qu'on est « connecté en tant que ».
+            ->renderHook(
+                PanelsRenderHook::BODY_START,
+                function (): string {
+                    if (! Impersonation::isSwitch()) {
+                        return '';
+                    }
+
+                    $name = e(auth()->user()?->name ?? '');
+                    $url = route('impersonation.leave');
+
+                    return <<<HTML
+                        <div style="background:#f59e0b;color:#111827;padding:.55rem 1rem;display:flex;flex-wrap:wrap;gap:.75rem;justify-content:center;align-items:center;font-size:.875rem;line-height:1.2;">
+                            <span>Vous êtes connecté en tant que <strong>{$name}</strong>.</span>
+                            <a href="{$url}" style="font-weight:700;text-decoration:underline;">Revenir à mon compte</a>
+                        </div>
+                        HTML;
+                }
+            )
             ->middleware([
                 EncryptCookies::class,
                 AddQueuedCookiesToResponse::class,

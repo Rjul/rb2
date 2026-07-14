@@ -29,7 +29,7 @@ class DatabaseSeeder extends Seeder
              'email' => 'admin@admin.com',
              'password' => bcrypt('password'),
              'email_verified_at' => (new \DateTime('now'))->getTimestamp(),
-             'permissions' => ["platform.index"=> true, "platform.programmes"=> true, "platform.systems.roles"=> true, "platform.systems.users"=> true, "platform.group.programme"=> true, "platform.systems.attachment"=> true],
+             'permissions' => User::superAdminPermissions(),
          ]);
 
         if ($this->command->confirm('Install tests data?')) {

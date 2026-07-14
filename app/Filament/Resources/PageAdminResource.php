@@ -3,6 +3,7 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\PageAdminResource\Pages;
+use App\Filament\Support\GatesAccessByPermission;
 use App\Models\PageAdmin;
 use Filament\Forms;
 use Filament\Forms\Form;
@@ -12,6 +13,8 @@ use Filament\Tables\Table;
 
 class PageAdminResource extends Resource
 {
+    use GatesAccessByPermission;
+
     protected static ?string $model = PageAdmin::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-document-text';
@@ -19,6 +22,11 @@ class PageAdminResource extends Resource
     protected static ?string $navigationLabel = 'Pages';
     protected static ?string $modelLabel = 'page';
     protected static ?string $pluralModelLabel = 'pages';
+
+    protected static function permissionSlug(): ?string
+    {
+        return 'platform.page-admin';
+    }
 
     public static function form(Form $form): Form
     {

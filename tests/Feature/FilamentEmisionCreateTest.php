@@ -23,7 +23,7 @@ class FilamentEmisionCreateTest extends TestCase
         Storage::fake('emission_image');
         Storage::fake('emission_audio');
 
-        $admin = User::factory()->create(['permissions' => ['platform.index' => true]]);
+        $admin = User::factory()->admin()->create();
         $group = GroupProgramme::factory()->create(['is_active' => true]);
         $programme = Programme::factory()->create([
             'user_id' => $admin->id, 'group_programme_id' => $group->id, 'is_active' => true,
@@ -55,6 +55,7 @@ class FilamentEmisionCreateTest extends TestCase
         $this->assertNotNull($emision->getRawOriginal('image'), "L'image doit être enregistrée");
         $this->assertTrue($emision->tags()->count() >= 1, 'Le thème doit être attaché');
         $this->assertTrue($emision->attachment('audio')->count() >= 1, "Le fichier audio (Attachment) doit être attaché");
+        $this->assertStringEndsWith('-'.$emision->id, $emision->slug, "L'id doit être inclus dans le slug pour garantir son unicité");
     }
 
     public function test_creation_emission_video_via_filament(): void
@@ -62,11 +63,12 @@ class FilamentEmisionCreateTest extends TestCase
         Storage::fake('emission_image');
         Storage::fake('emission_video');
 
-        $admin = User::factory()->create(['permissions' => ['platform.index' => true]]);
+        $admin = User::factory()->admin()->create();
         $group = GroupProgramme::factory()->create(['is_active' => true]);
         $programme = Programme::factory()->create([
             'user_id' => $admin->id, 'group_programme_id' => $group->id, 'is_active' => true,
         ]);
+        $tag = Tag::factory()->create();
 
         $this->actingAs($admin);
 
@@ -75,6 +77,7 @@ class FilamentEmisionCreateTest extends TestCase
                 'name' => 'Émission vidéo test',
                 'media_type' => Emision::TYPE_VIDEO,
                 'programme_id' => $programme->id,
+                'tags' => [$tag->id],
                 'active_at' => now()->toDateString(),
                 'duration' => 30,
                 'is_active' => true,
