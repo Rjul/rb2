@@ -19,7 +19,7 @@
         </div>
 
         <div class="mt-10 text-center">
-            <a href="{{ route('list-search') }}"
+            <a href="{{ route('v2.emissions') }}" wire:navigate
                class="inline-flex rounded-xl bg-green px-7 py-3.5 font-display text-[18px] text-white shadow-lg shadow-green/30 transition hover:bg-green-d">
                 Voir toutes nos émissions
             </a>

@@ -20,6 +20,23 @@ class Tag extends \Spatie\Tags\Tag
         return $this->emisions()->limit($limite)->get();
     }
 
+    /**
+     * Émissions PUBLIÉES du thème (actives, datées, programme actif), eager-loadées
+     * pour les cartes du front v2. Évite d'afficher des liens morts (404) vers du non-publié.
+     */
+    public function publishedEmisions(int $limite = 6)
+    {
+        // Identique pour tous les visiteurs → cache front (invalidé aux écritures BO).
+        return \App\Support\FrontCache::remember("tag:{$this->id}:published:{$limite}", fn () => $this->emisions()
+            ->where('emisions.is_active', true)
+            ->where('emisions.active_at', '<', now())
+            ->whereHas('programme', fn ($q) => $q->where('is_active', true))
+            ->orderByDesc('emisions.active_at')
+            ->with(['attachment', 'programme.group_programme'])
+            ->limit($limite)
+            ->get());
+    }
+
     public static function getQueryByOrderCountEmisions(int $limit): Builder
     {
         return self::withCount('emisions')->orderBy("emisions_count", "DESC")->limit($limit);

@@ -2,7 +2,7 @@
 
 @php
     $prog     = $emision->programme;
-    $url      = $prog ? route('view-emision', ['programme' => $prog, 'emision' => $emision]) : '#';
+    $url      = $emision->canonicalUrl();
     $img      = $emision->image ?: 'https://picsum.photos/seed/rb-' . $emision->id . '/700/850';
     $isAudio  = $emision->media_type === 'audio';
     $isVideo  = $emision->media_type === 'video';
@@ -23,9 +23,9 @@
     $btn = 'grid h-[42px] w-[42px] place-items-center rounded-full border border-white/40 bg-white/10 text-white backdrop-blur transition';
 @endphp
 
-<a href="{{ $url }}"
+<a href="{{ $url }}" wire:navigate
    class="group relative flex items-end overflow-hidden rounded-card shadow-sm transition duration-200 hover:-translate-y-1.5 hover:shadow-xl {{ $size }}">
-    <img src="{{ $img }}" alt="" loading="lazy"
+    <img src="{{ $img }}" alt="" loading="lazy" decoding="async"
          onerror="this.onerror=null;this.src='https://picsum.photos/seed/rb-{{ $emision->id }}/700/850'"
          class="absolute inset-0 h-full w-full object-cover transition duration-500 group-hover:scale-105">
 
@@ -35,9 +35,9 @@
         </span>
     @endif
 
-    <span class="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-navy-3/90"></span>
+    <span class="absolute inset-0 bg-gradient-to-t from-navy-3/95 via-navy-3/55 to-transparent"></span>
 
-    <div class="relative w-full p-5 text-white">
+    <div class="relative w-full p-5 text-white [text-shadow:0_1px_3px_rgba(4,22,44,0.6)]">
         @if ($prog)
             <span class="text-xs font-bold uppercase tracking-wider text-green-l">{{ $prog->name }}</span>
         @endif

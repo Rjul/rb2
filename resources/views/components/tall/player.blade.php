@@ -57,7 +57,11 @@
         {{-- progression (cliquable pour se déplacer) --}}
         <div class="hidden flex-1 items-center gap-3 sm:flex">
             <span class="min-w-[46px] text-[12.5px] tabular-nums text-slate-400" x-text="currentTime"></span>
-            <div class="group relative h-1.5 flex-1 cursor-pointer rounded-md bg-white/15" @click="seek($event)">
+            <div class="group relative h-1.5 flex-1 cursor-pointer rounded-md bg-white/15" @click="seek($event)"
+                 role="slider" tabindex="0" aria-label="Position de lecture"
+                 :aria-valuenow="Math.round(progress)" aria-valuemin="0" aria-valuemax="100"
+                 :aria-valuetext="`${currentTime} sur ${totalTime}`"
+                 @keydown.arrow-right.prevent="nudge(10)" @keydown.arrow-left.prevent="nudge(-10)">
                 <div class="absolute inset-y-0 left-0 rounded-md bg-green-l" :style="`width:${progress}%`"></div>
                 <div class="absolute top-1/2 h-3 w-3 -translate-x-1/2 -translate-y-1/2 rounded-full bg-white opacity-0 shadow transition group-hover:opacity-100" :style="`left:${progress}%`"></div>
             </div>

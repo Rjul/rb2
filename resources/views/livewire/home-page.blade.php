@@ -1,7 +1,7 @@
 <div x-data>
     <x-tall.header />
 
-    <main>
+    <main id="contenu">
         <x-tall.sections.hero :emision="$latest->first()" />
         <x-tall.sections.latest :emissions="$latest" />
         <x-tall.sections.a-la-une :emissions="$une" />

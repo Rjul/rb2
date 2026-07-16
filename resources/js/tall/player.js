@@ -90,13 +90,24 @@ export function player() {
 
         seek(e) {
             const rect = e.currentTarget.getBoundingClientRect();
-            const ratio = Math.min(1, Math.max(0, (e.clientX - rect.left) / rect.width));
+            this.seekTo((e.clientX - rect.left) / rect.width);
+        },
+
+        seekTo(ratio) {
+            ratio = Math.min(1, Math.max(0, ratio));
             if (!this.simMode && this.audio.duration) {
                 this.audio.currentTime = ratio * this.audio.duration;
             } else {
                 this.elapsed = ratio * (this.duration || 180);
                 this.progress = ratio * 100;
             }
+        },
+
+        // Décalage clavier (flèches sur la barre de progression) : ±10 s.
+        nudge(sec) {
+            if (!this.hasTrack) return;
+            const total = (!this.simMode && this.audio.duration) ? this.audio.duration : (this.duration || 180);
+            this.seekTo((this.elapsed + sec) / total);
         },
 
         enqueue(track) { this.queue.push(track); this.open = true; },

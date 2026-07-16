@@ -42,6 +42,38 @@ class Programme extends Model
         return $this->belongsTo(User::class);
     }
 
+    /**
+     * URL canonique de la page programme (front v2). La catégorie est
+     * cosmétique : la résolution se fait par l'id contenu dans le slug.
+     */
+    public function canonicalUrl(): string
+    {
+        return route('v2.programme', [
+            'categorie' => $this->group_programme?->slug ?: 'programmes',
+            'programme' => $this->slug,
+        ]);
+    }
+
+    /**
+     * Résout un programme depuis le segment d'URL.
+     * 1) slug exact (cas courant) ; 2) repli sur l'id en fin de slug (self-healing 301).
+     */
+    public static function fromSlugId(?string $segment): ?self
+    {
+        $segment = (string) $segment;
+        if ($segment === '') {
+            return null;
+        }
+
+        if ($model = self::query()->where('slug', $segment)->first()) {
+            return $model;
+        }
+
+        $id = (int) \Illuminate\Support\Str::afterLast($segment, '-');
+
+        return $id > 0 ? self::query()->find($id) : null;
+    }
+
     static public function allActiveEmisions()
     {
         return self::query()->where('is_active', true);

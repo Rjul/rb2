@@ -22,7 +22,7 @@ class HomePageTest extends TestCase
 
     public function test_accueil_tall_repond_200(): void
     {
-        $this->get('/maquette/home')
+        $this->get(route('v2.home'))
             ->assertOk()
             ->assertSee('Radio Bastides');
     }

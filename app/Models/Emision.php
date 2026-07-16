@@ -47,6 +47,7 @@ class Emision extends Model
             ->orderBy('active_at', 'desc')
             ->where('active_at', '<', now())
             ->where('emisions.is_active', true)
+            ->where('programmes.is_active', true)
             ->orderBy('programmes.height')
             ->limit($limite)
             ->get();
@@ -58,6 +59,7 @@ class Emision extends Model
             ->where('is_put_forward', true)
             ->where('active_at', '<', now())
             ->where('emisions.is_active', "=", true)
+            ->where('programmes.is_active', true)
             ->orderBy('emisions.active_at', 'DESC')
             ->orderBy('programmes.height')
             ->limit($limite)
@@ -71,6 +73,7 @@ class Emision extends Model
             ->orderBy('active_at', 'desc')
             ->where('active_at', '<', now())
             ->where('emisions.is_active', true)
+            ->where('programmes.is_active', true)
             ->orderBy('programmes.height')
             ->limit($limite)
             ->get();
@@ -138,6 +141,72 @@ class Emision extends Model
             null,
             false
         );
+    }
+
+    /**
+     * URL streamable du fichier vidéo (disque distant `emission_video`, FTP),
+     * ou null si l'émission n'est pas de type vidéo / sans pièce jointe.
+     * Le disque FTP peut lever (throw=true) : encapsulé dans rescue().
+     */
+    public function videoUrl(): ?string
+    {
+        if ($this->media_type !== self::TYPE_VIDEO) {
+            return null;
+        }
+
+        $attachment = $this->relationLoaded('attachment')
+            ? $this->getRelation('attachment')->firstWhere('group', 'video')
+            : $this->attachment('video')->first();
+
+        if (! $attachment) {
+            return null;
+        }
+
+        // L'attachement Orchid connaît son disque : on privilégie son url() ;
+        // sinon on reconstruit sur le disque vidéo dédié.
+        return rescue(
+            fn () => $attachment->url
+                ?: Storage::disk('emission_video')
+                    ->url(trim($attachment->path, '/') . '/' . $attachment->name . '.' . $attachment->extension),
+            null,
+            false
+        );
+    }
+
+    /**
+     * URL canonique de la fiche (front v2). Les segments catégorie/programme
+     * sont cosmétiques : la résolution se fait par l'id contenu dans le slug.
+     */
+    public function canonicalUrl(): string
+    {
+        $prog = $this->programme;
+
+        return route('v2.emission', [
+            'categorie'  => $prog?->group_programme?->slug ?: 'programmes',
+            'programme'  => $prog?->slug ?: 'programme',
+            'emission'   => $this->slug,
+        ]);
+    }
+
+    /**
+     * Résout une émission depuis le dernier segment d'URL.
+     * 1) slug exact (cas courant, aucune ambiguïté, que le slug contienne l'id ou non) ;
+     * 2) repli sur l'id en fin de slug si le slug est périmé (renommage) → self-healing 301.
+     */
+    public static function fromSlugId(?string $segment): ?self
+    {
+        $segment = (string) $segment;
+        if ($segment === '') {
+            return null;
+        }
+
+        if ($model = self::query()->where('slug', $segment)->first()) {
+            return $model;
+        }
+
+        $id = (int) \Illuminate\Support\Str::afterLast($segment, '-');
+
+        return $id > 0 ? self::query()->find($id) : null;
     }
 
     public function attachment(string $group = null, ?int $duration = null): MorphToMany

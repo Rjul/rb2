@@ -99,6 +99,12 @@ class GroupProgramme extends Model
             ->get();
     }
 
+    /** URL canonique de la page catégorie (front v2), résolue par le slug. */
+    public function canonicalUrl(): string
+    {
+        return route('v2.category', ['categorie' => $this->slug]);
+    }
+
     /**
      * Get the group Programme.
      */

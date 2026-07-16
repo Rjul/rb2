@@ -18,23 +18,37 @@ class HomePage extends Component
 {
     public function render()
     {
-        // Eager-load des pièces jointes → l'accesseur audioUrl() ne requête pas par carte.
-        $une    = Emision::getLastALaUne()->load('attachment');
-        $latest = Emision::getLast()->load('attachment');
+        // Ces listes sont identiques pour tous les visiteurs → cache front,
+        // invalidé à chaque écriture BO (cf. App\Support\FrontCache).
+        $data = \App\Support\FrontCache::remember('home:data', function () {
+            // Eager-load : `attachment` (audioUrl sans N+1) + `programme.group_programme`
+            // (les cartes appellent canonicalUrl() qui remonte jusqu'à la catégorie).
+            $rel    = ['attachment', 'programme.group_programme'];
+            $une    = Emision::getLastALaUne()->load($rel);
+            $latest = Emision::getLast()->load($rel);
 
-        return view('livewire.home-page', [
-            'latest'     => $latest,                     // grande carte + grille
-            'une'        => $une,                        // bandeau immersif « à la une »
-            'spotlight'  => $une->first(),               // rendez-vous de la semaine
-            'programmes' => Programme::query()
-                                ->where('is_active', true)
-                                ->withCount('emisions')
-                                ->orderBy('height')
-                                ->take(4)->get(),
-            'tags'       => Tag::getQueryByOrderCountEmisions(6)->get(),
-            'audios'     => Emision::getLastByType('audio', 3)->load('attachment'),
-            'texts'      => Emision::getLastByType('text', 3),
-            'videos'     => Emision::getLastByType('video', 3),
+            return [
+                'latest'     => $latest,                     // grande carte + grille
+                'une'        => $une,                        // bandeau immersif « à la une »
+                'spotlight'  => $une->first(),               // rendez-vous de la semaine
+                'programmes' => Programme::query()
+                                    ->where('is_active', true)
+                                    ->with('group_programme')
+                                    ->withCount(['emisions as emisions_count' => fn ($q) => $q->where('emisions.is_active', true)->where('emisions.active_at', '<', now())])
+                                    ->orderBy('height')
+                                    ->take(4)->get(),
+                'tags'       => Tag::getQueryByOrderCountEmisions(6)->get(),
+                'audios'     => Emision::getLastByType('audio', 3)->load($rel),
+                'texts'      => Emision::getLastByType('text', 3)->load($rel),
+                'videos'     => Emision::getLastByType('video', 3)->load($rel),
+            ];
+        });
+
+        return view('livewire.home-page', $data)->layout('layouts.tall', [
+            'title'           => 'Radio Bastides — la radio associative de Villeneuve-sur-Lot',
+            'metaDescription' => 'Radio Bastides, la radio associative de Villeneuve-sur-Lot et du Lot-et-Garonne : émissions, chroniques et musiques d’ici, à écouter où et quand vous voulez.',
+            'canonical'       => route('v2.home'),
+            'ogImage'         => url('/imgs/logo.png'),
         ]);
     }
 }

@@ -11,7 +11,7 @@
             <form wire:submit="subscribe" class="flex flex-col gap-2">
                 <div class="flex flex-col gap-2.5 sm:flex-row">
                     <input type="email" wire:model="email" placeholder="votre@email.fr" aria-label="Votre adresse email"
-                           class="min-w-0 flex-1 rounded-xl border-0 px-4 py-3.5 text-ink">
+                           class="min-w-0 flex-1 rounded-xl border-0 bg-white px-4 py-3.5 text-ink placeholder:text-ink/55">
                     <button type="submit" wire:loading.attr="disabled" wire:target="subscribe"
                             class="rounded-xl bg-green px-6 py-3.5 font-display text-[17px] text-white transition hover:bg-green/80 disabled:opacity-60">
                         <span wire:loading.remove wire:target="subscribe">S'inscrire</span>

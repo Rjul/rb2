@@ -10,7 +10,7 @@
         'secs'  => $e->duration ? (int) round($e->duration * 60) : null,
         'src'   => $e->audioUrl(),
         'img'   => $e->image ?: 'https://picsum.photos/seed/rb-une-' . $e->id . '/1600/900',
-        'url'   => $e->programme ? route('view-emision', ['programme' => $e->programme, 'emision' => $e]) : '#',
+        'url'   => $e->canonicalUrl(),
     ])->values();
 @endphp
 
@@ -23,6 +23,9 @@
                 touched: false,
                 get cur() { return this.items[this.i] },
                 go(n) {
+                    // Après wire:navigate, la section est retirée : les refs disparaissent.
+                    // On coupe l'interval et on sort pour éviter fuite + TypeError.
+                    if (!this.$refs.bgA || !this.$refs.bgB) { clearInterval(this._timer); return; }
                     const url = `url('${this.items[n].img}')`;
                     const showing = this.front ? this.$refs.bgA : this.$refs.bgB;
                     const hidden  = this.front ? this.$refs.bgB : this.$refs.bgA;
@@ -36,7 +39,7 @@
                     this.$refs.bgA.style.backgroundImage = `url('${this.items[0].img}')`;
                     this.$refs.bgA.style.opacity = 1;
                     if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-                        setInterval(() => { if (!this.touched) this.go((this.i + 1) % this.items.length) }, 7000);
+                        this._timer = setInterval(() => { if (!this.touched) this.go((this.i + 1) % this.items.length) }, 7000);
                     }
                 }
              }">
@@ -60,13 +63,13 @@
                     </button>
 
                     {{-- article / vidéo : le player sera sur la page dédiée → on l'ouvre --}}
-                    <a x-show="cur.type !== 'audio'" :href="cur.url"
+                    <a x-show="cur.type !== 'audio'" :href="cur.url" wire:navigate
                        class="inline-flex items-center gap-2.5 rounded-xl bg-green px-6 py-3.5 font-display text-[18px] text-white shadow-lg shadow-green/30 transition hover:bg-green-d">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="h-[1.1em] w-[1.1em]"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
                         <span x-text="cur.type === 'video' ? 'Voir la vidéo' : 'Lire l’article'"></span>
                     </a>
 
-                    <a x-show="cur.type === 'audio'" :href="cur.url"
+                    <a x-show="cur.type === 'audio'" :href="cur.url" wire:navigate
                        class="inline-flex items-center rounded-xl border-[1.5px] border-white/40 bg-white/15 px-6 py-3.5 font-display text-[18px] text-white transition hover:bg-white/25">
                         Découvrir l'émission
                     </a>
@@ -78,7 +81,7 @@
                 <template x-for="(it, idx) in items" :key="idx">
                     <button type="button" x-on:click="touched = true; go(idx)" :aria-pressed="i === idx"
                             class="relative aspect-video overflow-hidden rounded-2xl shadow-lg transition hover:-translate-y-0.5">
-                        <img :src="it.img" alt="" class="absolute inset-0 h-full w-full object-cover">
+                        <img :src="it.img" alt="" loading="lazy" decoding="async" class="absolute inset-0 h-full w-full object-cover">
                         <span class="absolute inset-0 transition"
                               :class="i === idx ? 'rounded-2xl ring-2 ring-green-l ring-inset' : 'bg-navy-3/55'"></span>
                         <span class="absolute inset-x-3 bottom-2.5 text-left">

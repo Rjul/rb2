@@ -34,4 +34,28 @@
     body { @apply bg-bg text-ink font-sans antialiased; padding-bottom: 92px; }
     h1, h2, h3, .font-display { font-family: var(--font-display); font-weight: 400; letter-spacing: 0.005em; }
     [x-cloak] { display: none !important; }
+
+    /* Focus clavier bien visible partout (a11y), sans gêner la souris */
+    :focus-visible { outline: 2px solid var(--color-green); outline-offset: 2px; border-radius: 4px; }
+}
+
+/*
+| Contenu administrable (description HTML des émissions / programmes / catégories).
+| Pas de plugin typography : styles minimaux et cohérents avec la charte.
+*/
+@layer components {
+    .prose-rb :where(p) { margin-block: 0.9em; }
+    .prose-rb :where(h2, h3, h4) { font-family: var(--font-display); color: var(--color-navy); margin-block: 1.3em 0.5em; line-height: 1.15; }
+    .prose-rb :where(h2) { font-size: 1.6em; }
+    .prose-rb :where(h3) { font-size: 1.3em; }
+    .prose-rb :where(a) { color: var(--color-green); text-decoration: underline; text-underline-offset: 2px; }
+    .prose-rb :where(a):hover { color: var(--color-green-d); }
+    .prose-rb :where(ul, ol) { margin-block: 0.9em; padding-inline-start: 1.4em; }
+    .prose-rb :where(ul) { list-style: disc; }
+    .prose-rb :where(ol) { list-style: decimal; }
+    .prose-rb :where(li) { margin-block: 0.3em; }
+    .prose-rb :where(img) { max-width: 100%; height: auto; border-radius: 14px; margin-block: 1em; }
+    .prose-rb :where(blockquote) { border-inline-start: 3px solid var(--color-green-l); padding-inline-start: 1em; color: var(--color-muted); font-style: italic; margin-block: 1em; }
+    .prose-rb :where(strong) { font-weight: 700; }
+    .prose-rb :where(iframe) { max-width: 100%; border-radius: 14px; margin-block: 1em; }
 }

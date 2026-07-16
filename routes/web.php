@@ -35,7 +35,7 @@ Route::get('/programas',
         }
         return redirect()->route('list-programme', ['programme' => $programme ], 301);
     }
-)->name('redirect-emision');
+)->name('redirect-programas');
 
 Route::get('/programme-{programme:slug}/emission-{emision:slug}',
     [\App\Http\Controllers\DetannController::class, 'index' ])
@@ -72,8 +72,34 @@ Route::get('/informations-generales', function() {
    return view('pages.information');
 });
 
-// Nouveau front TALL (aperçu accueil) — Livewire full-page
-Route::get('/maquette/home', \App\Livewire\HomePage::class)->name('maquette.home');
+/*
+|--------------------------------------------------------------------------
+| Front v2 (TALL) — préfixe temporaire, à retirer pour la bascule
+|--------------------------------------------------------------------------
+| Toutes les pages du front modernisé. Le legacy reste à la racine pendant
+| la cohabitation ; le layout met /v2 en noindex automatiquement.
+| Feuilles (programme, émission) résolues par l'id du slug (self-healing),
+| les segments parents sont cosmétiques. Noms « v2.* » conservés à la bascule.
+| Placé AVANT le catch-all /{pageAdmin:path}.
+*/
+Route::prefix('v2')->name('v2.')->group(function () {
+    Route::get('/', \App\Livewire\HomePage::class)->name('home');
+
+    Route::get('/categories', \App\Livewire\V2\CategoriesIndex::class)->name('categories');
+    Route::get('/categories/{categorie}', \App\Livewire\V2\CategoryPage::class)->name('category');
+    Route::get('/categories/{categorie}/{programme}', \App\Livewire\V2\ProgrammePage::class)->name('programme');
+    Route::get('/categories/{categorie}/{programme}/{emission}', \App\Livewire\V2\EmissionPage::class)->name('emission');
+
+    Route::get('/programmes', \App\Livewire\V2\ProgrammesIndex::class)->name('programmes');
+    Route::get('/emissions', \App\Livewire\V2\EmissionsIndex::class)->name('emissions');
+    Route::get('/emissions/{type}', \App\Livewire\V2\EmissionsIndex::class)
+        ->whereIn('type', ['audio', 'video', 'articles'])->name('emissions.type');
+
+    Route::get('/thematiques', \App\Livewire\V2\ThemesIndex::class)->name('themes');
+    Route::get('/thematique-{tag}', \App\Livewire\V2\ThemePage::class)->name('theme');
+
+    Route::get('/recherche', \App\Livewire\V2\SearchPage::class)->name('search');
+});
 
 // Impersonation : revenir à son compte d'origine après « se connecter en tant que ».
 // Passe par AuthenticateSession (comme le panel) pour que le hash de mot de passe

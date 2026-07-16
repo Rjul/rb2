@@ -8,10 +8,11 @@
             </p>
         </div>
         <div>
-            <h4 class="mb-3 font-display text-lg text-white">Émissions</h4>
-            @foreach (['Chroniques', 'Magazines', 'Culture', 'Musical'] as $item)
-                <a href="#" class="block py-1 text-sm transition hover:text-green-l">{{ $item }}</a>
-            @endforeach
+            <h4 class="mb-3 font-display text-lg text-white">Explorer</h4>
+            <a href="{{ route('v2.categories') }}" wire:navigate class="block py-1 text-sm transition hover:text-green-l">Catégories</a>
+            <a href="{{ route('v2.programmes') }}" wire:navigate class="block py-1 text-sm transition hover:text-green-l">Programmes</a>
+            <a href="{{ route('v2.emissions') }}" wire:navigate class="block py-1 text-sm transition hover:text-green-l">Émissions</a>
+            <a href="{{ route('v2.themes') }}" wire:navigate class="block py-1 text-sm transition hover:text-green-l">Thèmes</a>
         </div>
         <div>
             <h4 class="mb-3 font-display text-lg text-white">Le média</h4>
