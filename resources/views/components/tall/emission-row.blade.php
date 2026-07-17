@@ -30,7 +30,10 @@
         @endif
     </span>
     @if ($isAudio)
-        <button type="button" aria-label="Écouter" x-on:click.stop.prevent="$dispatch('rb:play', @js($track))"
+        {{-- mousedown/keydown stoppés : wire:navigate lance la nav sur mousedown, pas sur click --}}
+        <button type="button" aria-label="Écouter"
+                x-on:click.stop.prevent="$dispatch('rb:play', @js($track))"
+                x-on:mousedown.stop x-on:keydown.enter.stop
                 class="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-green text-white transition hover:bg-green-d">
             <svg viewBox="0 0 24 24" fill="currentColor" class="h-4 w-4"><path d="M8 5v14l11-7z"/></svg>
         </button>

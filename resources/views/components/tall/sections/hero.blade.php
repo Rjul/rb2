@@ -60,7 +60,7 @@
             @if ($emision)
                 <a href="{{ $url }}" wire:navigate class="absolute -bottom-6 left-0 flex max-w-[330px] items-center gap-3.5 rounded-[20px] bg-white p-4 shadow-xl transition hover:shadow-2xl sm:-left-6">
                     <span class="grid h-[50px] w-[50px] flex-none place-items-center rounded-full bg-green text-white"
-                          @if ($isAudio) x-on:click.stop.prevent="$dispatch('rb:play', @js($track))" role="button" aria-label="Écouter" @endif>
+                          @if ($isAudio) x-on:click.stop.prevent="$dispatch('rb:play', @js($track))" x-on:mousedown.stop role="button" aria-label="Écouter" @endif>
                         @if ($isAudio)
                             <svg viewBox="0 0 24 24" fill="currentColor" class="h-5 w-5"><path d="M8 5v14l11-7z"/></svg>
                         @else

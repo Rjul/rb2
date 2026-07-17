@@ -52,14 +52,18 @@
 
             <span class="flex gap-2">
                 @if ($isAudio)
-                    {{-- lecteur persistant : file d'attente + lecture --}}
+                    {{-- lecteur persistant : file d'attente + lecture.
+                         wire:navigate déclenche la nav sur mousedown (pas click) → on stoppe
+                         aussi mousedown/keydown.enter pour ne pas naviguer en cliquant l'action. --}}
                     <button type="button" aria-label="Ajouter à la file d'attente"
                             x-on:click.stop.prevent="$dispatch('rb:queue', @js($track))"
+                            x-on:mousedown.stop x-on:keydown.enter.stop
                             class="{{ $btn }} hover:border-green-l hover:bg-green-l hover:text-navy-3">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="h-[17px] w-[17px]"><path d="M4 6h11M4 12h11M4 18h7"/><path d="M18 13v6M15 16h6"/></svg>
                     </button>
                     <button type="button" aria-label="Écouter {{ $emision->name }}"
                             x-on:click.stop.prevent="$dispatch('rb:play', @js($track))"
+                            x-on:mousedown.stop x-on:keydown.enter.stop
                             class="{{ $btn }} hover:border-green-l hover:bg-green-l hover:text-navy-3">
                         <svg viewBox="0 0 24 24" fill="currentColor" class="h-[17px] w-[17px]"><path d="M8 5v14l11-7z"/></svg>
                     </button>
