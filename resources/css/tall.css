@@ -22,6 +22,15 @@
     --font-display: "berlin", "Trebuchet MS", sans-serif;
 
     --radius-card: 22px;
+
+    /* Pulsation douce des ondes décoratives du footer (animate-onde).
+       Anime les propriétés natives scale/opacity : ne touche pas à
+       translate/rotate posés par les utilitaires de positionnement. */
+    --animate-onde: onde 5s ease-in-out infinite;
+    @keyframes onde {
+        0%, 100% { scale: 1; opacity: 0.22; }
+        50% { scale: 1.07; opacity: 0.35; }
+    }
 }
 
 /* Polices de marque (fichiers dans resources/fonts, émis + hashés par Vite) */

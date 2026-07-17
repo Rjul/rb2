@@ -15,6 +15,9 @@
 
     @vite(['resources/css/tall.css', 'resources/js/tall.js'])
     @livewireStyles
+
+    {{-- Consentement cookies + Google Analytics (même bandeau que le legacy) --}}
+    @include('layouts.tarte-au-citron')
 </head>
 <body>
     <a href="#contenu"

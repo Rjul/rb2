@@ -52,7 +52,7 @@
                 </section>
                 <div class="section text-center">
                     <div>
-                    {{ $emisions->render() }}
+                    {{ $emisions->onEachSide(1)->links('pagination::bootstrap-5-centered') }}
                     </div>
                 </div>
             </div>

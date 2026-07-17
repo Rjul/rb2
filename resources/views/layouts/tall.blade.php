@@ -45,6 +45,9 @@
 
     @vite(['resources/css/tall.css', 'resources/js/tall.js'])
     @livewireStyles
+
+    {{-- Consentement cookies + Google Analytics (même bandeau que le legacy) --}}
+    @include('layouts.tarte-au-citron')
 </head>
 <body>
     {{-- Lien d'évitement (a11y) : premier élément focusable, visible uniquement au focus --}}

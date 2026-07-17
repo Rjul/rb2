@@ -1,4 +1,5 @@
-<script src="/tarteaucitronjs/tarteaucitron.js" ></script>
+{{-- defer : le script s'exécute avant DOMContentLoaded (où init() est appelé) sans bloquer le rendu --}}
+<script src="/tarteaucitronjs/tarteaucitron.js" defer></script>
 <script type="text/javascript">
     // const initTAC = function () {
     document.addEventListener('DOMContentLoaded', function () {
@@ -50,6 +51,34 @@
         (tarteaucitron.job = tarteaucitron.job || []).push('multiplegtag');
 
     });
+
+    // Front v2 (SPA wire:navigate) : chaque navigation Livewire remplace le <body>,
+    // ce qui ferait disparaître le bandeau/l'icône tarteaucitron et stopperait le
+    // comptage des pages vues. On ré-accroche donc la racine du bandeau après chaque
+    // navigation et on renvoie une page vue à GA (si le consentement a été donné).
+    // Sans effet sur le legacy : les événements livewire:* n'y sont jamais émis.
+    if (!window.__tacSpaBound) {
+        window.__tacSpaBound = true;
+        var __tacRoot = null;
+        var __tacFirstLoad = true;
+
+        // Avant le remplacement du body : on garde une référence au bandeau.
+        document.addEventListener('livewire:navigate', function () {
+            __tacRoot = document.getElementById('tarteaucitronRoot') || __tacRoot;
+        });
+
+        document.addEventListener('livewire:navigated', function () {
+            if (__tacFirstLoad) { __tacFirstLoad = false; return; } // page vue initiale déjà comptée par init()
+            if (__tacRoot && !document.body.contains(__tacRoot)) {
+                document.body.appendChild(__tacRoot);
+            }
+            if (typeof gtag === 'function' && typeof tarteaucitron !== 'undefined') {
+                (tarteaucitron.user.multiplegtagUa || []).forEach(function (id) {
+                    gtag('config', id, { page_path: window.location.pathname + window.location.search });
+                });
+            }
+        });
+    }
 
 </script>
 
