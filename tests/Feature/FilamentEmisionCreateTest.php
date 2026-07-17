@@ -96,46 +96,6 @@ class FilamentEmisionCreateTest extends TestCase
         $this->assertSame('emission_video', $attachment->disk);
     }
 
-    /**
-     * Régression : à l'édition, l'aperçu de l'image doit se remplir quel que
-     * soit le format hérité en base (chemin relatif Filament, chemin complet
-     * d'avant 2023-11, URL absolue du Cropper Orchid). L'accessor renvoie une
-     * URL alors que FileUpload attend le chemin relatif au disque.
-     *
-     * @dataProvider formatsImage
-     */
-    public function test_apercu_image_a_l_edition(string $valeurEnBase, string $cheminDisqueAttendu): void
-    {
-        Storage::fake('emission_image');
-        Storage::disk('emission_image')->put($cheminDisqueAttendu, 'fake-image');
-
-        $admin = User::factory()->admin()->create();
-        $group = GroupProgramme::factory()->create(['is_active' => true]);
-        $programme = Programme::factory()->create([
-            'user_id' => $admin->id, 'group_programme_id' => $group->id, 'is_active' => true,
-        ]);
-        $emision = Emision::factory()->create([
-            'programme_id' => $programme->id,
-            'user_id'      => $admin->id,
-            'image'        => $valeurEnBase,
-        ]);
-
-        $this->actingAs($admin);
-
-        Livewire::test(\App\Filament\Resources\EmisionResource\Pages\EditEmision::class, ['record' => $emision->id])
-            ->assertFormSet(fn (array $state) => $this->assertContains(
-                $cheminDisqueAttendu,
-                array_values((array) $state['image']),
-                "Le chemin disque doit être retrouvé depuis « {$valeurEnBase} »",
-            ));
-    }
-
-    public static function formatsImage(): array
-    {
-        return [
-            'chemin relatif (Filament)'   => ['2024/05/photo.png', '2024/05/photo.png'],
-            'chemin complet (avant 2023)' => ['storage/public/emission/images/old/6/photo.jpg', 'old/6/photo.jpg'],
-            'URL absolue (Cropper)'       => ['https://www.radiobastides.fr/storage/public/emission/images/2023/11/30/photo.png', '2023/11/30/photo.png'],
-        ];
-    }
+    // L'édition (aperçu + préservation de l'image, tous formats hérités, pour
+    // émissions/programmes/catégories) est couverte par FilamentImageFieldTest.
 }

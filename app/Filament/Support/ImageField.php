@@ -4,13 +4,25 @@ namespace App\Filament\Support;
 
 use Filament\Forms\Components\FileUpload;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Storage;
 
 /**
  * Équivalent Filament du Cropper Orchid : recadrage IMPOSÉ au ratio attendu
  * (crop côté client à l'upload + éditeur de recadrage), dimensions de sortie fixes,
- * sur le disque public `emission_image`.
- * L'accessor HasResolvedImage renvoie ensuite une URL affichable côté front.
+ * sur le disque public `emission_image`. Utilisé pour les images d'émission, de
+ * programme et de catégorie (groupe de programme).
+ *
+ * Édition d'un enregistrement existant — les valeurs héritées coexistent en 3 formats :
+ *   1. chemin relatif au disque   "programmes/xxx.jpg"           (nouveaux uploads Filament)
+ *   2. chemin complet racine web  "storage/public/emission/images/old/…jpg"  (avant 2023-11)
+ *   3. URL absolue                "https://…/storage/public/…"   (Cropper Orchid `targetUrl()`)
+ *
+ * FileUpload attend un chemin relatif à SON disque et vérifie son existence ;
+ * pour ces formats hérités (voire un fichier posé par Orchid sur le disque `public`,
+ * hors `emission_image`), la vérif échoue et l'aperçu disparaît — alors que le
+ * fichier existe et s'affiche sur le site. On résout donc l'aperçu via l'accessor
+ * du modèle (HasResolvedImage), seule source de vérité pour transformer n'importe
+ * quel format en URL affichable, et on garde la valeur brute pour ne rien perdre
+ * à l'enregistrement.
  */
 class ImageField
 {
@@ -24,36 +36,25 @@ class ImageField
             ->disk('emission_image')
             ->visibility('public')
             ->directory($directory)
-            // À l'édition, le formulaire est rempli via l'accessor HasResolvedImage
-            // (une URL), alors que FileUpload attend un chemin RELATIF au disque :
-            // exists() échoue et l'aperçu reste vide. On repart de la colonne brute
-            // et on retrouve le chemin disque pour les formats hérités (URL absolue
-            // du Cropper Orchid, chemin complet d'avant 2023-11).
+            // On place la valeur BRUTE en état : elle sert de clé d'aperçu (résolue
+            // en URL ci-dessous) et, si l'image n'est pas remplacée, elle est
+            // ré-enregistrée telle quelle → aucune perte ni reformatage hasardeux.
             ->afterStateHydrated(static function (FileUpload $component, ?Model $record): void {
-                if (! $record) {
-                    return; // création : état vide par défaut
-                }
+                $raw = $record?->getRawOriginal('image');
+                $component->state(blank($raw) ? [] : [(string) $raw]);
+            })
+            // Pas de vérif d'existence sur le disque du champ : les valeurs héritées
+            // peuvent être des URL absolues ou vivre sur le disque Orchid `public`.
+            ->fetchFileInformation(false)
+            // Aperçu : l'accessor du modèle sait rendre les 3 formats en URL.
+            ->getUploadedFileUsing(static function (FileUpload $component, string $file): ?array {
+                $record = $component->getRecord();
+                $url = $record?->image ?: $file;
 
-                $raw = $record->getRawOriginal('image');
-
-                if (blank($raw)) {
-                    $component->state([]);
-
-                    return;
-                }
-
-                $path = $raw;
-
-                if (preg_match('~storage/public/emission/images/(.+)$~', $raw, $matches)) {
-                    $path = $matches[1];
-                }
-
-                // Introuvable sur le disque (ex. URL externe) : on conserve la
-                // valeur d'origine — pas d'aperçu, mais rien n'est perdu à la
-                // sauvegarde et le champ requis reste satisfait.
-                $component->state(
-                    Storage::disk('emission_image')->exists($path) ? [$path] : [$raw]
-                );
+                return [
+                    'name' => basename(parse_url($file, PHP_URL_PATH) ?: $file),
+                    'url'  => $url,
+                ];
             })
             // Recadrage imposé (comme le Cropper Orchid) :
             ->imageCropAspectRatio($ratio)          // force le crop au ratio à l'upload
