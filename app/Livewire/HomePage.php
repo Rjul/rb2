@@ -24,8 +24,15 @@ class HomePage extends Component
             // Eager-load : `attachment` (audioUrl sans N+1) + `programme.group_programme`
             // (les cartes appellent canonicalUrl() qui remonte jusqu'à la catégorie).
             $rel    = ['attachment', 'programme.group_programme'];
-            $une    = Emision::getLastALaUne()->load($rel);
             $latest = Emision::getLast()->load($rel);
+            $une    = Emision::getLastALaUne()->load($rel);
+
+            // Repli : si aucune émission n'est cochée « à la une » (is_put_forward),
+            // on prend les 4 dernières publiées → le bandeau n'est jamais vide.
+            // Réutilise $latest (déjà chargé) : pas de requête supplémentaire.
+            if ($une->isEmpty()) {
+                $une = $latest->take(4)->values();
+            }
 
             return [
                 'latest'     => $latest,                     // grande carte + grille

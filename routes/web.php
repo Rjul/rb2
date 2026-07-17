@@ -50,9 +50,9 @@ Route::get('/recherche',
     [\App\Http\Controllers\SearchController::class, 'index' ]
 )->name('list-search');
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+// L'ancien tableau de bord Breeze (vue stub cassée) est remplacé par l'espace compte.
+Route::get('/dashboard', fn () => redirect()->route('profile.edit'))
+    ->middleware(['auth'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

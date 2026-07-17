@@ -1,28 +1,29 @@
-@extends('base')
-<x-auth-card>
-    <div class="mb-4 text-sm text-gray-600">
-        Vous avez oublié votre mot de passe ? Aucun problème.
-        Il suffit de nous communiquer votre adresse électronique et nous vous enverrons un lien de réinitialisation du mot de passe qui vous permettra d'en choisir un nouveau.
-    </div>
+<x-guest-layout title="Mot de passe oublié">
+    <h1 class="font-display text-[26px] leading-tight text-navy">Mot de passe oublié</h1>
+    <p class="mt-2 text-sm text-ink/70">
+        Indiquez votre adresse e-mail : nous vous enverrons un lien pour choisir un nouveau mot de passe.
+    </p>
 
-    <!-- Session Status -->
-    <x-auth-session-status class="mb-4" :status="session('status')" />
+    @if (session('status'))
+        <div class="mt-4 rounded-xl bg-green/10 px-4 py-3 text-sm font-medium text-green-d">
+            {{ session('status') }}
+        </div>
+    @endif
 
-    <form method="POST" action="{{ route('password.email') }}">
+    <form method="POST" action="{{ route('password.email') }}" class="mt-6 space-y-5">
         @csrf
-
-        <!-- Email Address -->
         <div>
-            <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus />
-            <x-input-error :messages="$errors->get('email')" class="mt-2" />
+            <label for="email" class="block text-sm font-semibold text-ink">Adresse e-mail</label>
+            <input id="email" name="email" type="email" value="{{ old('email') }}" required autofocus autocomplete="username"
+                   class="mt-1.5 block w-full rounded-xl border border-line bg-white px-4 py-3 text-ink focus:border-green focus:ring-2 focus:ring-green/30">
+            @error('email') <p class="mt-1.5 text-sm text-red-600">{{ $message }}</p> @enderror
         </div>
-
-        <div class="flex items-center justify-end mt-4">
-            <x-primary-button>
-                {{ __('Email Password Reset Link') }}
-            </x-primary-button>
-        </div>
+        <button type="submit" class="w-full rounded-xl bg-green px-6 py-3.5 font-display text-[17px] text-white transition hover:bg-green-d">
+            Envoyer le lien
+        </button>
     </form>
-</x-auth-card>
 
+    <p class="mt-6 text-center text-sm text-ink/70">
+        <a href="{{ route('login') }}" class="font-semibold text-green transition hover:text-green-d">← Retour à la connexion</a>
+    </p>
+</x-guest-layout>
