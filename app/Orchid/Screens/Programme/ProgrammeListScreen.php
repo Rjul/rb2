@@ -66,7 +66,7 @@ class ProgrammeListScreen extends Screen
         return [
             Link::make('Nouveau Programme')
                 ->icon('pencil')
-                ->route('platform.programme.edit')
+                ->route('platform.programme.create')
         ];
     }
 

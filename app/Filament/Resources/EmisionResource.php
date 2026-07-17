@@ -59,12 +59,24 @@ class EmisionResource extends Resource
                 Forms\Components\Select::make('tags')
                     ->label('Thèmes associés')
                     ->multiple()
-                    ->relationship('tags', 'name')
+                    ->relationship('tags', 'name', fn (Builder $query) => $query->orderByName())
                     ->getOptionLabelFromRecordUsing(fn ($record) => $record->name)
+                    ->searchable()
+                    // Recherche insensible à la casse sur le nom traduit (JSON) :
+                    // le LIKE par défaut compare le JSON en binaire sur MySQL.
+                    ->getSearchResultsUsing(fn (string $search) => \App\Models\Tag::containing($search)
+                        ->orderByName()
+                        ->limit(50)
+                        ->get()
+                        ->mapWithKeys(fn ($tag) => [$tag->id => (string) $tag->name])
+                        ->all())
                     ->preload()->required(),
 
                 Forms\Components\DatePicker::make('active_at')
-                    ->label('Date de publication')->required(),
+                    ->label('Date de publication')
+                    // native(false) : le calendrier s'ouvre au clic n'importe où dans le champ
+                    ->native(false)->displayFormat('d/m/Y')->closeOnDateSelection()
+                    ->default(now())->required(),
 
                 Forms\Components\TextInput::make('duration')
                     ->label('Durée / temps de consultation (min)')

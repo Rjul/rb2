@@ -49,13 +49,17 @@
 
                         @if($emision->media_type === "audio")
                             <img src="{{ $emision->image }}" class="img-full w-100 rounded-bottom" alt="Radiobastides - {{ $emision->programme->name }} {{ $emision->name }}">
+                            {{-- Une émission sans fichier joint (création incomplète) ne doit pas faire tomber la page --}}
+                            @php
+                                $audioAttachment = $emision->attachment->first();
+                            @endphp
+                            @if($audioAttachment)
                             <span id="audio-detann-player" class="calamansi mt-0 pt-0" data-skin="/player-audio/ayon"
                                   data-file-name="Radiobastides - {{ $emision->programme->name }} {{ $emision->name }}"
-                                  data-source="{{ $emision->attachment->first()->url !== null ?
-                            $emision->attachment->first()->url :
-                            '/storage/public/emission/audio/' . $emision->attachment->first()->path . '/' . $emision->attachment->first()->name }}"
+                                  data-source="{{ $audioAttachment->url ?? '/storage/public/emission/audio/' . $audioAttachment->path . '/' . $audioAttachment->name }}"
                                   data-album-cover="{{ $emision->image }}"
                             >Radiobastides - {{ $emision->programme->name }} {{ $emision->name }}</span>
+                            @endif
                         @elseif($emision->media_type === "video")
                             <video-js
                                 id="video-detann-player"

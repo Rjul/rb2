@@ -16,6 +16,26 @@ class Tag extends \Spatie\Tags\Tag
         return $this->morphedByMany(Emision::class, 'taggable');
     }
 
+    /**
+     * Tri alphabétique insensible à la casse sur le nom traduit.
+     * `name` est un JSON traduisible ({"fr": …}) : un orderBy brut trierait la
+     * chaîne JSON (majuscules avant minuscules en binaire), d'où le lower()
+     * sur la valeur extraite — portable MySQL (prod) / SQLite (tests).
+     */
+    public function scopeOrderByName(\Illuminate\Database\Eloquent\Builder $query): \Illuminate\Database\Eloquent\Builder
+    {
+        $wrapped = $query->getQuery()->getGrammar()->wrap('name->'.app()->getLocale());
+        $expr = "lower({$wrapped})";
+
+        // En MySQL (prod), la collation Unicode classe aussi les accents
+        // (Économie avec les E) ; SQLite (tests) ne la connaît pas.
+        if ($query->getConnection()->getDriverName() === 'mysql') {
+            $expr .= ' COLLATE utf8mb4_unicode_ci';
+        }
+
+        return $query->orderByRaw($expr);
+    }
+
     public function emisionsLimites($limite = 10) {
         return $this->emisions()->limit($limite)->get();
     }

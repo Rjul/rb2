@@ -43,7 +43,7 @@ class WebsiteNewListScreen extends Screen
         return [
             Link::make('Nouvelle annonce')
                 ->icon('pencil')
-                ->route('platform.annonce.edit')
+                ->route('platform.annonce.create')
         ];
     }
 

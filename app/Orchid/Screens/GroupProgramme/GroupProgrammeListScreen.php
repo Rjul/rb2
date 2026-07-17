@@ -69,7 +69,7 @@ class GroupProgrammeListScreen extends Screen
         return [
             Link::make('Nouveau groupe programme')
                 ->icon('pencil')
-                ->route('platform.group.programme.edit')
+                ->route('platform.group.programme.create')
         ];
     }
 

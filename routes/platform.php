@@ -105,11 +105,26 @@ Route::screen('roles', RoleListScreen::class)
     });
 
 
+/*
+|--------------------------------------------------------------------------
+| Écrans create/edit séparés (contrainte Orchid 14)
+|--------------------------------------------------------------------------
+| Avant : une seule route `entite/{param?}` servait création ET édition.
+| Orchid 14 résout les bindings implicites AVANT d'appeler la méthode de
+| l'écran : en création, le POST `entite/createOrUpdate` faisait atterrir
+| le nom de méthode dans `{param}` → ModelNotFound → 404. On suit donc le
+| schéma officiel (comme users/roles ci-dessus) : `create` dédié + param
+| requis pour l'édition, et une redirection depuis l'ancienne URL nue.
+*/
+
 //=======================================================
 // Tags                                                 |
 //=======================================================
-Route::screen('tag/{tag?}', TagEditScreen::class)
+Route::screen('tag/create', TagEditScreen::class)
+    ->name('platform.tag.create');
+Route::screen('tag/{tag}', TagEditScreen::class)
     ->name('platform.tag.edit');
+Route::redirect('tag', \Orchid\Platform\Dashboard::prefix('/tag/create'));
 
 Route::screen('tags', TagsListScreen::class)
     ->name('platform.tag.list');
@@ -118,8 +133,11 @@ Route::screen('tags', TagsListScreen::class)
 //=======================================================
 // Programme                                            |
 //=======================================================
-Route::screen('programme/{programme?}', ProgrammeEditScreen::class)
+Route::screen('programme/create', ProgrammeEditScreen::class)
+    ->name('platform.programme.create');
+Route::screen('programme/{programme}', ProgrammeEditScreen::class)
     ->name('platform.programme.edit');
+Route::redirect('programme', \Orchid\Platform\Dashboard::prefix('/programme/create'));
 
 Route::screen('programmes', ProgrammeListScreen::class)
     ->name('platform.programme.list');
@@ -127,8 +145,11 @@ Route::screen('programmes', ProgrammeListScreen::class)
 //=======================================================
 // Page Admin                                          |
 //=======================================================
-Route::screen('page-admin/{pageAdmin?}', \App\Orchid\Screens\PageAdmin\PageAdminEditScreen::class)
+Route::screen('page-admin/create', \App\Orchid\Screens\PageAdmin\PageAdminEditScreen::class)
+    ->name('platform.page-admin.create');
+Route::screen('page-admin/{pageAdmin}', \App\Orchid\Screens\PageAdmin\PageAdminEditScreen::class)
     ->name('platform.page-admin.edit');
+Route::redirect('page-admin', \Orchid\Platform\Dashboard::prefix('/page-admin/create'));
 
 Route::screen('pages-admin', \App\Orchid\Screens\PageAdmin\PageAdminListScreen::class)
     ->name('platform.page-admin.list');
@@ -137,8 +158,11 @@ Route::screen('pages-admin', \App\Orchid\Screens\PageAdmin\PageAdminListScreen::
 //=======================================================
 // Group Programme                                      |
 //=======================================================
-Route::screen('group/programme/{programme?}', \App\Orchid\Screens\GroupProgramme\GroupProgrammeEditScreen::class)
+Route::screen('group/programme/create', \App\Orchid\Screens\GroupProgramme\GroupProgrammeEditScreen::class)
+    ->name('platform.group.programme.create');
+Route::screen('group/programme/{programme}', \App\Orchid\Screens\GroupProgramme\GroupProgrammeEditScreen::class)
     ->name('platform.group.programme.edit');
+Route::redirect('group/programme', \Orchid\Platform\Dashboard::prefix('/group/programme/create'));
 
 Route::screen('group/programmes', \App\Orchid\Screens\GroupProgramme\GroupProgrammeListScreen::class)
     ->name('platform.group.programme.list');
@@ -146,12 +170,23 @@ Route::screen('group/programmes', \App\Orchid\Screens\GroupProgramme\GroupProgra
 //=======================================================
 // Emission                                     |
 //=======================================================
-Route::screen('emission/audio/{emission?}', \App\Orchid\Screens\Emission\EmissionEditScreen::class)
+Route::screen('emission/audio/create', \App\Orchid\Screens\Emission\EmissionEditScreen::class)
+    ->name('platform.emission.create');
+Route::screen('emission/audio/{emission}', \App\Orchid\Screens\Emission\EmissionEditScreen::class)
     ->name('platform.emission.edit');
-Route::screen('emission/video/{emission?}', \App\Orchid\Screens\Emission\EmissionVideoEditScreen::class)
+Route::redirect('emission/audio', \Orchid\Platform\Dashboard::prefix('/emission/audio/create'));
+
+Route::screen('emission/video/create', \App\Orchid\Screens\Emission\EmissionVideoEditScreen::class)
+    ->name('platform.emission.video.create');
+Route::screen('emission/video/{emission}', \App\Orchid\Screens\Emission\EmissionVideoEditScreen::class)
     ->name('platform.emission.video.edit');
-Route::screen('emission/text/{emission?}', \App\Orchid\Screens\Emission\EmissionTextEditScreen::class)
+Route::redirect('emission/video', \Orchid\Platform\Dashboard::prefix('/emission/video/create'));
+
+Route::screen('emission/text/create', \App\Orchid\Screens\Emission\EmissionTextEditScreen::class)
+    ->name('platform.emission.text.create');
+Route::screen('emission/text/{emission}', \App\Orchid\Screens\Emission\EmissionTextEditScreen::class)
     ->name('platform.emission.text.edit');
+Route::redirect('emission/text', \Orchid\Platform\Dashboard::prefix('/emission/text/create'));
 
 Route::screen('emissions', \App\Orchid\Screens\Emission\EmissionListScreen::class)
     ->name('platform.emissions.list');
@@ -159,8 +194,11 @@ Route::screen('emissions', \App\Orchid\Screens\Emission\EmissionListScreen::clas
 //=======================================================
 // Annonce                                              |
 //=======================================================
-Route::screen('annonce/{websiteNew?}', \App\Orchid\Screens\WebsiteNewEditScreen::class)
+Route::screen('annonce/create', \App\Orchid\Screens\WebsiteNewEditScreen::class)
+    ->name('platform.annonce.create');
+Route::screen('annonce/{websiteNew}', \App\Orchid\Screens\WebsiteNewEditScreen::class)
     ->name('platform.annonce.edit');
+Route::redirect('annonce', \Orchid\Platform\Dashboard::prefix('/annonce/create'));
 
 Route::screen('annonces', \App\Orchid\Screens\WebsiteNewListScreen::class)
     ->name('platform.annonces.list');

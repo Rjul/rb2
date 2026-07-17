@@ -94,14 +94,64 @@ class OrchidAdminSmokeTest extends TestCase
     public static function ecransEdition(): array
     {
         return [
-            'nouvel audio'   => ['platform.emission.edit'],
-            'nouvelle vidéo' => ['platform.emission.video.edit'],
-            'nouvel article' => ['platform.emission.text.edit'],
-            'programme'      => ['platform.programme.edit'],
-            'groupe'         => ['platform.group.programme.edit'],
-            'thème'          => ['platform.tag.edit'],
-            'page'           => ['platform.page-admin.edit'],
-            'annonce'        => ['platform.annonce.edit'],
+            'nouvel audio'   => ['platform.emission.create'],
+            'nouvelle vidéo' => ['platform.emission.video.create'],
+            'nouvel article' => ['platform.emission.text.create'],
+            'programme'      => ['platform.programme.create'],
+            'groupe'         => ['platform.group.programme.create'],
+            'thème'          => ['platform.tag.create'],
+            'page'           => ['platform.page-admin.create'],
+            'annonce'        => ['platform.annonce.create'],
         ];
+    }
+
+    /**
+     * Régression Orchid 14 : le POST de création (`…/create/createOrUpdate`)
+     * doit atteindre la méthode de l'écran. Avant la séparation create/edit,
+     * le nom de méthode atterrissait dans `{emission?}` et le binding
+     * implicite répondait 404 — création impossible depuis le back-office.
+     */
+    public function test_creation_emission_audio_via_post(): void
+    {
+        $admin = $this->admin();
+        $group = GroupProgramme::factory()->create(['is_active' => true]);
+        $programme = Programme::factory()->create([
+            'user_id'            => $admin->id,
+            'group_programme_id' => $group->id,
+            'is_active'          => true,
+        ]);
+
+        $payload = \App\Models\Emision::factory()->raw([
+            'programme_id' => $programme->id,
+            'user_id'      => $admin->id,
+            'name'         => 'Émission créée par le test Orchid',
+        ]);
+
+        $this->actingAs($admin)
+            ->post(route('platform.emission.create').'/createOrUpdate', [
+                'emission' => $payload,
+                'media'    => [],
+            ])
+            ->assertRedirect(route('platform.emissions.list'));
+
+        $this->assertDatabaseHas('emisions', [
+            'name'       => 'Émission créée par le test Orchid',
+            'media_type' => 'audio',
+        ]);
+    }
+
+    /**
+     * Les anciennes URL de création (sans segment `create`) restent utilisables :
+     * marque-pages et habitudes des rédacteurs.
+     */
+    public function test_anciennes_url_de_creation_redirigent(): void
+    {
+        $this->actingAs($this->admin())
+            ->get('/admin/emission/audio')
+            ->assertRedirect(route('platform.emission.create'));
+
+        $this->actingAs($this->admin())
+            ->get('/admin/tag')
+            ->assertRedirect(route('platform.tag.create'));
     }
 }

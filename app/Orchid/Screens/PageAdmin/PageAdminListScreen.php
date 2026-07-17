@@ -70,7 +70,7 @@ class PageAdminListScreen extends Screen
         return [
             Link::make('Nouvelle page')
                 ->icon('pencil')
-                ->route('platform.page-admin.edit')
+                ->route('platform.page-admin.create')
         ];
     }
 

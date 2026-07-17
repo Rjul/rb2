@@ -67,7 +67,7 @@ class TagsListScreen extends Screen
         return [
             Link::make('Nouveau Thèmes')
                 ->icon('pencil')
-                ->route('platform.tag.edit')
+                ->route('platform.tag.create')
         ];
     }
 
