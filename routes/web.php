@@ -72,6 +72,23 @@ Route::get('/informations-generales', function() {
    return view('pages.information');
 });
 
+// Newsletter (double opt-in) : liens signés reçus par email.
+Route::get('newsletter/confirm/{subscriber}', [\App\Http\Controllers\NewsletterController::class, 'confirm'])
+    ->middleware('signed')->name('newsletter.confirm');
+Route::get('newsletter/unsubscribe/{subscriber}', [\App\Http\Controllers\NewsletterController::class, 'unsubscribe'])
+    ->middleware('signed')->name('newsletter.unsubscribe');
+
+// Prévisualisation du template de newsletter dans le navigateur (dev uniquement).
+if (app()->environment('local')) {
+    Route::get('newsletter/preview', function () {
+        $emissions = \App\Models\Emision::getWeeklyHighlights(6);
+        abort_if($emissions->isEmpty(), 404, 'Aucune émission à afficher.');
+        $url = \Illuminate\Support\Facades\URL::signedRoute('newsletter.unsubscribe', ['subscriber' => 0]);
+
+        return new \App\Mail\WeeklyNewsletterMail($emissions, $url, 'du 14/07 au 20/07');
+    });
+}
+
 /*
 |--------------------------------------------------------------------------
 | Front v2 (TALL) — préfixe temporaire, à retirer pour la bascule

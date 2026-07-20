@@ -96,6 +96,7 @@ class GroupProgramme extends Model
         return self::query()
             ->where('is_active', '=', 1)
             ->orderBy('height', 'ASC')
+            ->orderBy('name') // départage à poids égal : alphabétique (collation ci → insensible casse/accents)
             ->get();
     }
 
@@ -118,12 +119,12 @@ class GroupProgramme extends Model
      */
     public function programmesOrderByHeight()
     {
-        return $this->hasMany(Programme::class)->orderBy('height', 'ASC');
+        return $this->hasMany(Programme::class)->orderBy('height', 'ASC')->orderBy('name');
     }
 
     public function programmesOrderByHeightAndActive()
     {
-        return $this->hasMany(Programme::class)->orderBy('height', 'ASC')->where('is_active', '=', 1);
+        return $this->hasMany(Programme::class)->where('is_active', '=', 1)->orderBy('height', 'ASC')->orderBy('name');
     }
 
 }

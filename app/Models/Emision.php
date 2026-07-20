@@ -79,6 +79,40 @@ class Emision extends Model
             ->get();
     }
 
+    /**
+     * Sélection « à la une » de la SEMAINE pour la newsletter hebdomadaire :
+     * émissions mises en avant publiées sur les 7 derniers jours. Replis en
+     * cascade pour ne jamais envoyer une newsletter vide :
+     * à la une de la semaine → à la une (toutes dates) → dernières publiées.
+     * Eager-load attachment + programme.group_programme (URL canonique/audio).
+     */
+    public static function getWeeklyHighlights(int $limite = 6)
+    {
+        $rel = ['attachment', 'programme.group_programme'];
+
+        $week = self::join('programmes', 'emisions.programme_id', '=', 'programmes.id', 'inner')
+            ->select('emisions.*')
+            ->where('is_put_forward', true)
+            ->whereBetween('active_at', [now()->subWeek(), now()])
+            ->where('emisions.is_active', true)
+            ->where('programmes.is_active', true)
+            ->orderBy('emisions.active_at', 'DESC')
+            ->orderBy('programmes.height')
+            ->limit($limite)
+            ->get();
+
+        if ($week->isNotEmpty()) {
+            return $week->load($rel);
+        }
+
+        $featured = self::getLastALaUne($limite);
+        if ($featured->isNotEmpty()) {
+            return $featured->load($rel);
+        }
+
+        return self::getLast($limite)->load($rel);
+    }
+
     public function scopeWithAuthPermissions(Builder $builder): Builder
     {
         $programmes_id = [];

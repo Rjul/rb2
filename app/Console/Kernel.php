@@ -15,7 +15,14 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')->hourly();
+        // Newsletter hebdomadaire : chaque vendredi à 8h (heure de Paris).
+        // Nécessite le cron système : * * * * * php /chemin/rb2/artisan schedule:run
+        $schedule->command('newsletter:send-weekly')
+            ->fridays()
+            ->at('08:00')
+            ->timezone('Europe/Paris')
+            ->onOneServer()
+            ->withoutOverlapping();
     }
 
     /**
@@ -25,7 +32,7 @@ class Kernel extends ConsoleKernel
      */
     protected function commands()
     {
-        // $this->load(__DIR__.'/Commands');
+        $this->load(__DIR__.'/Commands');
 
         require base_path('routes/console.php');
     }

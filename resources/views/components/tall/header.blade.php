@@ -12,6 +12,7 @@
     $megaCategories = \App\Support\FrontCache::remember('nav:mega', fn () => \App\Models\GroupProgramme::query()
         ->where('is_active', 1)
         ->orderBy('height')
+        ->orderBy('name') // départage à poids égal : alphabétique
         ->with('programmesOrderByHeightAndActive')
         ->get()
         ->filter(fn ($c) => $c->programmesOrderByHeightAndActive->isNotEmpty())

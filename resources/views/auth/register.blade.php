@@ -5,6 +5,13 @@
     <form method="POST" action="{{ route('register') }}" class="mt-6 space-y-5">
         @csrf
 
+        {{-- Anti-bot (honeypot) : hors écran pour les humains, souvent rempli par les bots.
+             S'il est rempli → inscription ignorée sans envoi d'email. --}}
+        <div aria-hidden="true" style="position:absolute;left:-9999px;height:0;width:0;overflow:hidden;" tabindex="-1">
+            <label for="website">Laissez ce champ vide</label>
+            <input id="website" name="website" type="text" value="" tabindex="-1" autocomplete="off">
+        </div>
+
         <div>
             <label for="name" class="block text-sm font-semibold text-ink">Nom</label>
             <input id="name" name="name" type="text" value="{{ old('name') }}" required autofocus autocomplete="name"

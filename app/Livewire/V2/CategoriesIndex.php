@@ -13,6 +13,7 @@ class CategoriesIndex extends TallPage
             ->where('is_active', 1)
             ->withCount(['programmes as programmes_count' => fn ($q) => $q->where('is_active', true)])
             ->orderBy('height')
+            ->orderBy('name') // départage à poids égal : alphabétique
             ->get());
 
         $crumbs = [

@@ -115,6 +115,7 @@ class UserResource extends Resource
                 Tables\Columns\TextColumn::make('email')->label('Email')->searchable()->sortable(),
                 Tables\Columns\TextColumn::make('roles.name')->label('Rôles')->badge(),
                 Tables\Columns\IconColumn::make('email_verified_at')->label('Vérifié')->boolean(),
+                Tables\Columns\TextColumn::make('created_at')->label('Inscrit le')->dateTime('d/m/Y H:i')->sortable(),
                 Tables\Columns\TextColumn::make('updated_at')->label('Modifié le')->dateTime('d/m/Y H:i')->sortable()->toggleable(),
             ])
             ->defaultSort('id', 'desc')
@@ -124,6 +125,13 @@ class UserResource extends Resource
                     ->relationship('roles', 'name')
                     ->multiple()
                     ->preload(),
+                // Ménage des bots : isoler les comptes à l'email NON vérifié.
+                Tables\Filters\TernaryFilter::make('email_verified_at')
+                    ->label('Email vérifié')
+                    ->nullable()
+                    ->placeholder('Tous')
+                    ->trueLabel('Vérifiés uniquement')
+                    ->falseLabel('Non vérifiés (bots à nettoyer)'),
             ])
             ->actions([
                 static::configureImpersonateAction(Tables\Actions\Action::make('impersonate')),

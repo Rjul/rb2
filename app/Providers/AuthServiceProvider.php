@@ -26,10 +26,12 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        // Permissions de commentaires (remplace la config du paquet laravelista/comments)
-        Gate::define('create-comment', fn ($user) => true);
+        // Permissions de commentaires (remplace la config du paquet laravelista/comments).
+        // Écrire un commentaire exige un email VÉRIFIÉ (anti-bot) ; single source of
+        // vérité → couvre à la fois le Livewire CommentThread et WebCommentController.
+        Gate::define('create-comment', fn ($user) => $user->hasVerifiedEmail());
         Gate::define('delete-comment', fn ($user, Comment $comment) => $user->getKey() == $comment->commenter_id);
-        Gate::define('edit-comment', fn ($user, Comment $comment) => $user->getKey() == $comment->commenter_id);
-        Gate::define('reply-to-comment', fn ($user, Comment $comment) => $user->getKey() != $comment->commenter_id);
+        Gate::define('edit-comment', fn ($user, Comment $comment) => $user->getKey() == $comment->commenter_id && $user->hasVerifiedEmail());
+        Gate::define('reply-to-comment', fn ($user, Comment $comment) => $user->getKey() != $comment->commenter_id && $user->hasVerifiedEmail());
     }
 }

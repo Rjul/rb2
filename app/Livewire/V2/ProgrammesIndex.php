@@ -12,6 +12,7 @@ class ProgrammesIndex extends TallPage
         $categories = \App\Support\FrontCache::remember('programmes:index', fn () => GroupProgramme::query()
             ->where('is_active', 1)
             ->orderBy('height')
+            ->orderBy('name') // départage à poids égal : alphabétique
             ->with(['programmesOrderByHeightAndActive' => fn ($q) => $q->with('group_programme')
                 ->withCount(['emisions as emisions_count' => fn ($c) => $c->where('emisions.is_active', true)->where('emisions.active_at', '<', now())])])
             ->get()

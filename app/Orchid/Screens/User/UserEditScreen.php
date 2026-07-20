@@ -181,6 +181,11 @@ class UserEditScreen extends Screen
             $builder->getModel()->password = Hash::make($request->input('user.password'));
         });
 
+        // Utilisateur créé par un admin → email considéré vérifié (pas d'OTP).
+        if (! $user->exists) {
+            $user->email_verified_at = now();
+        }
+
         $user
             ->fill($request->collect('user')->except(['password', 'permissions', 'roles'])->toArray())
             ->fill(['permissions' => $permissions])

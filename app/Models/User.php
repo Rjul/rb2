@@ -14,10 +14,11 @@ use Orchid\Platform\Models\User as Authenticatable;
 use Filament\Models\Contracts\FilamentUser;
 use Filament\Panel;
 
-class User extends Authenticatable implements FilamentUser
+class User extends Authenticatable implements FilamentUser, \Illuminate\Contracts\Auth\MustVerifyEmail
 {
     use HasFactory, UserAccess;
     use Notifiable, Commenter, HasApiTokens;
+    use MustVerifyEmail; // hasVerifiedEmail()/markEmailAsVerified() + middleware `verified`
 
     /**
      * Accès au panel Filament — réutilise les permissions Orchid existantes.

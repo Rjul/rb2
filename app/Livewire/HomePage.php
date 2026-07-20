@@ -60,6 +60,7 @@ class HomePage extends Component
                                     ->with('group_programme')
                                     ->withCount(['emisions as emisions_count' => fn ($q) => $q->where('emisions.is_active', true)->where('emisions.active_at', '<', now())])
                                     ->orderBy('height')
+                                    ->orderBy('name') // départage à poids égal : alphabétique
                                     ->take(4)->get(),
                 'tags'       => Tag::getQueryByOrderCountEmisions(6)->get(),
                 // 4) Trios par type : les derniers de chaque type, hors déjà affichés.

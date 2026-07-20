@@ -6,9 +6,14 @@
         </div>
 
         @if ($done)
-            <p class="font-display text-[20px] text-white">Merci ! Votre inscription est bien prise en compte&nbsp;✦</p>
+            <p class="font-display text-[20px] text-white">Presque terminé&nbsp;! Vérifiez votre boîte mail et cliquez sur le lien de confirmation&nbsp;✦</p>
         @else
             <form wire:submit="subscribe" class="flex flex-col gap-2">
+                {{-- Anti-bot (honeypot) : hors écran, rempli seulement par les bots. --}}
+                <div aria-hidden="true" style="position:absolute;left:-9999px;height:0;width:0;overflow:hidden;" tabindex="-1">
+                    <label for="nl-website">Laissez ce champ vide</label>
+                    <input id="nl-website" type="text" wire:model="website" tabindex="-1" autocomplete="off">
+                </div>
                 <div class="flex flex-col gap-2.5 sm:flex-row">
                     <input type="email" wire:model="email" placeholder="votre@email.fr" aria-label="Votre adresse email"
                            class="min-w-0 flex-1 rounded-xl border-0 bg-white px-4 py-3.5 text-ink placeholder:text-ink/55">

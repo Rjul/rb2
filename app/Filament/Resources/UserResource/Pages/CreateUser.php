@@ -16,4 +16,16 @@ class CreateUser extends CreateRecord
     {
         return $this->collectPermissionGroups($data);
     }
+
+    /**
+     * Utilisateur créé par un admin → email considéré vérifié directement
+     * (pas d'OTP). On le fait après création : email_verified_at n'est pas
+     * dans $fillable, donc l'assignation de masse l'ignorerait.
+     */
+    protected function afterCreate(): void
+    {
+        if (! $this->record->hasVerifiedEmail()) {
+            $this->record->forceFill(['email_verified_at' => now()])->save();
+        }
+    }
 }

@@ -8,7 +8,13 @@
         ->allowSafeElements()
         ->allowRelativeLinks()
         ->allowRelativeMedias()
-        ->forceHttpsUrls();
+        ->forceHttpsUrls()
+        // Le RichEditor (Filament/TipTap) porte le soulignement, l'alignement et
+        // les couleurs en style inline (ex. text-decoration:underline). On autorise
+        // donc `style` pour que ces mises en forme s'affichent sur le site.
+        // Contenu BO de confiance ; script/on*/URLs dangereuses restent bloqués
+        // par allowSafeElements() + forceHttpsUrls().
+        ->allowAttribute('style', '*');
 
     $clean = trim((new \Symfony\Component\HtmlSanitizer\HtmlSanitizer($config))->sanitize((string) $html));
 @endphp
