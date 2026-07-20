@@ -68,3 +68,33 @@
     .prose-rb :where(strong) { font-weight: 700; }
     .prose-rb :where(iframe) { max-width: 100%; border-radius: 14px; margin-block: 1em; }
 }
+
+/*
+| Méga-menu « Catégories » : fondu d'entrée en CSS pur (rejoué à chaque passage
+| display:none → block piloté par x-show). Alternative fiable à x-transition,
+| qui bloquait x-show dans ce combo Tailwind v4 / Alpine.
+*/
+.mega-panel { animation: mega-in 0.18s ease-out; }
+@keyframes mega-in {
+    from { opacity: 0; transform: translateY(-4px); }
+    to   { opacity: 1; transform: none; }
+}
+/* Les méga-menus sont réservés au desktop. On ne peut pas mettre `hidden` sur
+   l'élément (ça casse x-show) : on force donc le masquage sous md via média-query
+   `!important`, qui prime sur le display inline géré par x-show — uniquement en < md. */
+@media (max-width: 767px) {
+    .mega-panel { display: none !important; }
+}
+
+/*
+| Menu mobile à tiroirs : glissement latéral (avant = vers la gauche / plus profond,
+| arrière = vers la droite / retour), rejoué à chaque changement de tiroir (x-show).
+*/
+.drawer-fwd  { animation: drawer-in-right 0.2s ease-out; }
+.drawer-back { animation: drawer-in-left 0.2s ease-out; }
+@keyframes drawer-in-right { from { opacity: 0; transform: translateX(28px); }  to { opacity: 1; transform: none; } }
+@keyframes drawer-in-left  { from { opacity: 0; transform: translateX(-28px); } to { opacity: 1; transform: none; } }
+
+@media (prefers-reduced-motion: reduce) {
+    .mega-panel, .drawer-fwd, .drawer-back { animation: none; }
+}

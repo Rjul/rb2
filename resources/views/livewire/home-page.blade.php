@@ -2,7 +2,7 @@
     <x-tall.header />
 
     <main id="contenu">
-        <x-tall.sections.hero :emision="$latest->first()" />
+        <x-tall.sections.hero :emision="$hero" />
         <x-tall.sections.latest :emissions="$latest" />
         <x-tall.sections.a-la-une :emissions="$une" />
         <x-tall.sections.programmes :programmes="$programmes" />
