@@ -36,6 +36,26 @@ class HomePage extends Component
                 return $items;
             };
 
+            // Comme $pick, mais COMPLÈTE jusqu'à $n si trop peu d'éléments frais
+            // (utilisé pour les trios par type : la ligne reste pleine même si les
+            // audios/vidéos récents sont déjà dans la grille du haut). Les éléments
+            // de complément peuvent avoir déjà été montrés ailleurs — acceptable et
+            // bien préférable à une ligne à une seule carte.
+            $pickFill = function ($pool, int $n) use (&$seen) {
+                $fresh = $pool->reject(fn ($e) => in_array($e->id, $seen, true))
+                              ->take($n)->values();
+                $seen = array_merge($seen, $fresh->pluck('id')->all());
+
+                if ($fresh->count() < $n) {
+                    $fresh = $fresh->concat(
+                        $pool->whereNotIn('id', $fresh->pluck('id')->all())
+                             ->take($n - $fresh->count())
+                    )->values();
+                }
+
+                return $fresh;
+            };
+
             // Pools volontairement larges pour absorber la déduplication sans vider les blocs.
             $recent     = Emision::getLast(14)->load($rel);
             $putForward = Emision::getLastALaUne(14)->load($rel);
@@ -63,10 +83,11 @@ class HomePage extends Component
                                     ->orderBy('name') // départage à poids égal : alphabétique
                                     ->take(4)->get(),
                 'tags'       => Tag::getQueryByOrderCountEmisions(6)->get(),
-                // 4) Trios par type : les derniers de chaque type, hors déjà affichés.
-                'audios'     => $pick(Emision::getLastByType('audio', 12)->load($rel), 3),
-                'texts'      => $pick(Emision::getLastByType('text', 12)->load($rel), 3),
-                'videos'     => $pick(Emision::getLastByType('video', 12)->load($rel), 3),
+                // 4) Trios par type : derniers de chaque type, en évitant les doublons
+                //    mais en COMPLÉTANT la ligne jusqu'à 3 (jamais une seule carte).
+                'audios'     => $pickFill(Emision::getLastByType('audio', 12)->load($rel), 3),
+                'texts'      => $pickFill(Emision::getLastByType('text', 12)->load($rel), 3),
+                'videos'     => $pickFill(Emision::getLastByType('video', 12)->load($rel), 3),
                 // 5) Rendez-vous de la semaine : un « à la une » pas encore montré.
                 'spotlight'  => $pick($putForward, 1)->first(),
             ];
