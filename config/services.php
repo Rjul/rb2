@@ -43,4 +43,10 @@ return [
         'redirect' => env('FACEBOOK_CALLBACK'),
     ],
 
+    // Brevo (envoi d'emails via l'API HTTPS — le SMTP est bloqué sur OVH mutualisé).
+    // Clé API v3 (commence par "xkeysib-"), à ne pas confondre avec la clé SMTP.
+    'brevo' => [
+        'key' => env('BREVO_API_KEY'),
+    ],
+
 ];

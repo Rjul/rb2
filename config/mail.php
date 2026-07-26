@@ -45,6 +45,12 @@ return [
             'local_domain' => env('MAIL_EHLO_DOMAIN'),
         ],
 
+        // Envoi via l'API HTTPS de Brevo (port 443) : contourne le blocage SMTP
+        // sortant d'OVH mutualisé. Transport enregistré dans AppServiceProvider.
+        'brevo' => [
+            'transport' => 'brevo',
+        ],
+
         'ses' => [
             'transport' => 'ses',
         ],
