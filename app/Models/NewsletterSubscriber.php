@@ -10,6 +10,7 @@ class NewsletterSubscriber extends Model
         'email',
         'verified_at',
         'unsubscribed_at',
+        'last_sent_week',
     ];
 
     protected $casts = [

@@ -9,11 +9,13 @@ use App\Models\NewsletterSubscriber;
 use App\Models\Programme;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Mail;
 use Tests\TestCase;
 
 /**
- * Commande d'envoi de la newsletter hebdomadaire.
+ * Newsletter hebdomadaire : ciblage, fenêtre d'envoi, et envoi par VAGUES
+ * (plafond quotidien réparti sur plusieurs jours).
  */
 class WeeklyNewsletterCommandTest extends TestCase
 {
@@ -36,7 +38,7 @@ class WeeklyNewsletterCommandTest extends TestCase
         ]);
     }
 
-    public function test_envoi_uniquement_aux_abonnes_confirmes_non_desinscrits(): void
+    public function test_force_envoie_aux_confirmes_seulement(): void
     {
         Mail::fake();
         $this->seedHighlight();
@@ -45,25 +47,23 @@ class WeeklyNewsletterCommandTest extends TestCase
         NewsletterSubscriber::create(['email' => 'non-confirme@x.fr']);
         NewsletterSubscriber::create(['email' => 'desinscrit@x.fr', 'verified_at' => now(), 'unsubscribed_at' => now()]);
 
-        $this->artisan('newsletter:send-weekly')->assertSuccessful();
+        $this->artisan('newsletter:send-weekly', ['--force' => true])->assertSuccessful();
 
         Mail::assertSent(WeeklyNewsletterMail::class, 1);
         Mail::assertSent(WeeklyNewsletterMail::class, fn ($m) => $m->hasTo('confirme@x.fr'));
-        Mail::assertNotSent(WeeklyNewsletterMail::class, fn ($m) => $m->hasTo('non-confirme@x.fr'));
-        Mail::assertNotSent(WeeklyNewsletterMail::class, fn ($m) => $m->hasTo('desinscrit@x.fr'));
     }
 
-    public function test_rien_envoye_sans_emission_a_la_une(): void
+    public function test_rien_sans_emission(): void
     {
         Mail::fake();
         NewsletterSubscriber::create(['email' => 'confirme@x.fr', 'verified_at' => now()]);
 
-        $this->artisan('newsletter:send-weekly')->assertSuccessful();
+        $this->artisan('newsletter:send-weekly', ['--force' => true])->assertSuccessful();
 
         Mail::assertNothingSent();
     }
 
-    public function test_option_to_envoie_un_seul_email_de_test(): void
+    public function test_option_to(): void
     {
         Mail::fake();
         $this->seedHighlight();
@@ -72,5 +72,60 @@ class WeeklyNewsletterCommandTest extends TestCase
 
         Mail::assertSent(WeeklyNewsletterMail::class, 1);
         Mail::assertSent(WeeklyNewsletterMail::class, fn ($m) => $m->hasTo('moi@x.fr'));
+    }
+
+    public function test_hors_fenetre_aucun_envoi(): void
+    {
+        $this->travelTo(Carbon::now('Europe/Paris')->next(Carbon::MONDAY)->setTime(9, 0));
+
+        Mail::fake();
+        $this->seedHighlight();
+        NewsletterSubscriber::create(['email' => 'confirme@x.fr', 'verified_at' => now()]);
+
+        $this->artisan('newsletter:send-weekly')->assertSuccessful(); // auto
+
+        Mail::assertNothingSent();
+        $this->assertDatabaseCount('newsletter_logs', 0);
+    }
+
+    public function test_une_seule_vague_par_jour(): void
+    {
+        $this->travelTo(Carbon::now('Europe/Paris')->next(Carbon::FRIDAY)->setTime(9, 0));
+
+        Mail::fake();
+        $this->seedHighlight();
+        NewsletterSubscriber::create(['email' => 'a@x.fr', 'verified_at' => now()]);
+
+        $this->artisan('newsletter:send-weekly')->assertSuccessful();
+        $this->artisan('newsletter:send-weekly')->assertSuccessful(); // 2e passage le même jour
+
+        Mail::assertSent(WeeklyNewsletterMail::class, 1);       // une seule fois
+        $this->assertDatabaseCount('newsletter_logs', 1);
+    }
+
+    public function test_envoi_par_vagues_sur_plusieurs_jours(): void
+    {
+        $friday = Carbon::now('Europe/Paris')->next(Carbon::FRIDAY)->setTime(9, 0);
+        $this->travelTo($friday);
+
+        Mail::fake();
+        $this->seedHighlight();
+        // 3 abonnés confirmés, plafond de vague = 2 → 2 vendredi, 1 samedi.
+        foreach (['a@x.fr', 'b@x.fr', 'c@x.fr'] as $email) {
+            NewsletterSubscriber::create(['email' => $email, 'verified_at' => now()]);
+        }
+
+        // Vendredi : 2 envoyés (plafond).
+        $this->artisan('newsletter:send-weekly', ['--limit' => 2])->assertSuccessful();
+        Mail::assertSent(WeeklyNewsletterMail::class, 2);
+        $this->assertSame(1, NewsletterSubscriber::whereNull('last_sent_week')->count());
+
+        // Samedi : la 3e part.
+        $this->travelTo($friday->copy()->addDay()->setTime(9, 0));
+        $this->artisan('newsletter:send-weekly', ['--limit' => 2])->assertSuccessful();
+
+        Mail::assertSent(WeeklyNewsletterMail::class, 3);       // total cumulé
+        $this->assertSame(0, NewsletterSubscriber::whereNull('last_sent_week')->count());
+        $this->assertDatabaseCount('newsletter_logs', 2);        // une vague vendredi, une samedi
     }
 }
