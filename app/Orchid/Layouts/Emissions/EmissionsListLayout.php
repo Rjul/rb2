@@ -72,7 +72,7 @@ class EmissionsListLayout extends Table
                 ->render(function (Emission $emission) {
                     return Link::make('Lien')
                         ->target('_blank')
-                        ->route('view-emision', [$emission->programme, $emission]);
+                        ->href($emission->canonicalUrl());
                 }),
         ];
     }

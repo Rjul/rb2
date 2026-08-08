@@ -57,7 +57,7 @@ class V2PagesTest extends TestCase
     public function test_canonical_self_heal_redirige_en_301(): void
     {
         // Ancêtres erronés → 301 vers l'URL canonique (résolution par le dernier segment).
-        $wrong = '/v2/categories/mauvaise-cat/mauvais-prog/' . $this->emission->slug;
+        $wrong = '/categories/mauvaise-cat/mauvais-prog/' . $this->emission->slug;
 
         $this->get($wrong)
             ->assertStatus(301)
@@ -218,5 +218,35 @@ class V2PagesTest extends TestCase
             ->assertOk()
             ->assertSee('page=2', false)
             ->assertSee('wire:navigate', false);
+    }
+
+    /**
+     * Les liens de pagination doivent être ABSOLUS. Le paginator Livewire produit des
+     * URL relatives sans slash de tête (Livewire::originalPath() == request()->path()) ;
+     * comme la vue les rend avec wire:navigate (qui suit réellement l'href), un lien
+     * relatif serait résolu contre le répertoire courant et redoublerait le dernier
+     * segment sur toute page multi-segments : /categories/{cat}/{prog}?page=2 →
+     * /categories/{cat}/categories/{cat}/{prog} (et /v2/emissions → /v2/v2/emissions en
+     * prod préfixée). La vue force donc url() → on vérifie l'URL canonique absolue.
+     */
+    public function test_la_pagination_utilise_des_urls_absolues_sur_page_multi_segments(): void
+    {
+        // 13 émissions sur le programme → 2 pages (12/page) sur une URL multi-segments.
+        Emision::factory()->count(13)->create([
+            'programme_id' => $this->programme->id,
+            'media_type'   => Emision::TYPE_AUDIO,
+            'is_active'    => true,
+            'active_at'    => now()->subDay(),
+        ]);
+
+        $canonical = $this->programme->canonicalUrl(); // http://.../categories/{cat}/{prog}
+
+        $this->get($canonical)
+            ->assertOk()
+            ->assertSee('wire:navigate', false)
+            // href ABSOLU attendu…
+            ->assertSee('href="' . $canonical . '?page=2"', false)
+            // …et surtout PAS la forme relative qui redoublerait le segment.
+            ->assertDontSee('href="categories/', false);
     }
 }

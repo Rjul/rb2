@@ -1,7 +1,7 @@
 <header class="header fixed-top">
     <nav class="navbar navbar-expand-lg bg-white px-lg-4">
         <div class="container-fluid h-100">
-            <a class="navbar-brand" href="{{ route('homepage') }}">
+            <a class="navbar-brand" href="{{ route('v2.home') }}">
                 <h1 class="mb-0">
                     <img class="header_logo-rb" width="164" srcset="/imgs/logo.png" alt="Radiobastides logo"/>
                 </h1>

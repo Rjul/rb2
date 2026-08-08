@@ -9,7 +9,7 @@
         <description>{!! Str::words(strip_tags(str_replace(['>', '&nbsp;'], ['> ', ' '], Str::limit($programme->description, 300)))) !!}</description>
         <itunes:image href="{{ \Illuminate\Support\Facades\URL::full() }}{{ $programme->image }}"/>
         <language>fr</language>
-        <link>{{ route('list-programme', $programme) }}</link>
+        <link>{{ $programme->canonicalUrl() }}</link>
         @include('rss/items')
     </channel>
 </rss>

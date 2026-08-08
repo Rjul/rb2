@@ -24,6 +24,10 @@ Artisan::command('app:rss:generate', function () {
     (new \App\Utilities\RssService())->generateAll();
 });
 
+Artisan::command('app:sitemap:generate', function () {
+    $this->comment((new \App\Utilities\SitemapService())->generate() ? 'sitemap.xml généré.' : 'Échec génération sitemap.');
+})->purpose('Génère public/sitemap.xml (streaming, mémoire bornée)');
+
 Artisan::command('migrate:old_db', function () {
     $this->comment("Migrate old database");
 

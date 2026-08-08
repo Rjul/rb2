@@ -18,12 +18,11 @@
 
     <link rel="canonical" href="{{ $canonical ?? url()->current() }}">
 
-    {{-- Cohabitation : tout /v2 reste hors index tant que la bascule n'est pas faite. --}}
-    @if (request()->is('v2') || request()->is('v2/*'))
-        <meta name="robots" content="noindex, follow">
-    @elseif (isset($robots))
+    {{-- Le front v2 est en production (à la racine) → indexable. Seules les pages
+         qui passent explicitement $robots (ex. recherche) sont exclues de l'index. --}}
+    @isset($robots)
         <meta name="robots" content="{{ $robots }}">
-    @endif
+    @endisset
 
     {{-- Open Graph --}}
     <meta property="og:site_name" content="Radio Bastides">

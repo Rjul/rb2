@@ -145,7 +145,7 @@ class EmisionResource extends Resource
                     ->label('Voir sur le site')
                     ->icon('heroicon-o-arrow-top-right-on-square')
                     ->color('gray')
-                    ->url(fn (Emision $record) => route('view-emision', ['programme' => $record->programme, 'emision' => $record]))
+                    ->url(fn (Emision $record) => $record->canonicalUrl())
                     ->openUrlInNewTab()
                     ->visible(fn (Emision $record) => $record->programme !== null && filled($record->slug)),
                 Tables\Actions\EditAction::make(),

@@ -20,7 +20,7 @@
         @endpush
         <div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100">
 
-            <form id="searchEngineForm" action="{{ route('list-search') }}" method="get" class="d-flex flex-column">
+            <form id="searchEngineForm" action="{{ route('v2.search') }}" method="get" class="d-flex flex-column">
                 <div class="accordion" id="accordionPanelsStayOpenExample">
                     <div class="accordion-item">
                         <div class="d-flex flex-wrap justify-content-around mt-3">

@@ -26,11 +26,13 @@ class EmisionFactory extends Factory
             'programme_id' => Programme::all()->random()->id,
             'description' => fake('fr_FR')->realText(400),
             'duration' => fake('fr_FR')->randomFloat(2, 1, 120),
-            'is_put_forward' => fake('fr_FR')->boolean(4),
+            'is_put_forward' => fake('fr_FR')->boolean(20),
             'image' => "https://random.imagecdn.app/800/533?nocache=".fake()->randomNumber(6),
             'media_type' => \App\Models\Emision::TYPE_TEXT,
             'is_active' => fake()->boolean(95),
-            'active_at' => fake()->dateTimeAD(),
+            // Dates récentes (et non `dateTimeAD` réparti sur 2000 ans) : indispensable
+            // pour « à la une de la semaine », « dernières » et le tri par date.
+            'active_at' => fake()->dateTimeBetween('-18 months', 'now'),
         ];
     }
 

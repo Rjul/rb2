@@ -13,7 +13,7 @@
 @if(!is_null($emision->duration))
             <itunes:duration>{!! str_contains($emision->duration, '.') || is_null($emision->duration) ? str_replace('.', ':', $emision->duration ) : $emision->duration . ':00'  !!}</itunes:duration>
 @endif
-            <guid>{{ route('view-emision', [ 'programme' => $emision->programme, 'emision' => $emision ]) }}</guid>
+            <guid>{{ $emision->canonicalUrl() }}</guid>
         </item>
 @endif
 @endforeach

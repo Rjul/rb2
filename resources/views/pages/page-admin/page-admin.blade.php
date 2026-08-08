@@ -24,7 +24,7 @@
             <div class="row m-2">
                 <div class="col-12">
                     <ul class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="{{ route("homepage") }}">Accueil</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('v2.home') }}">Accueil</a></li>
                     </ul>
                 </div>
                 <section class="article__administrable_content mb-3">

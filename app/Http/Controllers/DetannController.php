@@ -12,7 +12,7 @@ class DetannController extends Controller
     {
         // where programme is active and emiision is active or redirect to the home page
         if (!$programme->is_active || !$emision->is_active) {
-            return redirect()->route('homepage');
+            return redirect()->route('v2.home');
         }
 
         
