@@ -27,6 +27,25 @@ class HomePageTest extends TestCase
             ->assertSee('Radio Bastides');
     }
 
+    /** Identité du site pour Google (nom de site, panneau de marque, sitelinks). */
+    public function test_accueil_emet_le_jsonld_organization_et_website(): void
+    {
+        $html = $this->get(route('v2.home'))->assertOk()->getContent();
+
+        preg_match('#<script type="application/ld\+json">(.*?)</script>#s', $html, $m);
+        $this->assertNotEmpty($m, 'La homepage doit émettre un JSON-LD.');
+
+        $data  = json_decode($m[1], true);
+        $this->assertNotNull($data, 'Le JSON-LD doit être un JSON valide.');
+
+        $types = array_column($data['@graph'] ?? [], null, '@type');
+        $this->assertArrayHasKey('Organization', $types);
+        $this->assertArrayHasKey('WebSite', $types);
+        $this->assertSame('Radio Bastides', $types['WebSite']['name']);
+        $this->assertSame(url('/'), $types['Organization']['url']);
+        $this->assertContains('https://www.facebook.com/radiobastides', $types['Organization']['sameAs']);
+    }
+
     public function test_inscription_newsletter_enregistre_l_email(): void
     {
         Livewire::test(Newsletter::class)

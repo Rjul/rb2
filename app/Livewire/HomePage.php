@@ -98,6 +98,43 @@ class HomePage extends Component
             'metaDescription' => 'Radio Bastides, la radio associative de Villeneuve-sur-Lot et du Lot-et-Garonne : émissions, chroniques et musiques d’ici, à écouter où et quand vous voulez.',
             'canonical'       => route('v2.home'),
             'ogImage'         => url('/imgs/logo.png'),
+            // Identité du site pour Google (nom de site dans les résultats, panneau de
+            // marque, candidats sitelinks). Les sitelinks restent décidés par Google.
+            'jsonLd'          => [
+                '@context' => 'https://schema.org',
+                '@graph'   => [
+                    [
+                        '@type'  => 'Organization',
+                        '@id'    => url('/') . '#organization',
+                        'name'   => 'Radio Bastides',
+                        'legalName' => 'Médias Citoyens en Villeneuvois (MCV)',
+                        'url'    => url('/'),
+                        'logo'   => url('/imgs/logo.png'),
+                        'email'  => 'contactez-nous@mediascitoyens.fr',
+                        'address' => [
+                            '@type'           => 'PostalAddress',
+                            'streetAddress'   => '16 bis avenue de la Myre Mory',
+                            'postalCode'      => '47300',
+                            'addressLocality' => 'Villeneuve-sur-Lot',
+                            'addressCountry'  => 'FR',
+                        ],
+                        'sameAs' => [
+                            'https://www.facebook.com/radiobastides',
+                            'https://www.instagram.com/radiobastides/',
+                            'https://mediascitoyens.fr/',
+                        ],
+                    ],
+                    [
+                        '@type'         => 'WebSite',
+                        '@id'           => url('/') . '#website',
+                        'name'          => 'Radio Bastides',
+                        'alternateName' => 'radiobastides.fr',
+                        'url'           => url('/'),
+                        'inLanguage'    => 'fr-FR',
+                        'publisher'     => ['@id' => url('/') . '#organization'],
+                    ],
+                ],
+            ],
         ]);
     }
 }

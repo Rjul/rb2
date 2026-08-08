@@ -22,6 +22,10 @@ export function player() {
         queue: [],
         open: false,
         _sim: null,
+        // Scrub (glisser sur la barre) : position visuelle pendant le drag,
+        // le son ne se cale qu'au relâcher (pas de saccades réseau).
+        scrubbing: false,
+        scrubRatio: 0,
 
         init() {
             this.audio = this.$refs.audio;
@@ -88,9 +92,33 @@ export function player() {
             }
         },
 
-        seek(e) {
-            const rect = e.currentTarget.getBoundingClientRect();
-            this.seekTo((e.clientX - rect.left) / rect.width);
+        /*
+        | Scrub à la souris ou au doigt (pointer events + capture) : un simple
+        | clic/tap est couvert aussi (press → release au même endroit) — cette
+        | mécanique remplace l'ancien seek() au clic. touch-action:none sur la
+        | barre empêche le scroll de voler le geste.
+        */
+        scrubStart(e) {
+            if (!this.hasTrack) return;
+            // La capture garde le drag fluide même si le doigt sort de la barre ;
+            // si elle échoue (pointeur déjà relâché…), le scrub marche quand même.
+            try { e.currentTarget.setPointerCapture(e.pointerId); } catch { /* non bloquant */ }
+            this.scrubbing = true;
+            this._scrubEl = e.currentTarget;
+            this.scrubMove(e);
+        },
+
+        scrubMove(e) {
+            if (!this.scrubbing || !this._scrubEl) return;
+            const rect = this._scrubEl.getBoundingClientRect();
+            this.scrubRatio = Math.min(1, Math.max(0, (e.clientX - rect.left) / rect.width));
+        },
+
+        scrubEnd() {
+            if (!this.scrubbing) return;
+            this.seekTo(this.scrubRatio);
+            this.scrubbing = false;
+            this._scrubEl = null;
         },
 
         seekTo(ratio) {
@@ -126,6 +154,13 @@ export function player() {
 
         get currentTime() { return this.fmt(this.elapsed); },
         get totalTime() { return this.fmt(this.duration); },
+
+        // Pendant un scrub, la barre et le temps affichent la CIBLE du doigt ;
+        // sinon la position réelle de lecture.
+        get displayProgress() { return this.scrubbing ? this.scrubRatio * 100 : this.progress; },
+        get displayTime() {
+            return this.scrubbing ? this.fmt(this.scrubRatio * (this.duration || 0)) : this.fmt(this.elapsed);
+        },
         fmt(sec) {
             if (!sec || isNaN(sec)) return '0:00';
             const m = Math.floor(sec / 60);

@@ -40,7 +40,9 @@
 @font-face { font-family: "corbel"; font-weight: 700; font-display: swap; src: url("../fonts/corbel_bold.woff2") format("woff2"); }
 
 @layer base {
-    body { @apply bg-bg text-ink font-sans antialiased; padding-bottom: 92px; }
+    /* Dégagement pour le lecteur fixe : plus haut en mobile (rangée de progression dédiée). */
+    body { @apply bg-bg text-ink font-sans antialiased; padding-bottom: 118px; }
+    @media (min-width: 640px) { body { padding-bottom: 92px; } }
     h1, h2, h3, .font-display { font-family: var(--font-display); font-weight: 400; letter-spacing: 0.005em; }
     [x-cloak] { display: none !important; }
 
