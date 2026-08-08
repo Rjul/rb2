@@ -4,6 +4,7 @@ namespace App\Utilities;
 
 use App\Models\Emision;
 use App\Models\GroupProgramme;
+use App\Models\PageAdmin;
 use App\Models\Programme;
 use App\Models\Tag;
 use Illuminate\Support\Facades\Log;
@@ -89,6 +90,15 @@ class SitemapService
                     }
                 }, 'emisions.id', 'id');
 
+            // Pages éditoriales administrables (BO), servies par le catch-all.
+            PageAdmin::query()
+                ->chunkById(200, function ($pages) use ($h, &$count) {
+                    foreach ($pages as $page) {
+                        fwrite($h, $this->urlTag(url('/' . $page->path), $page->updated_at));
+                        $count++;
+                    }
+                });
+
             // Thèmes ayant au moins une émission publiée.
             Tag::query()
                 ->whereHas('emisions', fn ($q) => $q
@@ -128,6 +138,7 @@ class SitemapService
             route('v2.emissions.type', ['type' => 'video']),
             route('v2.emissions.type', ['type' => 'articles']),
             route('v2.themes'),
+            route('informations'),
         ];
     }
 

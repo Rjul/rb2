@@ -110,5 +110,16 @@ class DatabaseSeeder extends Seeder
                 'commenter_id'     => User::all()->random()->id,
             ]))
             ->create();
+
+        // Pages éditoriales (mêmes paths qu'en prod : liées depuis le footer v2).
+        foreach ([
+            ['path' => 'l-association',          'name' => 'L’association'],
+            ['path' => 'responsabilité-legale',  'name' => 'La responsabilité légale'],
+            ['path' => 'protection-des-donnees', 'name' => 'Protection des données'],
+        ] as $page) {
+            \App\Models\PageAdmin::create($page + [
+                'content' => '<h1>' . $page['name'] . '</h1><p>' . fake('fr_FR')->paragraph(6) . '</p><h2>' . fake('fr_FR')->sentence(3) . '</h2><p>' . fake('fr_FR')->paragraph(4) . '</p>',
+            ]);
+        }
     }
 }

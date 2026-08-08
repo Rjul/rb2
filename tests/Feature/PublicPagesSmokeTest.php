@@ -13,10 +13,10 @@ use Illuminate\Support\Facades\Storage;
 use Tests\TestCase;
 
 /**
- * Smoke test des surfaces publiques restées « hors v2 » : la page éditoriale
- * legacy et le flux RSS. Le front v2 (accueil, catégories, programmes, émissions,
- * thèmes) est couvert par {@see Front\V2PagesTest} et les redirections des
- * anciennes URL par {@see Front\CutoverRedirectsTest}.
+ * Smoke test des surfaces publiques transverses : la page « Informations
+ * générales » (désormais layout v2, détaillée dans {@see Front\AdminPagesTest})
+ * et le flux RSS. Le front v2 est couvert par {@see Front\V2PagesTest} et les
+ * redirections des anciennes URL par {@see Front\CutoverRedirectsTest}.
  */
 class PublicPagesSmokeTest extends TestCase
 {

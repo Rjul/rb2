@@ -4,6 +4,7 @@ namespace Tests\Feature\Front;
 
 use App\Models\Emision;
 use App\Models\GroupProgramme;
+use App\Models\PageAdmin;
 use App\Models\Programme;
 use App\Models\Tag;
 use App\Models\User;
@@ -95,6 +96,16 @@ class SitemapTest extends TestCase
         // Hubs indexables.
         $this->assertStringContainsString(route('v2.home'), $xml);
         $this->assertStringContainsString(route('v2.categories'), $xml);
+    }
+
+    public function test_le_sitemap_liste_les_pages_editoriales(): void
+    {
+        PageAdmin::create(['path' => 'l-association', 'name' => 'L’association', 'content' => '<p>MCV</p>']);
+
+        $xml = $this->generate();
+
+        $this->assertStringContainsString(url('/l-association'), $xml);
+        $this->assertStringContainsString(route('informations'), $xml);
     }
 
     public function test_le_sitemap_exclut_le_non_publie_et_la_recherche(): void

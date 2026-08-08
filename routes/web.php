@@ -72,9 +72,8 @@ Route::middleware('auth')->group(function () {
     Route::post('comments/{comment}', [\App\Http\Controllers\WebCommentController::class, 'reply'])->name('comments.reply');
 });
 
-Route::get('/informations-generales', function() {
-   return view('pages.information');
-});
+// Page statique « Informations générales » (layout v2).
+Route::get('/informations-generales', \App\Livewire\V2\InformationPage::class)->name('informations');
 
 // Newsletter (double opt-in) : liens signés reçus par email.
 Route::get('newsletter/confirm/{subscriber}', [\App\Http\Controllers\NewsletterController::class, 'confirm'])
@@ -136,4 +135,5 @@ Route::middleware(['auth', \Filament\Http\Middleware\AuthenticateSession::class]
 
 require __DIR__.'/auth.php';
 
-Route::get('/{pageAdmin:path}', [\App\Http\Controllers\PageAdminController::class, 'index'])->name('page-admin');
+// Pages éditoriales administrables (BO), layout v2. TOUJOURS en dernier (catch-all).
+Route::get('/{pageAdmin:path}', \App\Livewire\V2\AdminPage::class)->name('page-admin');

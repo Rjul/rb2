@@ -26,10 +26,10 @@
         </div>
         <div>
             <h4 class="mb-3 font-display text-lg text-white">Le média</h4>
-            <a href="/l-association" class="block py-1 text-sm transition hover:text-green-l">L'association</a>
-            <a href="/responsabilité-legale" class="block py-1 text-sm transition hover:text-green-l">La responsabilité légale</a>
-            <a href="/informations-generales" class="block py-1 text-sm transition hover:text-green-l">Informations</a>
-            <a href="/protection-des-donnees" class="block py-1 text-sm transition hover:text-green-l">Protection des données</a>
+            <a href="/l-association" wire:navigate class="block py-1 text-sm transition hover:text-green-l">L'association</a>
+            <a href="/responsabilité-legale" wire:navigate class="block py-1 text-sm transition hover:text-green-l">La responsabilité légale</a>
+            <a href="{{ route('informations') }}" wire:navigate class="block py-1 text-sm transition hover:text-green-l">Informations</a>
+            <a href="/protection-des-donnees" wire:navigate class="block py-1 text-sm transition hover:text-green-l">Protection des données</a>
         </div>
         <div>
             <h4 class="mb-3 font-display text-lg text-white">Suivre</h4>
