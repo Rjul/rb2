@@ -20,6 +20,9 @@ class EmissionPage extends TallPage
     // ({emission}) déclencherait un route-model-binding Livewire → 404 avant mount.
     public int $emissionId;
 
+    /** Vrai quand un utilisateur BO consulte une émission NON publiée (préversion). */
+    public bool $isPreview = false;
+
     public function mount(string $categorie, string $programme, string $emission): void
     {
         $e = Emision::fromSlugId($emission);
@@ -27,8 +30,12 @@ class EmissionPage extends TallPage
 
         $e->load(['programme.group_programme', 'attachment', 'tags']);
 
-        $published = $e->active_at && ! Carbon::parse($e->active_at)->isFuture();
-        abort_if(! $e->is_active || ! $e->programme || ! $e->programme->is_active || ! $published, 404);
+        // Non publiée : 404 public, mais PRÉVERSION pour le back-office
+        // (liens « Voir sur le site » des brouillons / programmées).
+        if (! $e->isPublished()) {
+            abort_unless($this->canPreviewUnpublished(), 404);
+            $this->isPreview = true;
+        }
 
         $this->emissionId = $e->id;
 
@@ -109,26 +116,41 @@ class EmissionPage extends TallPage
             'partOfSeries'  => $prog ? ['@type' => 'CreativeWorkSeries', 'name' => $prog->name, 'url' => $prog->canonicalUrl()] : null,
         ], fn ($v) => $v !== null);
 
+        // Motif de non-publication affiché dans le bandeau de préversion.
+        $previewReason = null;
+        if ($this->isPreview) {
+            $previewReason = match (true) {
+                ! $e->is_active => 'Brouillon — non visible sur le site',
+                $e->active_at && Carbon::parse($e->active_at)->isFuture() => 'Programmée le ' . Carbon::parse($e->active_at)->locale('fr')->isoFormat('LL'),
+                $prog && ! $prog->is_active => 'Programme « ' . $prog->name . ' » inactif',
+                default => 'Non publiée',
+            };
+        }
+
         return view('livewire.v2.emission-page', [
-            'e'           => $e,
-            'prog'        => $prog,
-            'category'    => $cat,
-            'img'         => $img,
-            'isAudio'     => $isAudio,
-            'isVideo'     => $isVideo,
-            'track'       => $track,
-            'videoUrl'    => $videoUrl,
-            'before'      => $before,
-            'next'        => $next,
-            'suggestions' => $suggestions,
-            'crumbs'      => $crumbs,
-            'publishedAt' => $e->active_at ? Carbon::parse($e->active_at)->locale('fr')->isoFormat('LL') : null,
+            'e'             => $e,
+            'prog'          => $prog,
+            'category'      => $cat,
+            'img'           => $img,
+            'isAudio'       => $isAudio,
+            'isVideo'       => $isVideo,
+            'track'         => $track,
+            'videoUrl'      => $videoUrl,
+            'before'        => $before,
+            'next'          => $next,
+            'suggestions'   => $suggestions,
+            'crumbs'        => $crumbs,
+            'publishedAt'   => $e->active_at ? Carbon::parse($e->active_at)->locale('fr')->isoFormat('LL') : null,
+            'previewReason' => $previewReason,
+            'editUrl'       => $this->isPreview ? url('/gestion/emisions/' . $e->id . '/edit') : null,
         ])->layout('layouts.tall', [
             'title'           => $e->name . ' — Radio Bastides',
             'metaDescription' => $metaDescription,
             'canonical'       => $e->canonicalUrl(),
             'ogType'          => $isAudio ? 'music.song' : ($isVideo ? 'video.other' : 'article'),
             'ogImage'         => $e->image ?: null,
+            // Préversion : jamais indexée (le contenu n'est pas public).
+            'robots'          => $this->isPreview ? 'noindex, nofollow' : null,
             // Racine tableau = plusieurs entités JSON-LD dans un seul <script> (valide).
             'jsonLd'          => [$this->breadcrumbJsonLd($crumbs), $mediaJsonLd],
         ]);

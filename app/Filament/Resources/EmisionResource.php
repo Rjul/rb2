@@ -31,6 +31,8 @@ class EmisionResource extends Resource
     public static function getEloquentQuery(): Builder
     {
         return parent::getEloquentQuery()
+            // Le badge « Statut » lit le programme de chaque ligne → eager-load (anti N+1).
+            ->with('programme')
             ->where(fn (Builder $query) => $query->withAuthPermissions());
     }
 
@@ -127,7 +129,23 @@ class EmisionResource extends Resource
                         Emision::TYPE_VIDEO => 'warning',
                         default => 'gray',
                     }),
-                Tables\Columns\IconColumn::make('is_active')->label('Active')->boolean()->sortable(),
+                // Statut réel côté public (règle unique : Emision::isPublished()).
+                Tables\Columns\TextColumn::make('statut')
+                    ->label('Statut')
+                    ->badge()
+                    ->state(fn (Emision $record) => match (true) {
+                        ! $record->is_active => 'Brouillon',
+                        ! $record->programme?->is_active => 'Programme inactif',
+                        $record->active_at && \Illuminate\Support\Carbon::parse($record->active_at)->isFuture() => 'Programmée',
+                        default => 'Publiée',
+                    })
+                    ->color(fn (string $state) => match ($state) {
+                        'Publiée'           => 'success',
+                        'Programmée'        => 'info',
+                        'Brouillon'         => 'gray',
+                        'Programme inactif' => 'danger',
+                        default             => 'gray',
+                    }),
                 Tables\Columns\TextColumn::make('active_at')->label('Publication')->date('d/m/Y')->sortable(),
             ])
             ->defaultSort('active_at', 'desc')
@@ -138,16 +156,58 @@ class EmisionResource extends Resource
                     Emision::TYPE_AUDIO => 'Audio',
                     Emision::TYPE_VIDEO => 'Vidéo',
                 ]),
-                Tables\Filters\TernaryFilter::make('is_active')->label('Active'),
+                // Filtre par statut public (remplace l'ancien ternaire « Active »).
+                Tables\Filters\SelectFilter::make('statut')
+                    ->label('Statut')
+                    ->options([
+                        'publiee'           => 'Publiée',
+                        'programmee'        => 'Programmée',
+                        'brouillon'         => 'Brouillon',
+                        'programme_inactif' => 'Programme inactif',
+                    ])
+                    ->query(fn (Builder $query, array $data) => match ($data['value'] ?? null) {
+                        'publiee' => $query->where('is_active', true)->where('active_at', '<=', now())
+                            ->whereHas('programme', fn ($q) => $q->where('is_active', true)),
+                        'programmee' => $query->where('is_active', true)->where('active_at', '>', now()),
+                        'brouillon'  => $query->where('is_active', false),
+                        'programme_inactif' => $query->where('is_active', true)
+                            ->whereHas('programme', fn ($q) => $q->where('is_active', false)),
+                        default => $query,
+                    }),
             ])
             ->actions([
                 Tables\Actions\Action::make('voir')
-                    ->label('Voir sur le site')
-                    ->icon('heroicon-o-arrow-top-right-on-square')
+                    // Non publiée → le lien ouvre la fiche en mode préversion (réservé BO).
+                    ->label(fn (Emision $record) => $record->isPublished() ? 'Voir sur le site' : 'Prévisualiser')
+                    ->icon(fn (Emision $record) => $record->isPublished() ? 'heroicon-o-arrow-top-right-on-square' : 'heroicon-o-eye')
                     ->color('gray')
                     ->url(fn (Emision $record) => $record->canonicalUrl())
                     ->openUrlInNewTab()
                     ->visible(fn (Emision $record) => $record->programme !== null && filled($record->slug)),
+                // Duplication (émissions récurrentes) : copie éditoriale en BROUILLON —
+                // titre/programme/description/image/thèmes repris, slug régénéré (name+id),
+                // fichiers audio/vidéo NON copiés (chaque numéro a son propre média).
+                Tables\Actions\Action::make('dupliquer')
+                    ->label('Dupliquer')
+                    ->icon('heroicon-o-document-duplicate')
+                    ->color('gray')
+                    ->action(function (Emision $record) {
+                        $copy = $record->replicate(['slug']);
+                        $copy->name           = $record->name . ' (copie)';
+                        $copy->is_active      = false;
+                        $copy->is_put_forward = false;
+                        $copy->active_at      = now();
+                        $copy->save();
+
+                        // Régénère le slug maintenant que l'id existe (name + id, unique),
+                        // comme à la création (CreateEmision::afterCreate).
+                        $copy->generateSlug();
+                        $copy->save();
+
+                        $copy->tags()->sync($record->tags()->pluck('tags.id'));
+
+                        return redirect(static::getUrl('edit', ['record' => $copy]));
+                    }),
                 Tables\Actions\EditAction::make(),
             ])
             ->bulkActions([

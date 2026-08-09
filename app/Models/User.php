@@ -45,6 +45,7 @@ class User extends Authenticatable implements FilamentUser, \Illuminate\Contract
             'platform.group.programme'    => true,
             'platform.programmes'         => true,
             'platform.annonces'           => true,
+            'platform.newsletter'         => true,
             'platform.themes'             => true,
             'platform.page-admin'         => true,
             'platform.commentaire'        => true,

@@ -144,6 +144,7 @@ class PlatformProvider extends OrchidServiceProvider
                     ->addPermission('platform.group.programme', __('Groupe de programmes'))
                     ->addPermission('platform.programmes', __('Tous Programmes'))
                     ->addPermission('platform.annonces', __('Annonces'))
+                    ->addPermission('platform.newsletter', __('Newsletter (abonnés)'))
                     ->addPermission('platform.themes', __('Themes'))
                     ->addPermission('platform.page-admin', __('Pages administrables'))
                     ->addPermission('platform.commentaire', __('Commentaires'))

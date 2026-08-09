@@ -37,6 +37,17 @@ abstract class TallPage extends Component
     }
 
     /**
+     * L'utilisateur courant peut-il prévisualiser du contenu NON publié ?
+     * Même porte que le back-office (permission Orchid réutilisée par Filament) :
+     * quiconque accède à /gestion ou /admin peut prévisualiser depuis les liens
+     * « Voir sur le site ». Les visiteurs restent sur un 404 strict.
+     */
+    protected function canPreviewUnpublished(): bool
+    {
+        return (bool) auth()->user()?->hasAccess('platform.index');
+    }
+
+    /**
      * Construit un BreadcrumbList schema.org.
      * @param array<int,array{name:string,url?:string}> $crumbs
      */

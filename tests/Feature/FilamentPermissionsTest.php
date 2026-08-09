@@ -172,4 +172,35 @@ class FilamentPermissionsTest extends TestCase
 
         $this->assertCount(2, EmisionResource::getEloquentQuery()->pluck('id')->all());
     }
+
+    public function test_newsletter_gatee_par_sa_permission_dediee(): void
+    {
+        // Sans platform.newsletter → invisible, même avec « Annonces ».
+        $this->actingAs(User::factory()->create([
+            'permissions' => ['platform.index' => true, 'platform.annonces' => true],
+        ]));
+        $this->assertFalse(\App\Filament\Resources\NewsletterSubscriberResource::canAccess());
+
+        // Avec platform.newsletter → accessible.
+        $this->actingAs(User::factory()->create([
+            'permissions' => ['platform.index' => true, 'platform.newsletter' => true],
+        ]));
+        $this->assertTrue(\App\Filament\Resources\NewsletterSubscriberResource::canAccess());
+    }
+
+    public function test_migration_donne_newsletter_aux_detenteurs_annonces(): void
+    {
+        // Utilisateur « historique » : avait Annonces (donc voyait la newsletter empruntée).
+        $legacy = User::factory()->create([
+            'permissions' => ['platform.index' => true, 'platform.annonces' => true],
+        ]);
+        $sans = User::factory()->create(['permissions' => ['platform.index' => true]]);
+
+        // Rejoue la migration de continuité sur ces données.
+        $migration = include database_path('migrations/2026_08_09_100000_grant_newsletter_permission.php');
+        $migration->up();
+
+        $this->assertTrue((bool) $legacy->fresh()->hasAccess('platform.newsletter'), 'Annonces → reçoit Newsletter');
+        $this->assertFalse((bool) $sans->fresh()->hasAccess('platform.newsletter'), 'Sans Annonces → rien');
+    }
 }

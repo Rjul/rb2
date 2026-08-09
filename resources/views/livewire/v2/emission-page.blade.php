@@ -1,5 +1,22 @@
 <div x-data>
     <x-tall.header />
+
+    {{-- Bandeau préversion (utilisateur BO sur une émission non publiée) --}}
+    @if ($isPreview)
+        <div class="border-b border-amber-300 bg-amber-50">
+            <div class="mx-auto flex max-w-[1200px] flex-wrap items-center gap-x-4 gap-y-1 px-6 py-2.5 text-sm text-amber-900">
+                <span class="inline-flex items-center gap-2 font-bold uppercase tracking-wide">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="h-4 w-4"><path d="M2.06 12a10.5 10.5 0 0 1 19.88 0 10.5 10.5 0 0 1-19.88 0Z"/><circle cx="12" cy="12" r="3"/></svg>
+                    Prévisualisation
+                </span>
+                <span>{{ $previewReason }} — invisible pour les visiteurs.</span>
+                @if ($editUrl)
+                    <a href="{{ $editUrl }}" class="font-semibold underline underline-offset-2 transition hover:text-amber-700">Modifier dans l'admin →</a>
+                @endif
+            </div>
+        </div>
+    @endif
+
     <x-tall.breadcrumb :items="$crumbs" />
 
     <main id="contenu" class="pb-20">

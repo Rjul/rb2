@@ -23,7 +23,9 @@ class NewsletterSubscriberResource extends Resource
 
     protected static function permissionSlug(): ?string
     {
-        return 'platform.annonces';
+        // Permission dédiée (déclarée dans PlatformProvider::registerPermissions,
+        // donc cochable dans l'UI des rôles) — n'emprunte plus « Annonces ».
+        return 'platform.newsletter';
     }
 
     // Les abonnés viennent du formulaire public (double opt-in), pas d'ajout manuel.

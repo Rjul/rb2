@@ -243,6 +243,18 @@ class Emision extends Model
         return $id > 0 ? self::query()->find($id) : null;
     }
 
+    /**
+     * Publiée = visible du public : active, datée dans le passé, programme actif.
+     * Règle unique partagée par la fiche v2 (404/préversion) et le back-office.
+     */
+    public function isPublished(): bool
+    {
+        return (bool) $this->is_active
+            && $this->active_at
+            && ! \Illuminate\Support\Carbon::parse($this->active_at)->isFuture()
+            && (bool) $this->programme?->is_active;
+    }
+
     public function attachment(string $group = null, ?int $duration = null): MorphToMany
     {
         $query = $this->morphToMany(
