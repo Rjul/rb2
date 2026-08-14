@@ -33,6 +33,15 @@ class FilamentPanelSmokeTest extends TestCase
         $this->actingAs($this->admin())->get('/gestion')->assertOk();
     }
 
+    /** Le menu du panel liste bien la Newsletter pour un compte qui a la permission. */
+    public function test_le_menu_contient_la_newsletter(): void
+    {
+        $this->actingAs($this->admin())
+            ->get('/gestion')
+            ->assertOk()
+            ->assertSee('Newsletter');
+    }
+
     /**
      * @dataProvider resources
      */

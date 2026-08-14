@@ -171,10 +171,21 @@ class Emision extends Model
 
         return rescue(
             fn () => Storage::disk('emission_audio')
-                ->url(trim($attachment->path, '/') . '/' . $attachment->name . '.' . $attachment->extension),
+                ->url(trim($attachment->path, '/') . '/' . self::attachmentFileName($attachment)),
             null,
             false
         );
+    }
+
+    /**
+     * Nom de fichier d'un attachment, défensif : n'ajoute « .extension » que si
+     * elle est renseignée (les lignes migrées de 2020 avaient l'extension DANS
+     * name et la colonne vide → « 90.mp3. » sinon).
+     */
+    private static function attachmentFileName($attachment): string
+    {
+        return $attachment->name
+            . (filled($attachment->extension) ? '.' . $attachment->extension : '');
     }
 
     /**
@@ -201,7 +212,7 @@ class Emision extends Model
         return rescue(
             fn () => $attachment->url
                 ?: Storage::disk('emission_video')
-                    ->url(trim($attachment->path, '/') . '/' . $attachment->name . '.' . $attachment->extension),
+                    ->url(trim($attachment->path, '/') . '/' . self::attachmentFileName($attachment)),
             null,
             false
         );
